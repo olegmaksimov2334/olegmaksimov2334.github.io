@@ -55,8 +55,8 @@ button{font-family:inherit}
 .lg{display:flex;gap:12px;font-size:14px;margin-top:8px}
 .lg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
 .chest{font-size:90px;line-height:1}
-.mini{display:grid;grid-template-columns:repeat(15,1fr);gap:3px;width:100%;max-width:330px;margin:14px 0 0}
-.mini i{aspect-ratio:1;border-radius:3px;background:#ffffff1c}.mini i.f{background:#25f4ee}.mini i.p{background:#25f4ee66}.mini i.n{outline:2px solid #fe2c55}
+.mini{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;width:100%;max-width:330px;margin:12px 0 0}
+.mini i{aspect-ratio:1;border-radius:6px;background:#ffffff14;display:grid;place-items:center;font:500 11px Oswald,sans-serif;font-style:normal;color:#ffffffa6}.mini i.f{background:#25f4ee;color:#07070c;font-weight:600}.mini i.p{background:#25f4ee59;color:#e8feff}.mini i.n{outline:2px solid #fe2c55;outline-offset:-1px}.mini i.u{opacity:.45}@media (max-height:760px){.mini{max-width:280px;gap:3px}.mini i{font-size:10px;border-radius:5px}.chest{font-size:64px}}
 .cta{width:100%;max-width:320px;padding:15px;border:0;border-radius:16px;background:#58cc02;color:#fff;font:400 19px 'Russo One',sans-serif;box-shadow:0 5px 0 #46a302;cursor:pointer;margin-top:14px}
 .cta:active{transform:translateY(4px);box-shadow:0 1px 0 #46a302}
 .cta.alt{background:#ffffff1f;box-shadow:0 5px 0 #ffffff14;margin-top:12px;max-width:220px;padding:10px;font-size:16px}
@@ -221,7 +221,7 @@ function feedRender(){
   else if(all)h+='<div class="chest">'+I.chest+'</div><h3>Сундук готов</h3><button class="go" id="open">Открыть</button>';
   else h+='<div class="chest" style="filter:grayscale(1) opacity(.65)">'+I.chest+'</div><h3>Сундук закрыт</h3><div class="tip">Закрой ещё '+left0+' — получишь награду. Каждый день она разная.</div>';
   h+='<div class="mini">';
-  for(var d=0;d<90;d++){var f=fr(ad(S.start,d));h+='<i class="'+(f===1?'f':f>0?'p':'')+(d===c?' n':'')+'"></i>'}
+  for(var d=0;d<90;d++){var f=fr(ad(S.start,d));h+='<i class="'+(f===1?'f':f>0?'p':'')+(d===c?' n':'')+(d>c?' u':'')+'">'+(d+1)+'</i>'}
   h+='</div><button class="cta alt" id="share">Поделиться результатом</button></section>';
   cd.innerHTML=h;cd.style.scrollBehavior='auto';cd.scrollTop=st;achNew();
 }
