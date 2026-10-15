@@ -145,7 +145,7 @@ button{font-family:inherit}
 <div class="ov" id="menu"><div class="pill">чем помочь?</div><button class="cta" id="m1">Тянет — желание накрывает</button><button class="cta" id="m2" style="background:#ff9600;box-shadow:0 5px 0 #c97400">Злюсь или стресс на работе</button><button class="cta alt" id="m5">Оракул: карта, шар, печенье</button><button class="cta alt" id="m4">Записать мысли</button><button class="cta alt" id="m3">Мои слова и благодарности</button><button class="cta alt" id="m7">Как сохраняется прогресс</button><button class="cta alt" id="m6">Сбросить прогресс</button><button class="cta alt" id="m0">Закрыть</button></div>
 <div class="ov" id="cool"><div class="pill" id="cp"></div><div id="cb" style="width:100%;max-width:340px"></div><button class="cta" id="cn">Дальше</button><button class="cta alt" id="cx">Закрыть</button></div>
 <div class="ov" id="words"><h3 style="font:400 26px 'Russo One',sans-serif;margin:0">Мои слова</h3><div class="wl" id="wl"></div><button class="cta" id="wx">Закрыть</button></div>
-<div class="ov" id="bak"><div class="pill">сохранение прогресса</div><div class="tip" style="max-width:320px">Прогресс сохраняется автоматически на этом телефоне. Раз в неделю жми «Скачать копию файла» — и прогресс никогда не потеряется: копия открывается на любом телефоне или компьютере.</div><div class="code" id="bcode"></div><div class="tip" style="font-size:15px;max-width:320px;margin:0 0 6px">код восстановления — нажми, чтобы скопировать</div><input id="bcode_in" placeholder="Код с другого устройства" maxlength="12" autocapitalize="characters" autocomplete="off" spellcheck="false"><button class="cta" id="brestore">Восстановить по коду</button><button class="cta alt" id="bexp">Скачать копию файла</button><button class="cta alt" id="bimp">Загрузить копию файла</button><input type="file" id="bfile" accept="application/json,.json" style="display:none"><div class="tip" id="bstat" style="max-width:320px;min-height:52px"></div><button class="cta alt" id="bx">Закрыть</button></div>
+<div class="ov" id="bak"><div class="pill">сохранение прогресса</div><div class="tip" style="max-width:320px">Прогресс сохраняется автоматически на этом телефоне. Раз в неделю жми «Скачать копию файла» — и прогресс никогда не потеряется: копия открывается на любом телефоне или компьютере.</div><div class="code" id="bcode"></div><div class="tip" id="bcodetip" style="font-size:15px;max-width:320px;margin:0 0 6px">код восстановления — нажми, чтобы скопировать</div><input id="bcode_in" placeholder="Код с другого устройства" maxlength="12" autocapitalize="characters" autocomplete="off" spellcheck="false"><button class="cta" id="brestore">Восстановить по коду</button><button class="cta alt" id="bexp">Скачать копию файла</button><button class="cta alt" id="bimp">Загрузить копию файла</button><input type="file" id="bfile" accept="application/json,.json" style="display:none"><div class="tip" id="bstat" style="max-width:320px;min-height:52px"></div><button class="cta alt" id="bx">Закрыть</button></div>
 <div class="ov way" id="way"><div class="wtop"><h3>Мой путь</h3><button class="chip" id="wayx">Закрыть</button></div><div class="tabs" id="tabs"><button data-t="a" class="on">Награды</button><button data-t="d">Дневник</button><button data-t="p">Горжусь</button><button data-t="l">Письма</button><button data-t="w">Неделя</button></div><div id="wbody"></div></div>
 <div class="ov way" id="orc"><div class="wtop"><button class="chip" id="orx">‹ Назад</button><h3>Оракул</h3><span></span></div><div class="tabs" id="otabs"><button data-t="t" class="on">Таро</button><button data-t="b">Шар</button><button data-t="c">Печенье</button></div><div id="obody"></div></div>
 <div id="ld" style="display:none;position:fixed;inset:0;z-index:99;background:#07070c;color:#fff;place-items:center;font:20px Oswald,sans-serif">Загружаю твой прогресс…</div>
@@ -584,9 +584,18 @@ var CODE=(function(){
   }
   return c;
 })();
-var svT=null,svBusy=false,svPend=false;
+var svT=null,svBusy=false,svPend=false,SRV=false;
+function srvOff(){
+  try{['bcode','bcodetip','bcode_in','brestore'].forEach(function(id){var el=$(id);if(el)el.style.display='none'})}catch(e){}
+}
+/* есть ли сервер сохранения по коду? На обычном хостинге его нет — тогда кодовую часть скрываем */
+fetch('/api/state/Z9Z9Z9Z9',{cache:'no-store'}).then(function(r){
+  var ct=(r.headers.get('content-type')||'');
+  if(r.status===204||(r.ok&&ct.indexOf('json')!==-1)){SRV=true;pullDb()}
+  else{srvOff()}
+},function(){srvOff()});
 function pushDb(){
-  if(!window.fetch)return;
+  if(!window.fetch||!SRV)return;
   if(svBusy){svPend=true;return}svBusy=true;
   var data=JSON.parse(JSON.stringify(S));
   fetch('/api/state/'+CODE,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).then(function(){svBusy=false;if(svPend){svPend=false;pushDb()}},function(){svBusy=false});
@@ -600,7 +609,7 @@ function adopt(rd){
   return true;
 }
 function pullDb(){
-  if(!window.fetch)return Promise.resolve();
+  if(!window.fetch||!SRV)return Promise.resolve();
   return fetch('/api/state/'+CODE).then(function(r){return r.ok?r.json():null}).then(function(rd){
     if(rd&&(rd._t||0)>(S._t||0)){adopt(rd)}else{pushDb()}
   }).catch(function(){});
