@@ -570,15 +570,15 @@ $('obody').onclick=function(e){
 
 /* ==== спорт: лесенки на 90 дней ==== */
 var SPE={
- push:{n:'Отжимания',m:30,f0:.45,f1:.8,s0:3,s1:4,tip:'Корпус — одна линия, руки на ширине плеч, локти под 45°. Поясница не прогибается.'},
+ push:{n:'Отжимания',m:40,f0:.5,f1:.8,s0:5,s1:5,tip:'Корпус — одна линия, руки на ширине плеч, локти под 45°. Поясница не прогибается.'},
  pull:{n:'Подтягивания узким хватом',m:6,f0:.4,f1:.9,s0:4,s1:5,tip:'Хват узкий, тянись грудью к перекладине. Опускайся медленно, без раскачки.'},
  dips:{n:'Брусья',m:20,f0:.4,f1:.8,s0:3,s1:4,tip:'Локти вдоль корпуса, опускайся до прямого угла, без болтанки ногами.'},
  abs:{n:'Пресс',m:22,f0:.5,f1:.8,s0:3,s1:4,tip:'Без рывков, выдох на подъёме. Поясница прижата к полу.'}
 };
 var spT='push';
 function spl(n,a,b,c){var m10=n%10,m100=n%100;if(m10===1&&m100!==11)return a;if(m10>=2&&m10<=4&&(m100<12||m100>14))return b;return c}
-function spInit(){if(!S.sp||typeof S.sp!=='object')S.sp={};var b=S.sp.b;if(!b||typeof b!=='object')b=S.sp.b={};for(var k in SPE)if(typeof b[k]!=='number')b[k]=SPE[k].m;if(!S.sp.d||typeof S.sp.d!=='object')S.sp.d={}}
-function spM(ex){spInit();return S.sp.b[ex]}
+function spInit(){if(!S.sp||typeof S.sp!=='object')S.sp={};if(!S.sp.b||typeof S.sp.b!=='object')S.sp.b={};if(!S.sp.d||typeof S.sp.d!=='object')S.sp.d={};if(S.sp.b.push===30&&!S.sp.mg){S.sp.b.push=40;S.sp.mg=1}}
+function spM(ex){spInit();var v=S.sp.b[ex];return typeof v==='number'?v:SPE[ex].m}
 function spDay(){return Math.min(ci()+1,90)}
 function spPlan(ex,d){var c=SPE[ex],m=spM(ex),w=Math.min(Math.floor((d-1)/7),12),r=Math.max(1,Math.round(m*c.f0+(m*c.f1-m*c.f0)*w/12)),s=w<4?c.s0:c.s1;return{r:r,s:s,rest:d%7===0,t:r*s}}
 function spOn(ex,d){spInit();var L=S.sp.d[ad(S.start,d-1)];return !!(L&&L.indexOf(ex)>-1)}
