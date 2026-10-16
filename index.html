@@ -568,42 +568,59 @@ $('obody').onclick=function(e){
   }
 };
 
-/* ==== спорт: лесенки на 90 дней ==== */
+/* ==== спорт: план растёт каждую сделанную тренировку ==== */
 var SPE={
- push:{n:'Отжимания',m:40,f0:.5,f1:.8,s0:5,s1:5,tip:'Корпус — одна линия, руки на ширине плеч, локти под 45°. Поясница не прогибается.'},
- pull:{n:'Подтягивания узким хватом',m:6,f0:.4,f1:.9,s0:4,s1:5,tip:'Хват узкий, тянись грудью к перекладине. Опускайся медленно, без раскачки.'},
- dips:{n:'Брусья',m:20,f0:.4,f1:.8,s0:3,s1:4,tip:'Локти вдоль корпуса, опускайся до прямого угла, без болтанки ногами.'},
- abs:{n:'Пресс',m:22,f0:.5,f1:.8,s0:3,s1:4,tip:'Без рывков, выдох на подъёме. Поясница прижата к полу.'},
- sq:{n:'Приседания',pl:1,m:40,f0:.75,f1:1.05,s0:3,s1:3,tip:'На одной ноге, меняй ногу через равные отрезки. Спина прямая, колено смотрит в носок.'},
- calf:{n:'На носки',pl:1,m:40,f0:.75,f1:1.05,s0:3,s1:3,tip:'На одной ноге, потом меняй на другую. Поднимайся максимально высоко, опускайся медленно — на 2–3 секунды.'}
+ push:{n:'Отжимания',sets:5,start:20,rate:1,cap:190,tip:'Корпус — одна линия, руки на ширине плеч, локти под 45°. Поясница не прогибается.'},
+ pull:{n:'Подтягивания узким хватом',sets:4,start:3,rate:4,cap:30,tip:'Хват узкий, тянись грудью к перекладине. Опускайся медленно, без раскачки.'},
+ dips:{n:'Брусья',sets:3,start:8,rate:2,cap:60,tip:'Локти вдоль корпуса, опускайся до прямого угла, без болтанки ногами.'},
+ abs:{n:'Пресс',sets:3,start:11,rate:1,cap:90,tip:'Без рывков, выдох на подъёме. Поясница прижата к полу.'},
+ sq:{n:'Приседания',sets:3,start:30,rate:1,cap:180,pl:1,tip:'На одной ноге, меняй ногу через равные отрезки. Спина прямая, колено смотрит в носок.'},
+ calf:{n:'На носки',sets:3,start:30,rate:1,cap:180,pl:1,tip:'На одной ноге, потом меняй на другую. Поднимайся максимально высоко, опускайся медленно — на 2–3 секунды.'}
 };
 var spT='push';
+var SPMAP={push:{30:20,40:20},pull:{6:3},dips:{20:8},abs:{22:11},sq:{40:30},calf:{40:30}};
 function spl(n,a,b,c){var m10=n%10,m100=n%100;if(m10===1&&m100!==11)return a;if(m10>=2&&m10<=4&&(m100<12||m100>14))return b;return c}
-function spInit(){if(!S.sp||typeof S.sp!=='object')S.sp={};if(!S.sp.b||typeof S.sp.b!=='object')S.sp.b={};if(!S.sp.d||typeof S.sp.d!=='object')S.sp.d={};if(S.sp.b.push===30&&!S.sp.mg){S.sp.b.push=40;S.sp.mg=1}}
-function spM(ex){spInit();var v=S.sp.b[ex];return typeof v==='number'?v:SPE[ex].m}
+function spInit(){
+  if(!S.sp||typeof S.sp!=='object')S.sp={};
+  if(!S.sp.b||typeof S.sp.b!=='object')S.sp.b={};
+  if(!S.sp.d||typeof S.sp.d!=='object')S.sp.d={};
+  if(S.sp.v!==2){
+    var nb={},k;
+    for(k in SPE){var o=S.sp.b[k],mp=SPMAP[k]||null;nb[k]=(typeof o==='number'&&mp&&mp[o]!=null)?mp[o]:SPE[k].start}
+    S.sp.b=nb;S.sp.v=2;
+  }
+}
+function spStart(ex){spInit();var v=S.sp.b[ex];return typeof v==='number'?v:SPE[ex].start}
 function spDay(){return Math.min(ci()+1,90)}
-function spPlan(ex,d){var c=SPE[ex],m=spM(ex),w=Math.min(Math.floor((d-1)/7),12),r=Math.max(1,Math.round(m*c.f0+(m*c.f1-m*c.f0)*w/12)),s=w<4?c.s0:c.s1;return{r:r,s:s,rest:d%7===0,t:r*s}}
+function spDone(ex){spInit();var n=0;for(var dt in S.sp.d){if(dt<today&&S.sp.d[dt].indexOf(ex)>-1)n++}return n}
+function spSess(ex){return Math.min(spDone(ex)+1,90)}
+function spTotal(ex,s){var c=SPE[ex];s=Math.max(1,Math.min(s,90));var t=c.sets*spStart(ex)+Math.floor((s-1)/c.rate);return Math.min(t,c.cap)}
+function spSplit(ex,s){var c=SPE[ex],t=spTotal(ex,s),q=Math.floor(t/c.sets),r=t%c.sets,o=[],i;for(i=0;i<c.sets;i++)o.push(q+(i<r?1:0));return o}
 function spOn(ex,d){spInit();var L=S.sp.d[ad(S.start,d-1)];return !!(L&&L.indexOf(ex)>-1)}
 function spMark(ex){spInit();var dt=ad(S.start,spDay()-1),L=S.sp.d[dt];if(!L)L=S.sp.d[dt]=[];var i=L.indexOf(ex),key='sp'+dt+ex;S.bonus=S.bonus||{};if(i>-1){L.splice(i,1);if(!L.length)delete S.sp.d[dt];delete S.bonus[key]}else{L.push(ex);S.bonus[key]=10}save()}
 function spOpen(){spInit();$('sp').classList.add('on');spRender()}
 function spRender(){
-  var ex=spT,c=SPE[ex],d=spDay(),p=spPlan(ex,d),m=spM(ex),ts=$('spt').children,i;
+  var ex=spT,c=SPE[ex],s=spSess(ex),d=spDay(),rest=(d%7===0),ts=$('spt').children,i;
   for(i=0;i<ts.length;i++)ts[i].className=ts[i].dataset.e===ex?'on':'';
-  var h='<div class="spday"><div class="pill">день '+d+' из 90'+(p.rest?' · отдых':'')+'</div>';
-  if(p.rest)h+='<div class="big">🌙 Отдых</div><div class="sub">Мышцы растут, пока ты отдыхаешь. Прогулка — можно, подвиги — завтра.</div>';
+  var T=spTotal(ex,s),bd=spSplit(ex,s).join(' + ');
+  var h='<div class="spday"><div class="pill">тренировка '+s+' из 90'+(rest?' · отдых':'')+'</div>';
+  if(rest)h+='<div class="big">🌙 Отдых</div><div class="sub">Мышцы растут, пока ты отдыхаешь. Прогулка — можно, подвиги — завтра.</div>';
   else{
-    h+='<div class="big">'+p.s+' '+spl(p.s,'подход','подхода','подходов')+' × '+p.r+'</div><div class="sub">'+(c.pl?('на каждую ногу · всего '+(p.t*2)+' '+spl(p.t*2,'раз','раза','раз')):('всего '+p.t+' '+spl(p.t,'раз','раза','раз')))+'</div>';
-    if(d===30||d===60||d===90)h+='<div class="sub" style="margin-top:6px">Сегодня хороший день проверить максимум и обновить число ниже 👇</div>';
+    h+='<div class="big">'+T+' '+spl(T,'раз','раза','раз')+(c.pl?' на ногу':'')+'</div>';
+    h+='<div class="sub">'+c.sets+' '+spl(c.sets,'подход','подхода','подходов')+': '+bd+(c.pl?(' · всего '+(T*2)):'')+'</div>';
   }
   h+='<div class="tip" style="margin:10px 0 0;max-width:360px">'+c.tip+'</div></div>';
-  if(!p.rest)h+='<button class="cta" id="spgo" style="max-width:360px">'+(spOn(ex,d)?'Сделано ✓ — нажми, чтобы отменить':'Готово +10 XP')+'</button>';
-  h+='<div class="spm"><span>мой максимум сейчас</span><button class="chip" id="spmm">−</button><b>'+m+'</b><button class="chip" id="spmp">+</button><span>раз</span></div>';
-  h+='<div class="tip" style="font-size:15px;margin:14px 0 4px;max-width:360px">'+(c.pl?'лесенка на 90 дней — цифры на каждую ногу, +1 в неделю':'лесенка на 90 дней — каждую неделю чуть выше')+'</div>';
-  var maxT=spPlan(ex,90).t,cw=Math.floor((d-1)/7);
-  for(var w=0;w<13;w++){
-    var pp=spPlan(ex,w*7+6),done=0,tot=0,dd;
-    for(dd=w*7+1;dd<=w*7+7;dd++){if(dd>90)break;if(dd%7===0)continue;tot++;if(spOn(ex,dd))done++}
-    h+='<div class="spr'+(w===cw?' cur':'')+(tot&&done===tot?' done':'')+'"><small class="w">'+((w*7)+1)+'\u2013'+Math.min((w+1)*7,90)+'</small><span class="spb"><i style="width:'+Math.round(pp.t/maxT*100)+'%"></i></span><span class="tt">'+pp.s+'×'+pp.r+'</span></div>';
+  if(!rest)h+='<button class="cta" id="spgo" style="max-width:360px">'+(spOn(ex,d)?'Сделано ✓ — нажми, чтобы отменить':'Готово +10 XP')+'</button>';
+  h+='<div class="spm"><span>старт в подходе</span><button class="chip" id="spmm">−</button><b>'+spStart(ex)+'</b><button class="chip" id="spmp">+</button><span>раз</span></div>';
+  if(!rest){
+    if(s<90){
+      var pv=[],s2=s;
+      while(pv.length<5&&s2<90){s2++;pv.push('№'+s2+' — '+spTotal(ex,s2))}
+      h+='<div class="tip" style="font-size:15px;margin:12px 0 4px;max-width:360px">следующие тренировки: '+pv.join(' · ')+'</div>';
+    }else{
+      h+='<div class="tip" style="font-size:15px;margin:12px 0 4px;max-width:360px">Это 90-я тренировка плана. Дальше — держи уровень.</div>';
+    }
+    h+='<div class="tip" style="font-size:15px;margin:2px 0 0;max-width:360px">к 90-й тренировке: '+spTotal(ex,90)+(c.pl?' на ногу':'')+'</div>';
   }
   $('spc').innerHTML=h;
 }
@@ -612,9 +629,8 @@ $('spt').onclick=function(e){var b=e.target.closest('button');if(b&&b.dataset.e)
 $('spc').onclick=function(e){
   var b=e.target.closest('button');if(!b)return;
   if(b.id==='spgo'){var was=spOn(spT,spDay()),r=b.getBoundingClientRect();spMark(spT);if(!was)burst(r.left+r.width/2,r.top+r.height/2,20,true,'+10 XP');feedRender();spRender()}
-  else if(b.id==='spmm'||b.id==='spmp'){spInit();var m=spM(spT)+(b.id==='spmp'?1:-1);m=Math.max(1,Math.min(200,m));S.sp.b[spT]=m;save();spRender()}
+  else if(b.id==='spmm'||b.id==='spmp'){spInit();var v=spStart(spT)+(b.id==='spmp'?1:-1);v=Math.max(1,Math.min(100,v));S.sp.b[spT]=v;save();spRender()}
 };
-
 var sx0=0,sy0=0;
 document.addEventListener('touchstart',function(e){var t=e.touches[0];sx0=t.clientX;sy0=t.clientY},{passive:true});
 document.addEventListener('touchend',function(e){
