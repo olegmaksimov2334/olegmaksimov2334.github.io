@@ -36,7 +36,9 @@ button{font-family:inherit}
 .cd h3{font:400 30px/1.1 'Russo One',Impact,sans-serif;margin:10px 0 8px;text-transform:uppercase}
 .tip{font-size:19px;max-width:300px;margin:0 0 8px;background:#00000040;border-radius:14px;padding:8px 14px}
 .xp{font-size:16px;opacity:.75}
-.go{margin-top:16px;width:136px;height:136px;border-radius:50%;border:0;cursor:pointer;color:#fff;font:400 22px 'Russo One',sans-serif;background:hsl(var(--h) 90% 50%);animation:beat 1.6s infinite}
+.go{margin-top:16px;width:136px;height:136px;flex-shrink:0;border-radius:50%;border:0;cursor:pointer;color:#fff;font:400 22px 'Russo One',sans-serif;background:hsl(var(--h) 90% 50%);animation:beat 1.6s infinite}
+#open,#open_save{width:100px;height:100px;margin-top:8px;font-size:19px}
+@media (max-height:760px){#open,#open_save{width:80px;height:80px;margin-top:6px;font-size:16px}.chest svg{width:72px;height:72px}}
 @keyframes beat{0%{box-shadow:0 0 0 0 hsl(var(--h) 90% 55%/.55)}100%{box-shadow:0 0 0 34px hsl(var(--h) 90% 55%/0)}}
 .go:active{transform:scale(.92)}
 .cd.ok .go{background:#ffffff1f;animation:none;font-size:19px}
@@ -56,7 +58,7 @@ button{font-family:inherit}
 .lg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
 .chest{font-size:90px;line-height:1}
 .mini{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;width:100%;max-width:330px;margin:12px 0 0}
-.mini i{aspect-ratio:1;border-radius:6px;background:#ffffff14;display:grid;place-items:center;font:500 11px Oswald,sans-serif;font-style:normal;color:#ffffffa6}.mini i.f{background:#25f4ee;color:#07070c;font-weight:600}.mini i.p{background:#25f4ee59;color:#e8feff}.mini i.n{outline:2px solid #fe2c55;outline-offset:-1px}.mini i.u{opacity:.45}@media (max-height:760px){.mini{max-width:280px;gap:3px}.mini i{font-size:10px;border-radius:5px}.chest{font-size:64px}}
+.mini i{aspect-ratio:1;border-radius:6px;background:#ffffff14;display:grid;place-items:center;font:500 11px Oswald,sans-serif;font-style:normal;color:#ffffffa6}.mini i.f{background:#25f4ee;color:#07070c;font-weight:600}.mini i.s{background:#ffb400;color:#07070c;font-weight:600}.mini i.p{background:#25f4ee59;color:#e8feff}.mini i.n{outline:2px solid #fe2c55;outline-offset:-1px}.mini i.u{opacity:.45}@media (max-height:760px){.cd{padding:88px 18px 52px}.mini{max-width:280px;gap:3px}.mini i{font-size:10px;border-radius:5px}.chest{font-size:64px}.pet svg{max-width:80px;max-height:80px}.bubble{margin:5px 0 7px;padding:6px 12px;font-size:15px}.rings{width:118px;height:118px}.lg{margin-top:4px;font-size:13px}}
 .cta{width:100%;max-width:320px;padding:15px;border:0;border-radius:16px;background:#58cc02;color:#fff;font:400 19px 'Russo One',sans-serif;box-shadow:0 5px 0 #46a302;cursor:pointer;margin-top:14px}
 .cta:active{transform:translateY(4px);box-shadow:0 1px 0 #46a302}
 .cta.alt{background:#ffffff1f;box-shadow:0 5px 0 #ffffff14;margin-top:12px;max-width:220px;padding:10px;font-size:16px}
@@ -92,7 +94,7 @@ button{font-family:inherit}
 .stt{font:400 44px 'Russo One',sans-serif}
 .sg{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;width:100%;max-width:360px}
 .sg button{aspect-ratio:1;border:0;border-radius:6px;background:#ffffff1c;color:#fff;font:12px Oswald,sans-serif;padding:0}
-.sg button.f{background:#25f4ee;color:#07070c}.sg button.p{background:#25f4ee66}.sg button.sel{outline:2px solid #fe2c55}.sg button:disabled{opacity:.3}
+.sg button.f{background:#25f4ee;color:#07070c}.sg button.s{background:#ffb400;color:#07070c}.sg button.p{background:#25f4ee66}.sg button.sel{outline:2px solid #fe2c55}.sg button:disabled{opacity:.3}
 .sl{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:380px;margin:8px 0}
 .sl button{border:1px solid #ffffff40;background:none;color:#fff;border-radius:16px;padding:6px 12px;font:15px Oswald,sans-serif}
 .sl button.on{background:#58cc02;border-color:#58cc02}
@@ -106,7 +108,7 @@ button{font-family:inherit}
 #menu .cta{max-width:320px}
 .chip{position:relative}.nb{position:absolute;top:-5px;right:-5px;background:#fe2c55;border-radius:9px;font-size:11px;padding:0 5px;line-height:16px}
 .way{justify-content:flex-start;align-items:center;gap:10px;text-align:left}.way>*{width:100%;max-width:400px}
-.wtop{display:flex;justify-content:space-between;align-items:center}.wtop h3{font:400 28px 'Russo One',sans-serif;margin:0}
+.wtop{display:flex;justify-content:space-between;align-items:center;gap:8px}.wtop h3{font:400 24px 'Russo One',sans-serif;margin:0}
 .tabs{display:flex;gap:6px}.tabs button{flex:1;border:0;border-radius:14px;padding:8px 4px;background:#ffffff1a;color:#fff;font:500 15px Oswald,sans-serif}.tabs button.on{background:#fff;color:#07070c}
 .fact{background:linear-gradient(135deg,#ffffff24,#ffffff0a);border-radius:14px;padding:10px 14px;margin-bottom:8px;font-size:17px;line-height:1.3}
 .bg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 8px;margin-top:10px}
@@ -135,20 +137,60 @@ button{font-family:inherit}
 /* --- сохранение прогресса (панель) --- */
 .code{font:400 30px 'Russo One',sans-serif;letter-spacing:5px;background:#ffffff22;border:1px solid #ffffff40;border-radius:14px;padding:12px 20px;margin:4px 0;cursor:pointer;-webkit-user-select:all;user-select:all}
 #bcode_in{width:100%;max-width:320px;text-align:center;letter-spacing:3px;text-transform:uppercase;background:#00000055;border:1px solid #ffffff40;border-radius:12px;color:#fff;font:18px Oswald,sans-serif;padding:10px 12px;-webkit-user-select:text;user-select:text}
-#sp .tabs{flex-wrap:wrap}#sp .tabs button{white-space:nowrap;font-size:13px;flex:1 1 30%}.spday{width:100%;background:#ffffff12;border-radius:18px;padding:14px 16px;text-align:center;margin-top:2px}.spday .big{font:400 30px 'Russo One',sans-serif;margin:8px 0 4px}.spday .sub{font-size:16px;opacity:.8;line-height:1.25}.spm{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;font-size:16px;opacity:.92}.spm b{font-size:22px;min-width:34px;text-align:center}.spm .chip{font-size:18px;padding:0 14px;line-height:30px}.spl{width:100%;display:flex;flex-direction:column;align-items:center;gap:10px}.spr{display:flex;align-items:center;gap:8px;padding:2px 0;font-size:15px;width:100%}.spr .w{width:56px;text-align:right;font-size:13px;opacity:.6;white-space:nowrap}.spr .tt{width:56px;font-size:14px;opacity:.85;white-space:nowrap}.spr .spb{flex:1;height:12px;border-radius:6px;background:#ffffff14;overflow:hidden}.spr .spb i{display:block;height:100%;border-radius:6px;background:#25f4ee59}.spr.cur .w{opacity:1;color:#25f4ee}.spr.cur .spb i{background:#25f4ee}.spr.done .spb i{background:#58cc02}.spr.done .w{opacity:1;color:#58cc02}</style>
+#sp .tabs{flex-wrap:wrap}#sp .tabs button{white-space:nowrap;font-size:13px;flex:1 1 30%}.spday{width:100%;background:#ffffff12;border-radius:18px;padding:14px 16px;text-align:center;margin-top:2px}.spday .big{font:400 30px 'Russo One',sans-serif;margin:8px 0 4px}.spday .sub{font-size:16px;opacity:.8;line-height:1.25}.spm{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;font-size:16px;opacity:.92}.spm b{font-size:22px;min-width:34px;text-align:center}.spm .chip{font-size:18px;padding:0 14px;line-height:30px}.spl{width:100%;display:flex;flex-direction:column;align-items:center;gap:10px}.spr{display:flex;align-items:center;gap:8px;padding:2px 0;font-size:15px;width:100%}.spr .w{width:56px;text-align:right;font-size:13px;opacity:.6;white-space:nowrap}.spr .tt{width:56px;font-size:14px;opacity:.85;white-space:nowrap}.spr .spb{flex:1;height:12px;border-radius:6px;background:#ffffff14;overflow:hidden}.spr .spb i{display:block;height:100%;border-radius:6px;background:#25f4ee59}.spr.cur .w{opacity:1;color:#25f4ee}.spr.cur .spb i{background:#25f4ee}.spr.done .spb i{background:#58cc02}.spr.done .w{opacity:1;color:#58cc02}
+/* --- антисрыв: 5 инструментов --- */
+.toprow{display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap}
+.anc{border:1px solid #ffffff38;background:#ffffff16;color:#fff;border-radius:16px;padding:4px 12px;font:500 14px Oswald,sans-serif;margin-top:5px;max-width:330px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.anc.ok{background:#58cc0233;border-color:#58cc02;color:#d6ffbd}
+.qrow{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:7px;max-width:340px}
+.qbtn{border:1px solid #ffffff30;background:#ffffff18;color:#fff;border-radius:14px;padding:4px 11px;font:500 14px Oswald,sans-serif;cursor:pointer;white-space:nowrap}
+.qbtn.stop{background:#fe2c5533;border-color:#fe2c55aa}
+.qbtn.saved{background:#ffb40033;border-color:#ffb400;color:#ffe699}
+.qbtn.done{background:#58cc0233;border-color:#58cc02;color:#d6ffbd}
+.sub-cta{margin:2px 0 4px;border:1px solid #ffffff45;background:#ffffff1c;color:#fff;border-radius:16px;padding:5px 14px;font:500 15px Oswald,sans-serif;cursor:pointer}
+.sub-cta:active,.qbtn:active,.anc:active{transform:scale(.96)}
+#menu,#sos{justify-content:flex-start;padding-bottom:32px}
+#menu .cta{margin-top:4px;padding:12px}
+#menu .cta.alt{margin-top:4px;max-width:320px;padding:9px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:320px;margin-top:2px}
+.mgrid .cta.alt{margin-top:0;width:100%;max-width:none;font-size:15px;padding:10px 6px}
+.stabs{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;max-width:360px}
+.stabs button{border:1px solid #ffffff38;background:#ffffff14;color:#fff;border-radius:14px;padding:5px 10px;font:500 14px Oswald,sans-serif;cursor:pointer}
+.stabs button.on{background:#25f4ee;border-color:#25f4ee;color:#07070c;font-weight:600}
+.sbox{background:#ffffff14;border:1px solid #ffffff2b;border-radius:16px;padding:11px 14px;max-width:350px;width:100%;text-align:left;font-size:15px;line-height:1.35}
+.sbox b{color:#25f4ee}
+#sos .br{width:130px;height:130px;margin:4px 0;font-size:19px}
+#sos .stt{font-size:34px}
+.inp{width:100%;background:#00000055;border:1px solid #ffffff40;border-radius:12px;color:#fff;font:17px Oswald,sans-serif;padding:10px 12px;-webkit-user-select:text;user-select:text}
+.sc2{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+.sc2 div{background:#ffffff12;border:1px solid #ffffff26;border-radius:16px;padding:10px;text-align:center}
+.sc2 small{display:block;font-size:13px;opacity:.75}
+.sc2 b{display:block;font:400 22px 'Russo One',sans-serif;margin-top:3px}
+.rcard{width:100%;background:#ffffff12;border:2px solid #ffffff24;border-radius:16px;padding:11px 13px;text-align:left;cursor:pointer;color:#fff;margin-bottom:7px}
+.rcard.on{border-color:#ff9600;background:#ff960022}
+.rcard b{display:block;font-size:17px}
+.rcard span{font-size:14px;opacity:.82;line-height:1.25;display:block;margin-top:2px}
+.sl.bad button.on{background:#fe2c55;border-color:#fe2c55}
+.sl.trg button.on{background:#ff9600;border-color:#ff9600;color:#07070c;font-weight:600}
+.trow{display:flex;align-items:center;justify-content:space-between;background:#ffffff14;border-radius:14px;padding:10px 14px;margin-bottom:8px}
+.trow input[type=time]{background:#00000066;border:1px solid #ffffff45;border-radius:10px;color:#fff;font:500 19px Oswald,sans-serif;padding:5px 10px;-webkit-user-select:text;user-select:text}</style>
 </head>
 <body>
 <div id="feed"><div class="hud"><div class="r1"><span class="chip" id="lv"></span><div class="xb"><i id="xi"></i></div><span class="chip" id="sk"></span><button class="chip hot" id="sosb">Помощь</button><button class="chip" id="days" aria-label="Дни"></button><button class="chip" id="wayb" aria-label="Мой путь"></button></div><div class="segs" id="segs"></div></div><div id="cards"></div>
 <div id="win"><div id="wf"><svg viewBox="0 0 64 64"><path d="M32 3c3 14 20 20 20 37a20 20 0 0 1-40 0c0-8 5-13 8-19 2 6 6 8 8 8 0-10-2-17 4-26z" fill="#ff6a1a"/><path d="M32 30c1 7 9 10 9 18a9 9 0 0 1-18 0c0-5 3-7 5-11 1 3 3 4 4 4z" fill="#ffd23f"/></svg></div><h2 style="font:400 34px 'Russo One',sans-serif;margin:8px 0">День пройден!</h2><div id="wp" style="opacity:.85"></div><div class="tiles" id="tiles"></div><button class="cta" id="wb">Продолжить</button></div></div>
-<div class="ov" id="sos"><div class="pill">тянет — это нормально</div><div class="br"><span id="bt">Вдох</span></div><div class="stt" id="st">10:00</div><div class="tip" id="sw"></div><div class="tip">Желание — волна. Не борись, просто наблюдай. Пик держится 10–15 минут.<br>Стакан воды · 20 приседаний · выйди из комнаты</div><button class="cta" id="sdone">Я справился</button><button class="cta alt" id="sx">Закрыть</button></div>
+<div class="ov" id="sos"><div class="pill">тянет — перехват желания</div><div class="stabs" id="stabs"></div><div class="sbox" id="sprot"></div><div class="br"><span id="bt">Вдох</span></div><div class="stt" id="st">10:00</div><div class="tip" id="sw" style="max-width:350px;font-size:16px"></div><button class="cta" id="sdone">Я справился (+15 XP)</button><button class="cta alt" id="sx">Закрыть</button></div>
 <div class="ov" id="sheet"><h3 id="sdt" style="font:400 26px 'Russo One',sans-serif;margin:0"></h3><div class="sg" id="sg"></div><div class="sl" id="sl"></div><button class="cta" id="shx">Готово</button></div>
-<div class="ov" id="menu"><div class="pill">чем помочь?</div><button class="cta" id="m1">Тянет — желание накрывает</button><button class="cta" id="m2" style="background:#ff9600;box-shadow:0 5px 0 #c97400">Злюсь или стресс на работе</button><button class="cta alt" id="m5">Оракул: карта, шар, печенье</button><button class="cta alt" id="m8">Спорт: планы на 90 дней</button><button class="cta alt" id="m4">Записать мысли</button><button class="cta alt" id="m3">Мои слова и благодарности</button><button class="cta alt" id="m7">Как сохраняется прогресс</button><button class="cta alt" id="m6">Сбросить прогресс</button><button class="cta alt" id="m0">Закрыть</button></div>
+<div class="ov" id="menu"><div class="pill">чем помочь?</div><button class="cta" id="m_brk" style="background:#fe2c55;box-shadow:0 5px 0 #b8193a">🛑 Сорвался — торможу цепочку</button><button class="cta" id="m1">Тянет — желание накрывает</button><button class="cta" id="m2" style="background:#ff9600;box-shadow:0 5px 0 #c97400">Злюсь или стресс на работе</button><div class="mgrid"><button class="cta alt" id="m_red">💪 Отработать срыв</button><button class="cta alt" id="m_frz">🧊 Морозилка 24ч</button><button class="cta alt" id="m_rem">🔔 Напоминания</button><button class="cta alt" id="m8">🏋️ Спорт: лесенка</button><button class="cta alt" id="m5">🔮 Оракул</button><button class="cta alt" id="m4">✍️ Записать мысли</button><button class="cta alt" id="m3">❤️ Мои слова</button><button class="cta alt" id="m7">💾 Копия прогресса</button></div><button class="cta alt" id="m6">Сбросить прогресс</button><button class="cta alt" id="m0">Закрыть</button></div>
 <div class="ov" id="cool"><div class="pill" id="cp"></div><div id="cb" style="width:100%;max-width:340px"></div><button class="cta" id="cn">Дальше</button><button class="cta alt" id="cx">Закрыть</button></div>
 <div class="ov" id="words"><h3 style="font:400 26px 'Russo One',sans-serif;margin:0">Мои слова</h3><div class="wl" id="wl"></div><button class="cta" id="wx">Закрыть</button></div>
 <div class="ov" id="bak"><div class="pill">сохранение прогресса</div><div class="tip" style="max-width:320px">Прогресс сохраняется автоматически на этом телефоне. Раз в неделю жми «Скачать копию файла» — и прогресс никогда не потеряется: копия открывается на любом телефоне или компьютере.</div><div class="code" id="bcode"></div><div class="tip" id="bcodetip" style="font-size:15px;max-width:320px;margin:0 0 6px">код восстановления — нажми, чтобы скопировать</div><input id="bcode_in" placeholder="Код с другого устройства" maxlength="12" autocapitalize="characters" autocomplete="off" spellcheck="false"><button class="cta" id="brestore">Восстановить по коду</button><button class="cta alt" id="bexp">Скачать копию файла</button><button class="cta alt" id="bimp">Загрузить копию файла</button><input type="file" id="bfile" accept="application/json,.json" style="display:none"><div class="tip" id="bstat" style="max-width:320px;min-height:52px"></div><button class="cta alt" id="bx">Закрыть</button></div>
 <div class="ov way" id="way"><div class="wtop"><h3>Мой путь</h3><button class="chip" id="wayx">Закрыть</button></div><div class="tabs" id="tabs"><button data-t="a" class="on">Награды</button><button data-t="d">Дневник</button><button data-t="p">Горжусь</button><button data-t="l">Письма</button><button data-t="w">Неделя</button></div><div id="wbody"></div></div>
 <div class="ov way" id="sp"><div class="wtop"><button class="chip" id="spx">‹ Назад</button><h3>Спорт</h3><span></span></div><div class="tabs" id="spt"><button data-e="push" class="on">Отжимания</button><button data-e="pull">Подтягивания</button><button data-e="dips">Брусья</button><button data-e="abs">Пресс</button><button data-e="sq">Приседания</button><button data-e="calf">На носки</button></div><div id="spc" class="spl"></div></div>
 <div class="ov way" id="orc"><div class="wtop"><button class="chip" id="orx">‹ Назад</button><h3>Оракул</h3><span></span></div><div class="tabs" id="otabs"><button data-t="t" class="on">Таро</button><button data-t="b">Шар</button><button data-t="c">Печенье</button></div><div id="obody"></div></div>
+<div class="ov way" id="brk"><div class="wtop"><button class="chip" id="brkx">‹ Назад</button><h3>Стоп-кран</h3><span></span></div><div id="brkbody"></div></div>
+<div class="ov way" id="frz"><div class="wtop"><button class="chip" id="frzx">‹ Назад</button><h3>Морозилка 24ч</h3><span></span></div><div id="frzbody"></div></div>
+<div class="ov way" id="red"><div class="wtop"><button class="chip" id="redx">‹ Назад</button><h3>Отработка срыва</h3><span></span></div><div id="redbody"></div></div>
+<div class="ov way" id="rem"><div class="wtop"><button class="chip" id="remx">‹ Назад</button><h3>Напоминания</h3><span></span></div><div id="rembody"></div></div>
 <div id="ld" style="display:none;position:fixed;inset:0;z-index:99;background:#07070c;color:#fff;place-items:center;font:20px Oswald,sans-serif">Загружаю твой прогресс…</div>
 <script>
 var G=[{g:'Не делаю',i:[{id:'porn',t:'Без порно'},{id:'fap',t:'Без дрочки'},{id:'sugar',t:'Без сахара и сладкого'},{id:'alc',t:'Без алкоголя и лимонадов'},{id:'scroll',t:'Без тикток и ютуба'},{id:'music',t:'Без музыки'},{id:'silence',t:'Молчу о планах, не жалуюсь'},{id:'money',t:'Без импульсивных трат'}]},{g:'Делаю',i:[{id:'sport',t:'Спорт'},{id:'cold',t:'Холодный душ'},{id:'read',t:'Чтение'},{id:'neck',t:'Осанка и шея'},{id:'plan',t:'Дела по плану, без лени'}]}];
@@ -194,24 +236,48 @@ function mascot(lv,done,n){
   return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 64 64"><defs><linearGradient id="fg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb400"/><stop offset="1" stop-color="#ff3d2e"/></linearGradient></defs>'+(lv>=8?'<circle cx="32" cy="38" r="30" fill="#ffb400" opacity=".2"/>':'')+'<path d="M32 3c3 14 20 20 20 37a20 20 0 0 1-40 0c0-8 5-13 8-19 2 6 6 8 8 8 0-10-2-17 4-26z" fill="url(#fg)"/><path d="M32 30c1 7 9 10 9 18a9 9 0 0 1-18 0c0-5 3-7 5-11 1 3 3 4 4 4z" fill="#ffe27a" opacity=".55"/>'+eyes+mouth+ch+crown+'</svg>';
 }
 var TIP={porn:'Тянет — встань и выпей воды. Через 10 минут отпустит.',fap:'Вышел из комнаты — желание вышло вместе с тобой.',sugar:'Хочется сладкого? Яблоко или стакан воды.',alc:'Налей воды с лимоном. Рука занята, голова спокойна.',scroll:'Телефон экраном вниз. Сегодня ты в нём не нужен.',music:'Тишина — тренажёр для головы.',silence:'Сказал вслух — и сила ушла. Пусть дела говорят за тебя. Жалоба — тоже слив: заметил — переключись в действие.',money:'Правило 24 часа: запиши хотелку и вернись завтра.',sport:'Хотя бы 10 минут. Начни — дальше пойдёт само.',cold:'30 секунд холодной в конце. Выдохни и терпи.',read:'10 страниц. Телефон в другую комнату.',neck:'Подбородок назад, макушка вверх, плечи вниз. Минута.',plan:'Одно дело, которое откладывал. Сделай его первым.'};
-var CH={c:['Ты сделал то, что другие откладывают.','Ещё один кирпич в стену.','Победа и должна быть будничной.'],r:['Это уже не случайность, это ты.','Неделю назад ты бы так не смог.','Характер строится вот так, по галочке.'],l:['Ты сегодня на другом уровне. Запомни это чувство.','Через 90 дней скажешь себе спасибо за этот день.']};
-var TT={c:'Обычная награда',r:'Редкая награда!',l:'ЛЕГЕНДАРНАЯ НАГРАДА!'},XX={c:20,r:50,l:120},PET=[[1,'🥚'],[2,'🐣'],[3,'🐥'],[5,'🦅'],[8,'🐉']],justId=null;
+var CH={c:['Ты сделал то, что другие откладывают.','Ещё один кирпич в стену.','Победа и должна быть будничной.'],r:['Это уже не случайность, это ты.','Неделю назад ты бы так не смог.','Характер строится вот так, по галочке.'],l:['Ты сегодня на другом уровне. Запомни это чувство.','Через 90 дней скажешь себе спасибо за этот день.'],s:['Ты не дал одному промаху сжечь весь день — это сильнее идеальной галочки.','Тормознуть срыв на полпути — вот где куётся настоящий характер.','Серия спасена. Завтра снова идём ровно.']};
+var TT={c:'Обычная награда',r:'Редкая награда!',l:'ЛЕГЕНДАРНАЯ НАГРАДА!',s:'День спасён 🛡️'},XX={c:20,r:50,l:120,s:25},PET=[[1,'🥚'],[2,'🐣'],[3,'🐥'],[5,'🦅'],[8,'🐉']],justId=null;
+function rub(n){n=Math.round(+n||0);return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' ₽'}
+function dayTarget(d){var v=(S.saved||{})[d];return typeof v==='number'&&v>=2?v:Math.max(2,H.length-3)}
+function isDaySaved(d){if(!S.saved||!S.saved[d])return false;var n=(S.days[d]||[]).length;return n<H.length&&n>=dayTarget(d)}
+function dayChainOk(d){return fr(d)===1||isDaySaved(d)}
+function savedCount(){var n=0,d;for(d in (S.saved||{}))if(isDaySaved(d))n++;return n}
+function moneySaved(){var s=0;(S.freeze||[]).forEach(function(x){if(x.status==='skip')s+=(+x.sum||0)});return s}
+function moneyWasted(){var s=0;(S.wasted||[]).forEach(function(x){s+=(+x.sum||0)});return s}
+function frzWaitCount(){var n=0;(S.freeze||[]).forEach(function(x){if(x.status==='wait')n++});return n}
+function redTodayCount(){var n=0;(S.redeem||[]).forEach(function(x){if(x.d===today)n++});return n}
+function anchorInfo(cur){
+  var hr=window._testHour!=null?window._testHour:new Date().getHours(),u=[],tgt=null;
+  function chk(id,lbl){if(!cur.includes(id)){u.push(lbl);if(!tgt)tgt=id}}
+  if(hr>=5&&hr<15){chk('cold','Холодный душ');chk('neck','Осанка');chk('plan','План');return u.length?{ok:false,txt:'☀️ Утро: '+u.join(' · ')+' ›',t:tgt}:{ok:true,txt:'☀️ Утренний якорь закрыт ✓',t:null}}
+  if(hr>=15&&hr<19){if(!cur.includes('cold'))return {ok:false,txt:'🚿 Забыл душ утром? Успеешь до 00:00 ›',t:'cold'};chk('sport','Спорт');chk('plan','План');return u.length?{ok:false,txt:'⚡ День: '+u.join(' · ')+' ›',t:tgt}:{ok:true,txt:'⚡ Дневной якорь закрыт ✓',t:null}}
+  chk('cold','Душ');chk('read','Чтение');if(!((S.j||{})[today]||{}).ok){u.push('Итог');if(!tgt)tgt='__jr'}
+  return u.length?{ok:false,txt:'🌙 Вечер: '+u.join(' · ')+' ›',t:tgt}:{ok:true,txt:'🌙 Вечерний якорь закрыт ✓',t:null};
+}
 function xpTotal(){var t=0;for(var d in S.days){var n=S.days[d].length;t+=n*10;if(n===H.length)t+=30}for(var k in (S.bonus||{}))t+=S.bonus[k];return t}
-function pstreak(){var i=Math.min(df(today,S.start),89),n=0;if(fr(ad(S.start,i))<1)i--;for(;i>=0&&fr(ad(S.start,i))===1;i--)n++;return n}
+function pstreak(){var i=Math.min(df(today,S.start),89),n=0;if(!dayChainOk(ad(S.start,i)))i--;for(;i>=0&&dayChainOk(ad(S.start,i));i--)n++;return n}
 function left(){var n=new Date(),e=new Date(n.getFullYear(),n.getMonth(),n.getDate()+1),m=Math.floor((e-n)/60000);return Math.floor(m/60)+' ч '+m%60+' мин'}
 function ring(r,p,col){var c=2*Math.PI*r;return '<circle cx="80" cy="80" r="'+r+'" fill="none" stroke="'+col+'33" stroke-width="14"/><circle cx="80" cy="80" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="14" stroke-linecap="round" stroke-dasharray="'+c+'" stroke-dashoffset="'+c*(1-p)+'" transform="rotate(-90 80 80)" style="transition:stroke-dashoffset .6s"/>'}
 function feedRender(){
     var cd=$('cards'),st=cd.scrollTop,cur=S.days[today]||[],c=ci(),xp=xpTotal(),lv=Math.floor(xp/150)+1,ps=pstreak(),pet='🥚',n=H.length;
   pet=mascot(lv,cur.length,n);
   function cnt(g){return G[g].i.filter(function(h){return cur.includes(h.id)}).length}
-  var hr=new Date().getHours(),left0=n-cur.length;
-  var say=left0===0?'Мы закончили. Я горжусь тобой.':cur.length===0?(hr<12?'Доброе утро. Начнём с самого простого?':'Я тут. Жду. Не заставляй меня звать тебя дважды.'):'Осталось всего '+left0+'. Не бросай меня.';
+  var hr=window._testHour!=null?window._testHour:new Date().getHours(),left0=n-cur.length,anc=anchorInfo(cur),svOn=!!(S.saved&&S.saved[today]),svOk=isDaySaved(today),fw=frzWaitCount(),ms=moneySaved(),rc=redTodayCount();
+  var say=left0===0?'Мы закончили. Я горжусь тобой.':svOk?'Цепочка остановлена, день спасён! Горжусь.':svOn?'Режим спасения: закрой ещё '+Math.max(0,dayTarget(today)-cur.length)+' п. — не сдаёмся!':cur.length===0?(hr<12?'Доброе утро. Начнём с самого простого?':'Я тут. Жду. Не заставляй меня звать тебя дважды.'):'Осталось всего '+left0+'. Не бросай меня.';
   $('lv').textContent='Ур. '+lv;$('xi').style.width=(xp%150)/150*100+'%';$('sk').innerHTML=I.fl+' '+ps;
   var sg='';H.forEach(function(it,i){sg+='<b data-i="'+i+'" class="'+(cur.includes(it.id)?'d':'')+'"></b>'});$('segs').innerHTML=sg;
-  var h=(S.signed?'':CT())+'<section class="cd" style="--h:200"><div class="pill">день '+(c+1)+' из 90</div><div class="pet">'+pet+'</div><div class="bubble">'+say+'</div><svg width="150" height="150" viewBox="0 0 160 160">'+ring(70,cur.length/n,'#25f4ee')+ring(52,cnt(1)/G[1].i.length,'#fe2c55')+ring(34,cnt(0)/7,'#b6ff3c')+'</svg><div class="lg"><span><i style="background:#25f4ee"></i>всё</span><span><i style="background:#fe2c55"></i>делаю</span><span><i style="background:#b6ff3c"></i>не делаю</span></div><div class="xp" style="margin-top:10px">серия сгорит через '+left()+'</div><div class="xp">свайп вправо — оракул, влево — спорт</div><div class="arr">⌄</div></section>';
+  var brkLbl=svOk?'🛡️ День спасён ✓':svOn?'🛡️ Спасение '+cur.length+'/'+dayTarget(today):'🛑 Стоп-кран';
+  var brkCls=svOk?'qbtn saved':svOn?'qbtn saved':'qbtn stop';
+  var frzLbl='🧊 '+(fw?'24ч ('+fw+')':ms?rub(ms):'24ч');
+  var redLbl=rc?'💪 Отработано ('+rc+')':'💪 Отработать';
+  var stLine=left0===0?'идеальный день закрыт ✓':svOk?'🛡️ день спасён · серия под защитой':'серия сгорит через '+left();
+  var h=(S.signed?'':CT())+'<section class="cd" style="--h:200"><div class="toprow"><div class="pill">день '+(c+1)+' из 90</div><button class="chip" data-act="rem" style="font-size:13px;padding:3px 9px">🔔 будильник</button></div><button class="anc'+(anc.ok?' ok':'')+'" data-act="anc">'+anc.txt+'</button><div class="pet">'+pet+'</div><div class="bubble">'+say+'</div><svg class="rings" width="150" height="150" viewBox="0 0 160 160">'+ring(70,cur.length/n,'#25f4ee')+ring(52,cnt(1)/G[1].i.length,'#fe2c55')+ring(34,cnt(0)/G[0].i.length,'#b6ff3c')+'</svg><div class="lg"><span><i style="background:#25f4ee"></i>всё</span><span><i style="background:#fe2c55"></i>делаю</span><span><i style="background:#b6ff3c"></i>не делаю</span></div><div class="qrow"><button class="'+brkCls+'" data-act="brk">'+brkLbl+'</button><button class="qbtn'+(rc?' done':'')+'" data-act="red">'+redLbl+'</button><button class="qbtn'+(ms?' done':'')+'" data-act="frz">'+frzLbl+'</button></div><div class="xp" style="margin-top:6px">'+stLine+'</div><div class="xp">свайп вправо — оракул, влево — спорт</div><div class="arr">⌄</div></section>';
   H.forEach(function(it,i){
-    var on=cur.includes(it.id),sr=streak(it.id),tag=it.t.toLowerCase().replace(/[^а-яa-z0-9 ]/g,'').replace(/ /g,'_').slice(0,20);
-    h+='<section class="cd'+(on?' ok':'')+(it.id===justId?' just':'')+'" data-id="'+it.id+'" style="--h:'+((i*47+190)%360)+'"><div class="pill">'+(i<G[0].i.length?'не делаю':'делаю')+' · '+(i+1)+'/'+n+'</div><div class="em">'+ico(it.id)+'</div><h3>'+it.t+'</h3><div class="tip">'+TIP[it.id]+'</div><div class="xp">'+(sr?'серия '+sr+' дн. · ':'')+'+10 XP</div><button class="go" data-id="'+it.id+'">'+(on?'Сделано':'Сделал')+'</button><div class="rail"><div><span>'+I.fl+'</span>'+sr+'</div><div><span>'+I.bolt+'</span>'+xp+'</div><div><span>'+I.cal+'</span>'+(c+1)+'</div></div><div class="cap"><b>@ты</b> · день '+(c+1)+'<br><i>#90дней #'+tag+'</i><br><i>двойной тап — отметить</i></div><div class="arr">⌄</div></section>';
+    var on=cur.includes(it.id),sr=streak(it.id),tag=it.t.toLowerCase().replace(/[^а-яa-z0-9 ]/g,'').replace(/ /g,'_').slice(0,20),extra='';
+    if(it.id==='money')extra='<button class="sub-cta" data-act="frz">🧊 В морозилку 24ч'+(ms?' · спас '+rub(ms):fw?' · ждёт: '+fw:'')+'</button>';
+    else if(it.id==='sugar'||it.id==='alc')extra='<button class="sub-cta" data-act="sos-sweet">⚡ Тянет сейчас? Перехват за 2 мин</button>';
+    h+='<section class="cd'+(on?' ok':'')+(it.id===justId?' just':'')+'" data-id="'+it.id+'" style="--h:'+((i*47+190)%360)+'"><div class="pill">'+(i<G[0].i.length?'не делаю':'делаю')+' · '+(i+1)+'/'+n+'</div><div class="em">'+ico(it.id)+'</div><h3>'+it.t+'</h3><div class="tip">'+TIP[it.id]+'</div>'+extra+'<div class="xp">'+(sr?'серия '+sr+' дн. · ':'')+'+10 XP</div><button class="go" data-id="'+it.id+'">'+(on?'Сделано':'Сделал')+'</button><div class="rail"><div><span>'+I.fl+'</span>'+sr+'</div><div><span>'+I.bolt+'</span>'+xp+'</div><div><span>'+I.cal+'</span>'+(c+1)+'</div></div><div class="cap"><b>@ты</b> · день '+(c+1)+'<br><i>#90дней #'+tag+'</i><br><i>двойной тап — отметить</i></div><div class="arr">⌄</div></section>';
   });
   justId=null;
   h+=JR();
@@ -219,9 +285,11 @@ function feedRender(){
   h+='<section class="cd" style="--h:330">';
   if(rw)h+='<div class="chest">'+I.chest+'</div><h3>'+TT[rw.r]+'</h3><div class="tip">'+rw.t+'</div><div class="xp">+'+XX[rw.r]+' XP · завтра новый сундук</div>';
   else if(all)h+='<div class="chest">'+I.chest+'</div><h3>Сундук готов</h3><button class="go" id="open">Открыть</button>';
-  else h+='<div class="chest" style="filter:grayscale(1) opacity(.65)">'+I.chest+'</div><h3>Сундук закрыт</h3><div class="tip">Закрой ещё '+left0+' — получишь награду. Каждый день она разная.</div>';
+  else if(svOk)h+='<div class="chest">'+I.chest+'</div><h3>День спасён 🛡️</h3><div class="xp">серия под защитой · награда за стойкость</div><button class="go" id="open_save">Открыть</button>';
+  else if(svOn)h+='<div class="chest" style="filter:grayscale(1) opacity(.65)">'+I.chest+'</div><h3>Спасение дня 🛡️</h3><div class="tip">Закрой ещё '+Math.max(1,dayTarget(today)-cur.length)+' п. (до '+dayTarget(today)+' из '+n+') — серия сохранится и откроется сундук стойкости.</div>';
+  else h+='<div class="chest" style="filter:grayscale(1) opacity(.65)">'+I.chest+'</div><h3>Сундук закрыт</h3><div class="tip">Закрой ещё '+left0+' — получишь награду. Сорвался на 1–3 пунктах? Жми «Стоп-кран», чтобы спасти день.</div>';
   h+='<div class="mini">';
-  for(var d=0;d<90;d++){var f=fr(ad(S.start,d));h+='<i class="'+(f===1?'f':f>0?'p':'')+(d===c?' n':'')+(d>c?' u':'')+'">'+(d+1)+'</i>'}
+  for(var d=0;d<90;d++){var ds0=ad(S.start,d),f=fr(ds0),svD=isDaySaved(ds0);h+='<i class="'+(f===1?'f':svD?'s':f>0?'p':'')+(d===c?' n':'')+(d>c?' u':'')+'">'+(d+1)+'</i>'}
   h+='</div><button class="cta alt" id="share">Поделиться результатом</button></section>';
   cd.innerHTML=h;cd.style.scrollBehavior='auto';cd.scrollTop=st;achNew();
 }
@@ -256,20 +324,22 @@ function toggle(id,x,y,idx){
 }
 var lastTap=0;
 $('cards').onclick=function(e){
-  if(e.target.closest('#sign,#why'))return;if(e.target.closest('.jr'))return jrClick(e);var cd=$('cards'),b=e.target.closest('.go'),sec=e.target.closest('.cd');
-  if(e.target.closest('.cta')){
+  if(e.target.closest('#sign,#why'))return;
+  var actEl=e.target.closest('[data-act]');if(actEl){cardAct(actEl.dataset.act);return}
+  if(e.target.closest('.jr'))return jrClick(e);var cd=$('cards'),b=e.target.closest('.go'),sec=e.target.closest('.cd');
+  if(e.target.closest('#share')){
     var tx='90 дней · день '+(ci()+1)+'\n🔥 серия '+pstreak()+'\n',g='';
-    for(var d=0;d<=ci();d++){var f=fr(ad(S.start,d));g+=f===1?'🟩':f>0?'🟨':'⬛';if((d+1)%10===0)g+='\n'}
-    var btn=e.target.closest('.cta');
+    for(var d=0;d<=ci();d++){var ds1=ad(S.start,d),f=fr(ds1);g+=f===1?'🟩':isDaySaved(ds1)?'🛡️':f>0?'🟨':'⬛';if((d+1)%10===0)g+='\n'}
+    var btn=e.target.closest('#share');
     try{navigator.clipboard.writeText(tx+g).then(function(){btn.textContent='Скопировано ✓'})}catch(er){btn.textContent='Не вышло скопировать'}
     return;
   }
   var idx=Array.prototype.indexOf.call(cd.children,sec);
-  if(b&&b.id==='open'){
-    var r0=b.getBoundingClientRect(),q=Math.random(),k=q<.1?'l':q<.4?'r':'c',pool=CH[k];
+  if(b&&(b.id==='open'||b.id==='open_save')){
+    var r0=b.getBoundingClientRect(),q=Math.random(),k=b.id==='open_save'?'s':(q<.1?'l':q<.4?'r':'c'),pool=CH[k];
     S.chest=S.chest||{};S.bonus=S.bonus||{};
     S.chest[today]={r:k,t:pool[Math.floor(Math.random()*pool.length)]};S.bonus[today]=XX[k];
-    save();burst(r0.left+r0.width/2,r0.top+r0.height/2,k==='l'?40:k==='r'?26:16,true,'+'+XX[k]+' XP');feedRender();return;
+    save();burst(r0.left+r0.width/2,r0.top+r0.height/2,k==='l'?40:k==='r'?26:20,true,'+'+XX[k]+' XP');feedRender();return;
   }
   if(b){var r=b.getBoundingClientRect();toggle(b.dataset.id,r.left+r.width/2,r.top+r.height/2,idx);return}
   var now=Date.now();
@@ -291,9 +361,26 @@ var ht=null;
 $('cards').addEventListener('pointerdown',function(e){var b=e.target.closest('#sign');if(!b)return;b.classList.add('hold');ht=setTimeout(function(){S.signed=1;S.why=($('why')||{}).value||'';save();burst(innerWidth/2,innerHeight/2,40,true,'Подписано');feedRender();$('cards').scrollTop=0},1200)});
 ['pointerup','pointercancel','pointerleave'].forEach(function(t){$('cards').addEventListener(t,function(){clearTimeout(ht);var b=$('sign');if(b)b.classList.remove('hold')},true)});
 $('days').innerHTML=I.cal;
-var sosT,brT,sd=0;
-function sosOpen(){
-  var t=600;$('sos').classList.add('on');var w=warm();$('sw').innerHTML=(S.why?'Зачем: «'+esc(S.why)+'»':'Ты начал это не просто так.')+(w?'<br>Ты писал себе: «'+esc(w)+'»':'');
+var sosT,brT,sd=0,sosK='sweet';
+var SOS_CAT=[
+ ['sweet','🍫 Сладкое / лимонад','<b>Протокол «Анти-сахар» (2 минуты):</b><br>1. Выпей залпом большой стакан холодной воды (жажду часто путают с тягой к сладкому).<br>2. <b>Иди и почисти зубы мятной пастой прямо сейчас</b> — после мяты сладкое и газировка на вкус отвратительные, тягу рубит за 30 секунд.<br>3. Съешь нормальный белок (яйца, мясо, творог) — на сладкое почти всегда тянет с голодухи.'],
+ ['spend','💸 Траты','<b>Протокол «Стоп-карта»:</b><br>1. Закрой маркетплейс / корзину в эту же секунду. Не «только посмотрю», а закрой.<br>2. Это всплеск дофамина, а не реальная нужда. Убери хотелку в заморозку:<div style="margin-top:8px;text-align:center"><button class="sub-cta" id="s2frz">🧊 Заморозить покупку на 24 часа →</button></div>'],
+ ['feed','📱 Лента','<b>Протокол «Выход из экрана»:</b><br>1. Заблокируй телефон и унеси экраном вниз <b>в другую комнату</b>.<br>2. Сделай 20 приседаний — переключи кровь из головы в тело.<br>3. Открой книгу всего на 2 страницы.'],
+ ['lust','🔥 Порно','<b>Протокол «Холодный сброс»:</b><br>1. Встань с кровати/стула <b>прямо сейчас</b> и выйди из комнаты.<br>2. Умой лицо и запястья ледяной водой 30 секунд.<br>3. Сделай 30 отжиманий до жжения — волна схлынет за 5 минут.'],
+ ['lazy','🛋️ Лень','<b>Протокол «Правило 2 минут»:</b><br>1. Договорись с собой делать дело <b>ровно 2 минуты</b> — потом официально можно бросить.<br>2. Убери всё лишнее, открой только первый шаг. В 9 из 10 случаев втянешься сам.']
+];
+function sosRenderCat(){
+  $('stabs').innerHTML=SOS_CAT.map(function(x){return '<button data-sc="'+x[0]+'" class="'+(sosK===x[0]?'on':'')+'">'+x[1]+'</button>'}).join('');
+  var curC=SOS_CAT.filter(function(x){return x[0]===sosK})[0]||SOS_CAT[0];
+  $('sprot').innerHTML=curC[2];
+}
+$('stabs').onclick=function(e){var b=e.target.closest('button');if(b&&b.dataset.sc){sosK=b.dataset.sc;sosRenderCat()}};
+$('sprot').onclick=function(e){if(e.target.closest('#s2frz')){sosClose();frzOpen()}};
+function sosOpen(cat){
+  clearInterval(sosT);clearInterval(brT);
+  if(cat)sosK=cat;
+  sosRenderCat();
+  var t=600;$('sos').classList.add('on');$('sos').scrollTop=0;var w=warm();$('sw').innerHTML=(S.why?'Зачем: «'+esc(S.why)+'»':'Ты начал это не просто так.')+(w?'<br>Ты писал себе: «'+esc(w)+'»':'');
   function tick(){var m=Math.floor(t/60),r=t%60;$('st').textContent=m+':'+(r<10?'0':'')+r}
   tick();$('bt').textContent='Вдох';var ph=0;
   sosT=setInterval(function(){t--;tick();if(t<=0)clearInterval(sosT)},1000);
@@ -304,7 +391,7 @@ $('sx').onclick=sosClose;
 $('sdone').onclick=function(){S.bonus=S.bonus||{};S.bonus['s'+Date.now()]=15;save();sosClose();burst(innerWidth/2,innerHeight/2,30,true,'+15 XP');feedRender()};
 function sheet(){
   var c=ci(),g='',date=ad(S.start,sd),cur=S.days[date]||[],h='';
-  for(var d=0;d<90;d++){var f=fr(ad(S.start,d));g+='<button data-i="'+d+'" class="'+(f===1?'f':f>0?'p':'')+(d===sd?' sel':'')+'"'+(d>c?' disabled':'')+'>'+(d+1)+'</button>'}
+  for(var d=0;d<90;d++){var ds2=ad(S.start,d),f=fr(ds2);g+='<button data-i="'+d+'" class="'+(f===1?'f':isDaySaved(ds2)?'s':f>0?'p':'')+(d===sd?' sel':'')+'"'+(d>c?' disabled':'')+'>'+(d+1)+'</button>'}
   H.forEach(function(it){h+='<button data-id="'+it.id+'" class="'+(cur.includes(it.id)?'on':'')+'">'+it.t+'</button>'});
   $('sg').innerHTML=g;$('sl').innerHTML=h;$('sdt').textContent='День '+(sd+1)+(sd===c?' · сегодня':'');
 }
@@ -338,7 +425,7 @@ function jrClick(e){
 }
 $('menu').onclick=function(e){
   var b=e.target.closest('button');if(!b)return;if(b.id==='m6'){if(b.dataset.arm){S={start:today,days:{}};save();$('menu').classList.remove('on');feedRender();$('cards').scrollTop=0;return}b.dataset.arm=1;b.textContent='Точно? Нажми ещё раз — всё сотрётся';return}$('menu').classList.remove('on');
-  if(b.id==='m1')sosOpen();else if(b.id==='m2')coolOpen();else if(b.id==='m3')wordsOpen();else if(b.id==='m5')oracleOpen();else if(b.id==='m4'){WKI=null;achNew();$('way').classList.add('on');wayRender('d')}else if(b.id==='m7')bakOpen();else if(b.id==='m8')spOpen();
+  if(b.id==='m1')sosOpen();else if(b.id==='m2')coolOpen();else if(b.id==='m3')wordsOpen();else if(b.id==='m5')oracleOpen();else if(b.id==='m4'){WKI=null;achNew();$('way').classList.add('on');wayRender('d')}else if(b.id==='m7')bakOpen();else if(b.id==='m8')spOpen();else if(b.id==='m_brk')brkOpen();else if(b.id==='m_red')redOpen();else if(b.id==='m_frz')frzOpen();else if(b.id==='m_rem')remOpen();
 };
 $('sosb').onclick=function(){var r6=$('m6');r6.dataset.arm='';r6.textContent='Сбросить прогресс';$('menu').classList.add('on')};
 function wordsOpen(){
@@ -396,7 +483,10 @@ var AC=[
 ['sport','В форме','7 тренировок',function(){return cnt('sport')>=7}],
 ['n1','Первая мысль','Записал свои мысли',function(){return (S.notes||[]).length>=1}],
 ['n7','Автор','7 записей мыслей',function(){return (S.notes||[]).length>=7}],
-['pr3','Люблю себя','3 записи «я горжусь»',function(){return (S.praise||[]).length>=3}]];
+['pr3','Люблю себя','3 записи «я горжусь»',function(){return (S.praise||[]).length>=3}],
+['sv1','Стоп-кран','Спас день и удержал серию',function(){return savedCount()>=1}],
+['fr1','Холодная голова','Передумал тратить в Морозилке',function(){return moneySaved()>0}],
+['rd1','Отработал','Закрыл срыв в тот же день',function(){return (S.redeem||[]).length>=1}]];
 function achNew(){
   var first=!S.ach,fresh=null,k=0;S.ach=S.ach||{};
   AC.forEach(function(a){if(a[3]()){k++;if(!S.ach[a[0]]){S.ach[a[0]]=today;if(!first)fresh=a}}});
@@ -417,6 +507,11 @@ function facts(){
   if(rd)f.push('Чтение: '+rd+' '+ru(rd,'день','дня','дней')+'. Ты вкладываешься в свою голову.');
   if(pn)f.push('Без порно: '+pn+' '+ru(pn,'день','дня','дней')+'. Это твой выбор.');
   if(jc)f.push(jc+' '+ru(jc,'вечер','вечера','вечеров')+' ты находил время подумать о себе и своём дне.');
+  var svN=savedCount(),msv=moneySaved(),rdN=(S.redeem||[]).length,tt=topTriggerText();
+  if(svN)f.push('Спасённых дней (стоп-кран): '+svN+'. Ты не дал одному промаху сжечь весь день.');
+  if(msv)f.push('Спас от импульсивных покупок: '+rub(msv)+'. Эти деньги остались у тебя.');
+  if(rdN)f.push('Отработано косяков: '+rdN+' '+ru(rdN,'раз','раза','раз')+' — сразу возвращал себя в строй.');
+  if(tt)f.push('Твой частый триггер срывов: '+tt+'. Держи его в фокусе.');
   return f.length?f:['Всё начинается с первой галочки. Отметь день, и здесь появятся факты, за которые тебя можно уважать.'];
 }
 function randPraise(){var a=facts();(S.praise||[]).forEach(function(p){a.push('Я горжусь собой за '+p.t)});return a[Math.floor(Math.random()*a.length)]}
@@ -731,6 +826,315 @@ $('bfile').onchange=function(){
     $('bfile').value='';
   };
   rd2.readAsText(f);
+};
+
+/* ==== 5 инструментов против срыва ==== */
+var TRIGS=[['forgot','Забыл'],['stress','Стресс / злость'],['hunger','Голод / жажда'],['bored','Скука'],['tired','Устал / недосып'],['company','За компанию']];
+function trigName(k){for(var i=0;i<TRIGS.length;i++)if(TRIGS[i][0]===k)return TRIGS[i][1];return k||'Другое'}
+function topTriggerText(){
+  var m={},best=null,k;
+  (S.slips||[]).forEach(function(x){if(x.trig)m[x.trig]=(m[x.trig]||0)+1});
+  for(k in m)if(!best||m[k]>best[1])best=[k,m[k]];
+  return best?(trigName(best[0])+' ('+best[1]+')'):'';
+}
+function cardAct(act){
+  if(act==='brk')return brkOpen();
+  if(act==='red')return redOpen();
+  if(act==='frz')return frzOpen();
+  if(act==='rem')return remOpen();
+  if(act==='sos-sweet')return sosOpen('sweet');
+  if(act==='anc'){
+    var inf=anchorInfo(S.days[today]||[]);
+    if(!inf.t)return remOpen();
+    var el=inf.t==='__jr'?document.querySelector('#cards .cd.jr'):document.querySelector('#cards .cd[data-id="'+inf.t+'"]');
+    if(el){$('cards').style.scrollBehavior='smooth';el.scrollIntoView({behavior:'smooth'})}
+  }
+}
+
+/* 1. Стоп-кран + спасение дня */
+var brkSel=[],brkTrg='forgot';
+function brkCalcTarget(sel){
+  var k=sel.length;
+  return k>0?Math.max(H.length-4,H.length-k):Math.max(2,H.length-3);
+}
+function brkOpen(){
+  var tod=(S.slips||[]).filter(function(x){return x.d===today});
+  var last=tod.length?tod[tod.length-1]:null;
+  brkSel=last&&Array.isArray(last.items)?last.items.slice():[];
+  brkTrg=(last&&last.trig)||'forgot';
+  $('brk').classList.add('on');$('brk').scrollTop=0;
+  brkRender();
+}
+function brkRender(){
+  var cur=S.days[today]||[],tgt=brkCalcTarget(brkSel),need=Math.max(0,tgt-cur.length),svOn=!!(S.saved&&S.saved[today]);
+  var h='<div class="tip" style="max-width:none">Сгорел забор — не сжигай весь двор. Отметь за 5 секунд, где споткнулся, тормози цепочку и спасай остаток дня.</div>';
+  h+='<div class="lb" style="max-width:none">1. На чём сегодня прокол?</div><div class="sl bad" style="max-width:none;justify-content:flex-start">';
+  H.forEach(function(it){
+    h+='<button data-bi="'+it.id+'" class="'+(brkSel.indexOf(it.id)>-1?'on':'')+'">'+it.t+'</button>';
+  });
+  h+='</div>';
+  if(brkSel.indexOf('cold')>-1&&!cur.includes('cold')){
+    h+='<div class="fact" style="border:1px solid #25f4ee88">🚿 <b>Стоп!</b> День длится до 00:00: если просто забыл холодный душ утром — залезь на 30 сек вечером и честно закрой пункт без срыва!</div>';
+  }
+  h+='<div class="lb" style="max-width:none">2. Почему сработало? (триггер)</div><div class="sl trg" style="max-width:none;justify-content:flex-start">';
+  TRIGS.forEach(function(t){
+    h+='<button data-bt="'+t[0]+'" class="'+(brkTrg===t[0]?'on':'')+'">'+t[1]+'</button>';
+  });
+  h+='</div>';
+  h+='<div class="fact">🛡️ <b>План спасения дня:</b> закрой <b>'+tgt+' из '+H.length+'</b> пунктов сегодня (сейчас '+cur.length+(need?', осталось '+need:', цель уже выполнена ✓')+') — серия <b>не сгорит</b>, а день станет золотым спасённым!</div>';
+  h+='<button class="cta" id="brk_go" style="max-width:none">🛡️ '+(svOn?'Обновить план спасения дня':'Включить спасение дня')+'</button>';
+  h+='<button class="cta" id="brk_red" style="max-width:none;background:#ff9600;box-shadow:0 5px 0 #c97400;margin-top:8px">💪 Включить + сразу отработать срыв</button>';
+  if(svOn)h+='<button class="cta alt" id="brk_off" style="max-width:none;margin-top:8px">Отменить режим спасения за сегодня</button>';
+  var mc={};(S.slips||[]).forEach(function(x){if(x.trig)mc[x.trig]=(mc[x.trig]||0)+1});
+  var ks=Object.keys(mc);
+  if(ks.length){
+    ks.sort(function(a,b){return mc[b]-mc[a]});
+    h+='<div class="en" style="margin-top:12px"><small>Твоя карта триггеров (где чаще ловит)</small>'+ks.map(function(k){return trigName(k)+': <b>'+mc[k]+'</b>'}).join(' · ')+'</div>';
+  }
+  $('brkbody').innerHTML=h;
+}
+function brkCommit(){
+  var tgt=brkCalcTarget(brkSel);
+  S.slips=S.slips||[];
+  var idx=-1;
+  for(var i=S.slips.length-1;i>=0;i--)if(S.slips[i].d===today){idx=i;break}
+  var rec={id:Date.now(),d:today,ts:Date.now(),items:brkSel.slice(),trig:brkTrg,redeemed:idx>-1?!!S.slips[idx].redeemed:false};
+  if(idx>-1)S.slips[idx]=rec;else S.slips.push(rec);
+  S.saved=S.saved||{};S.saved[today]=tgt;
+  save();achNew();feedRender();
+}
+$('brkx').onclick=function(){$('brk').classList.remove('on')};
+$('brkbody').onclick=function(e){
+  var b=e.target.closest('button');if(!b)return;
+  if(b.dataset.bi){var id=b.dataset.bi,p=brkSel.indexOf(id);if(p>-1)brkSel.splice(p,1);else brkSel.push(id);brkRender();return}
+  if(b.dataset.bt){brkTrg=b.dataset.bt;brkRender();return}
+  if(b.id==='brk_go'){brkCommit();$('brk').classList.remove('on');burst(innerWidth/2,innerHeight/2,28,true,'Стоп-кран 🛡️');return}
+  if(b.id==='brk_red'){
+    var defK=(brkSel.indexOf('sugar')>-1||brkSel.indexOf('alc')>-1)?'sq40':(brkSel.indexOf('cold')>-1?'cold45':'push30');
+    brkCommit();$('brk').classList.remove('on');redOpen(defK);return;
+  }
+  if(b.id==='brk_off'){
+    if(S.saved)delete S.saved[today];
+    S.slips=(S.slips||[]).filter(function(x){return x.d!==today});
+    save();feedRender();$('brk').classList.remove('on');
+  }
+};
+
+/* 2. Морозилка хотелок на 24 часа + счётчик денег */
+var frzT=null;
+function frzLeftStr(ts){
+  var ms=ts+864e5-Date.now();
+  if(ms<=0)return '✅ 24 часа выдержано! Ещё реально нужно?';
+  var s=Math.floor(ms/1000),hh=Math.floor(s/3600),mm=Math.floor((s%3600)/60),ss=s%60;
+  return '⏳ Осталось '+hh+' ч '+(mm<10?'0':'')+mm+' мин '+(ss<10?'0':'')+ss+' сек';
+}
+function frzTick(){
+  var els=document.querySelectorAll('#frzbody [data-ft]');
+  for(var i=0;i<els.length;i++)els[i].textContent=frzLeftStr(+els[i].dataset.ft);
+}
+function frzClose(){clearInterval(frzT);$('frz').classList.remove('on')}
+function frzOpen(){
+  clearInterval(frzT);
+  $('frz').classList.add('on');$('frz').scrollTop=0;
+  frzRender();
+  frzT=setInterval(frzTick,1000);
+}
+function frzRender(){
+  var sv=moneySaved(),ws=moneyWasted(),L=(S.freeze||[]).slice().reverse(),W=(S.wasted||[]).slice().reverse();
+  var waitL=L.filter(function(x){return x.status==='wait'}),doneL=L.filter(function(x){return x.status!=='wait'});
+  var h='<div class="sc2"><div><small>Спас от импульсов</small><b style="color:#58cc02">'+rub(sv)+'</b></div><div><small>Слито на эмоциях</small><b style="color:#fe2c55">'+rub(ws)+'</b></div></div>';
+  h+='<div class="en" style="margin-top:10px"><div class="lb" style="max-width:none;margin-top:0">Новая хотелка в заморозку на 24 часа</div><input class="inp" id="fn" maxlength="60" placeholder="Что захотелось? (доставка, вещь…)" style="margin-bottom:8px"><input class="inp" id="fs" type="number" inputmode="numeric" placeholder="Сумма, ₽ (например 2500)"><button class="cta" id="fadd" style="max-width:none;margin-top:10px">🧊 Заморозить на 24 часа (+5 XP)</button><button class="cta alt" id="fwaste" style="max-width:none;margin-top:8px;font-size:14px">Уже сорвался и потратил — записать в слив</button><div id="fmsg" style="font-size:14px;color:#ffd23f;margin-top:6px;text-align:center"></div></div>';
+  if(waitL.length){
+    h+='<div class="lb" style="max-width:none">В морозилке сейчас ('+waitL.length+')</div>';
+    waitL.forEach(function(x){
+      var ready=(x.ts+864e5)<=Date.now();
+      h+='<div class="en"><small><span data-ft="'+x.ts+'">'+frzLeftStr(x.ts)+'</span> <button class="chip" data-fdel="'+x.id+'" style="float:right;padding:0 8px">×</button></small><b>'+esc(x.name)+'</b> — <b>'+rub(x.sum)+'</b><div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap"><button class="cta" data-fok="'+x.id+'" style="margin:0;padding:10px;font-size:15px;flex:1;min-width:170px">Передумал — спас '+rub(x.sum)+'! (+15 XP)</button><button class="cta alt" data-fbuy="'+x.id+'" style="margin:0;padding:10px;font-size:14px;flex:1;min-width:120px">'+(ready?'Купил трезво':'Сорвался и купил')+'</button></div></div>';
+    });
+  }
+  if(doneL.length||W.length){
+    h+='<div class="lb" style="max-width:none">История решений</div>';
+    doneL.slice(0,12).forEach(function(x){
+      var lbl=x.status==='skip'?'<span style="color:#58cc02">✓ Спас '+rub(x.sum)+'</span>':x.status==='calm'?'<span style="opacity:.8">Купил после 24ч: '+rub(x.sum)+'</span>':'<span style="color:#fe2c55">Слив: '+rub(x.sum)+'</span>';
+      h+='<div class="en"><small>'+lbl+' <button class="chip" data-fdel="'+x.id+'" style="float:right;padding:0 8px">×</button></small>'+esc(x.name)+'</div>';
+    });
+    W.slice(0,12).forEach(function(x){
+      if(x.fromFrz)return;
+      h+='<div class="en"><small><span style="color:#fe2c55">💸 Импульсивный слив: −'+rub(x.sum)+'</span> · день '+(df(x.d,S.start)+1)+' <button class="chip" data-wdel="'+x.id+'" style="float:right;padding:0 8px">×</button></small>'+esc(x.name)+'</div>';
+    });
+  }
+  $('frzbody').innerHTML=h;
+}
+$('frzx').onclick=frzClose;
+$('frzbody').onclick=function(e){
+  var b=e.target.closest('button');if(!b)return;
+  if(b.id==='fadd'||b.id==='fwaste'){
+    var nm=($('fn').value||'').trim()||'Спонтанная покупка',sm=Math.round(Math.abs(+($('fs').value||0)));
+    if(!sm){$('fmsg').textContent='Укажи сумму в рублях, чтобы считать честно';$('fs').focus();return}
+    if(b.id==='fadd'){
+      S.freeze=S.freeze||[];
+      var todayFrz=S.freeze.filter(function(x){return ds(new Date(x.ts))===today}).length;
+      S.freeze.push({id:Date.now(),ts:Date.now(),name:nm,sum:sm,status:'wait'});
+      if(todayFrz<3){S.bonus=S.bonus||{};S.bonus['fz'+Date.now()]=5}
+      save();burst(innerWidth/2,innerHeight/2,20,true,'В заморозке 🧊');feedRender();frzRender();
+    }else{
+      S.wasted=S.wasted||[];
+      S.wasted.push({id:Date.now(),d:today,ts:Date.now(),name:nm,sum:sm});
+      save();feedRender();frzRender();
+    }
+    return;
+  }
+  if(b.dataset.fok){
+    var id=+b.dataset.fok,it=(S.freeze||[]).filter(function(x){return x.id===id})[0];
+    if(!it)return;
+    it.status='skip';it.resolvedTs=Date.now();
+    S.bonus=S.bonus||{};S.bonus['fs'+Date.now()]=15;
+    save();achNew();burst(innerWidth/2,innerHeight/2,32,true,'+'+rub(it.sum));feedRender();frzRender();return;
+  }
+  if(b.dataset.fbuy){
+    var id2=+b.dataset.fbuy,it2=(S.freeze||[]).filter(function(x){return x.id===id2})[0];
+    if(!it2)return;
+    var ok24=(it2.ts+864e5)<=Date.now();
+    it2.status=ok24?'calm':'leak';it2.resolvedTs=Date.now();
+    if(!ok24){S.wasted=S.wasted||[];S.wasted.push({id:Date.now(),d:today,ts:Date.now(),name:it2.name,sum:it2.sum,fromFrz:id2})}
+    save();feedRender();frzRender();return;
+  }
+  if(b.dataset.fdel){
+    var did=+b.dataset.fdel;
+    S.freeze=(S.freeze||[]).filter(function(x){return x.id!==did});
+    S.wasted=(S.wasted||[]).filter(function(x){return x.fromFrz!==did});
+    save();feedRender();frzRender();return;
+  }
+  if(b.dataset.wdel){
+    var wid=+b.dataset.wdel;
+    S.wasted=(S.wasted||[]).filter(function(x){return x.id!==wid});
+    save();feedRender();frzRender();
+  }
+};
+
+/* 3. Утренний и вечерний якорь + напоминания в Календарь iPhone */
+function remOpen(){
+  S.rem=S.rem||{m:'07:30',e:'21:30'};
+  $('rem').classList.add('on');$('rem').scrollTop=0;
+  remRender();
+}
+function remRender(){
+  var r=S.rem||{m:'07:30',e:'21:30'};
+  var h='<div class="tip" style="max-width:none">Холодный душ чаще всего срывается не из-за слабости, а потому что утром вылетело из головы. Поставь 2 ежедневных якоря прямо в системный Календарь iPhone — работают 100% без интернета.</div>';
+  h+='<div class="trow"><div><b>☀️ Утренний якорь</b><div style="font-size:14px;opacity:.75">Холодный душ · Осанка · План</div></div><input type="time" id="rm_m" value="'+esc(r.m||'07:30')+'"></div>';
+  h+='<div class="trow"><div><b>🌙 Вечерний якорь</b><div style="font-size:14px;opacity:.75">Проверка душа · Чтение · Итог</div></div><input type="time" id="rm_e" value="'+esc(r.e||'21:30')+'"></div>';
+  h+='<button class="cta" id="rm_ics" style="max-width:none">📲 Установить будильники на iPhone</button>';
+  h+='<div class="tip" id="rm_msg" style="max-width:none;font-size:15px">На iPhone откроется окно «Добавить все» в Календарь — подтверди в 1 тап, и телефон сам напомнит каждый день на протяжении 90 дней.</div>';
+  $('rembody').innerHTML=h;
+}
+function pad2(n){return (n<10?'0':'')+n}
+function makeIcs(mTime,eTime){
+  var d0=pr(today),ymd=d0.getFullYear()+pad2(d0.getMonth()+1)+pad2(d0.getDate());
+  var mp=(mTime||'07:30').split(':'),ep=(eTime||'21:30').split(':');
+  var remLeft=Math.max(1,90-ci());
+  function ev(uid,hh,mm,sum,desc){
+    var st=ymd+'T'+pad2(+hh||7)+pad2(+mm||30)+'00';
+    var eh=+hh||7,em=(+mm||30)+5;if(em>=60){em-=60;eh=(eh+1)%24}
+    var en=ymd+'T'+pad2(eh)+pad2(em)+'00';
+    return ['BEGIN:VEVENT','UID:'+uid+'@90dney.local','DTSTAMP:'+ymd+'T000000Z','DTSTART:'+st,'DTEND:'+en,'RRULE:FREQ=DAILY;COUNT='+remLeft,'SUMMARY:'+sum,'DESCRIPTION:'+desc,'BEGIN:VALARM','TRIGGER:PT0S','ACTION:DISPLAY','DESCRIPTION:'+sum,'END:VALARM','BEGIN:VALARM','TRIGGER:PT10M','ACTION:DISPLAY','DESCRIPTION:Контрольный звонок: '+sum,'END:VALARM','END:VEVENT'].join('\r\n');
+  }
+  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//90 дней//Якоря//RU','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+    ev('morning-'+ymd,mp[0],mp[1],'☀️ 90 дней: Холодный душ + Осанка','Не забудь холодный душ 30 сек, осанку и главное дело дня!'),
+    ev('evening-'+ymd,ep[0],ep[1],'🌙 90 дней: Чтение + Итог дня','Проверь: сделан ли душ, прочитай 10 страниц и закрой день в приложении!'),
+    'END:VCALENDAR'].join('\r\n');
+}
+$('remx').onclick=function(){$('rem').classList.remove('on')};
+$('rembody').onclick=function(e){
+  var b=e.target.closest('button');if(!b||b.id!=='rm_ics')return;
+  var m=$('rm_m').value||'07:30',ev=$('rm_e').value||'21:30';
+  S.rem={m:m,e:ev};save();
+  try{
+    var ics=makeIcs(m,ev);
+    var blob=new Blob([ics],{type:'text/calendar;charset=utf-8'});
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='90dney-yakorya.ics';
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(function(){URL.revokeObjectURL(a.href)},5000);
+    $('rm_msg').innerHTML='✅ Готово! Подтверди добавление в Календарь iPhone (утро <b>'+esc(m)+'</b>, вечер <b>'+esc(ev)+'</b>).';
+  }catch(er){$('rm_msg').textContent='Не удалось создать файл календаря.'}
+};
+
+/* 5. Отработка косяка в тот же день */
+var RED_OPTS=[
+ {id:'push30',t:'💪 +30 отжиманий сверх плана',d:'Разбей хоть на 15 + 15. Загони срыв и лишний сахар сразу в грудь и трицепс.'},
+ {id:'sq40',t:'🦵 +40 приседаний сверх плана',d:'Ноги — самые крупные мышцы: забирают сахар из крови и дурь из головы моментально.'},
+ {id:'abs30',t:'🔥 +30 пресс + 60 сек планка',d:'Жжение в прессе мгновенно возвращает контроль себе.',sec:60},
+ {id:'cold45',t:'🚿 45 сек ледяной воды прямо сейчас',d:'Резкий выброс норадреналина — особенно мощно, если забыл душ утром!',sec:45,cold:1}
+];
+var redK='push30',redT=null,redLeft=0,redRun=false;
+function redClose(){clearInterval(redT);redRun=false;$('red').classList.remove('on')}
+function redOpen(defK){
+  clearInterval(redT);redRun=false;
+  if(defK)redK=defK;
+  var o=RED_OPTS.filter(function(x){return x.id===redK})[0]||RED_OPTS[0];
+  redLeft=o.sec||0;
+  $('red').classList.add('on');$('red').scrollTop=0;
+  redRender();
+}
+function redFmt(s){var m=Math.floor(s/60),r=s%60;return m+':'+(r<10?'0':'')+r}
+function redRender(){
+  var tot=(S.redeem||[]).length,o=RED_OPTS.filter(function(x){return x.id===redK})[0]||RED_OPTS[0],cur=S.days[today]||[];
+  var h='<div class="tip" style="max-width:none">Сорвался на сладкое, лимонад или режим? Не ходи весь вечер с чувством вины — отработай телом прямо сейчас и спокойно едь дальше. Отработано всего: <b>'+tot+'</b>.</div>';
+  RED_OPTS.forEach(function(x){
+    h+='<div class="rcard'+(x.id===redK?' on':'')+'" data-rk="'+x.id+'"><b>'+x.t+'</b><span>'+x.d+'</span></div>';
+  });
+  if(o.sec){
+    h+='<div class="en" style="text-align:center"><div class="stt" id="rtm" style="font-size:36px">'+redFmt(redLeft)+'</div><button class="sub-cta" id="rtgo">'+(redRun?'Пауза':'Старт таймера ('+o.sec+' сек)')+'</button></div>';
+  }
+  if(o.cold&&!cur.includes('cold')){
+    h+='<label class="en" style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="checkbox" id="rcold" checked style="width:20px;height:20px"><span>Заодно закрыть сегодняшний пункт «Холодный душ»</span></label>';
+  }
+  h+='<button class="cta" id="rdone" style="max-width:none">🔥 Сделал — косяк отработан! (+15 XP)</button>';
+  var hist=(S.redeem||[]).slice().reverse().slice(0,8);
+  if(hist.length){
+    h+='<div class="lb" style="max-width:none">Последние отработки</div>';
+    hist.forEach(function(x){h+='<div class="en"><small>день '+(df(x.d,S.start)+1)+'</small>✓ '+esc(x.title)+'</div>'});
+  }
+  $('redbody').innerHTML=h;
+}
+$('redx').onclick=redClose;
+$('redbody').onclick=function(e){
+  var card=e.target.closest('[data-rk]');
+  if(card){
+    clearInterval(redT);redRun=false;redK=card.dataset.rk;
+    var o0=RED_OPTS.filter(function(x){return x.id===redK})[0]||RED_OPTS[0];
+    redLeft=o0.sec||0;redRender();return;
+  }
+  var b=e.target.closest('button');if(!b)return;
+  if(b.id==='rtgo'){
+    var o1=RED_OPTS.filter(function(x){return x.id===redK})[0]||RED_OPTS[0];
+    if(redRun){clearInterval(redT);redRun=false;b.textContent='Продолжить';return}
+    if(redLeft<=0)redLeft=o1.sec||45;
+    redRun=true;b.textContent='Пауза';
+    redT=setInterval(function(){
+      redLeft--;
+      var el=$('rtm');if(el)el.textContent=redLeft>0?redFmt(redLeft):'Готово! 🔥';
+      if(redLeft<=0){clearInterval(redT);redRun=false;try{navigator.vibrate&&navigator.vibrate([60,50,80])}catch(er){}var b2=$('rtgo');if(b2)b2.textContent='↻ Ещё раз'}
+    },1000);
+    return;
+  }
+  if(b.id==='rdone'){
+    clearInterval(redT);redRun=false;
+    var o2=RED_OPTS.filter(function(x){return x.id===redK})[0]||RED_OPTS[0];
+    S.redeem=S.redeem||[];
+    var rTod=redTodayCount();
+    S.redeem.push({id:Date.now(),d:today,ts:Date.now(),kind:o2.id,title:o2.t});
+    if(rTod<3){S.bonus=S.bonus||{};S.bonus['rd'+Date.now()]=15}
+    (S.slips||[]).forEach(function(s){if(s.d===today)s.redeemed=true});
+    var chk=$('rcold');
+    if(chk&&chk.checked){
+      var a=S.days[today]||[];
+      if(!a.includes('cold')){a.push('cold');S.days[today]=a}
+    }
+    save();achNew();redClose();
+    burst(innerWidth/2,innerHeight/2,34,true,rTod<3?'Отработано! +15 XP':'Косяк закрыт! 💪');
+    feedRender();
+  }
 };
 
 feedRender();
