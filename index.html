@@ -336,8 +336,19 @@ var TIP={porn:'Нет порно = в 3 раза легче держаться �
 var CH={c:['Ты сделал то, что другие откладывают.','Ещё один кирпич в стену.','Победа и должна быть будничной.'],r:['Это уже не случайность, это ты.','Неделю назад ты бы так не смог.','Характер строится вот так, по галочке.'],l:['Ты сегодня на другом уровне. Запомни это чувство.','Через 90 дней скажешь себе спасибо за этот день.'],s:['Ты не дал одному промаху сжечь весь день — это сильнее идеальной галочки.','Тормознуть срыв на полпути — вот где куётся настоящий характер.','Серия спасена. Завтра снова идём ровно.']};
 var TT={c:'Обычная награда',r:'Редкая награда!',l:'ЛЕГЕНДАРНАЯ НАГРАДА!',s:'День спасён 🛡️'},XX={c:20,r:50,l:120,s:25},PET=[[1,'🥚'],[2,'🐣'],[3,'🐥'],[5,'🦅'],[8,'🐉']],justId=null;
 function rub(n){n=Math.round(+n||0);return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' ₽'}
+var REHAB_STEPS=[
+ {id:'nochase',t:'🛑 Стоп «догон» — НЕ срываться второй раз до сна',d:'Один срыв откатывает нервную систему на сутки, а «догон» 2–3 раза подряд — на целую неделю! Остановиться на одном разе = уже мужская победа.'},
+ {id:'water',t:'💧 Ровно 60 секунд: умыть лицо холодной водой + стакан воды',d:'Никаких тренировок не надо! Просто дойди до крана на минуту, смой пролактиновый туман — и можешь спокойно лечь обратно отдыхать.'},
+ {id:'nophone',t:'📵 Лежать отдыхать / спать БЕЗ ленты и порно в руках',d:'Лежать с закрытыми глазами или спать — восстанавливает дофамин. Лежать с телефоном и рилсами — почти гарантированный второй срыв вечером.'}
+];
+function isRehabOn(d){return !!(S.rehab&&S.rehab[d]&&S.rehab[d].on)}
+function isDayRehabOk(d){
+  if(!isRehabOn(d))return false;
+  var st=(S.rehab[d].steps||[]);
+  return st.indexOf('nochase')>-1&&st.length>=2;
+}
 function dayTarget(d){var cn=coreIds().length,v=(S.saved||{})[d];return typeof v==='number'&&v>=2?Math.min(cn-1,v):Math.max(2,cn-Math.min(3,Math.ceil(cn/4)))}
-function isDaySaved(d){if(!S.saved||!S.saved[d])return false;var n=coreDoneCount(d);return n<coreIds().length&&n>=dayTarget(d)}
+function isDaySaved(d){if(isDayRehabOk(d))return true;if(!S.saved||!S.saved[d])return false;var n=coreDoneCount(d);return n<coreIds().length&&n>=dayTarget(d)}
 function dayChainOk(d){return fr(d)===1||isDaySaved(d)}
 function savedCount(){var n=0,d;for(d in (S.saved||{}))if(isDaySaved(d))n++;return n}
 function moneySaved(){var s=0;(S.freeze||[]).forEach(function(x){if(x.status==='skip')s+=(+x.sum||0)});return s}
@@ -359,6 +370,13 @@ function ring(r,p,col){var c=2*Math.PI*r;return '<circle cx="80" cy="80" r="'+r+
 var sayOff=0;
 function petSayPool(doneCore,cn,hr,svOn,svOk,out){
   var l=cn-doneCore,L=[],need=Math.max(0,dayTarget(today)-doneCore),cs=cleanStreak(),cb=cleanBest();
+  if(isRehabOn(today)&&l>0){
+    return [
+      'Полежи и восстановись без вины, брат. После слива скачет пролактин — 0 сил это чистая биология.',
+      'Никаких подвигов сегодня не надо. Единственная мужская задача до сна — НЕ пойти на второй круг!',
+      'Отложи телефон в сторону, умой лицо холодной водой и просто отдохни. Завтра встанем свежими!'
+    ];
+  }
   if(l===0){
     L=[
       'Главное ядро ('+cn+' из '+cn+') закрыто! Машина, брат — иди за сундуком!',
@@ -420,8 +438,9 @@ function feedRender(){
   var pool=petSayPool(doneCore,cn,hr,svOn,svOk,out),say=pool[sayOff%pool.length];
   $('lv').textContent='Ур. '+lv;$('xi').style.width=(xp%150)/150*100+'%';$('sk').innerHTML=I.fl+' '+ps;
   var sg='';OH.forEach(function(it,i){var bon=i>=cn;sg+='<b data-i="'+i+'" class="'+(bon?'bon':'')+(cur.includes(it.id)?' d':'')+'"></b>'});$('segs').innerHTML=sg;
-  var brkLbl=svOk?'🛡️ День спасён':svOn?'🛡️ Спасение '+doneCore+'/'+dayTarget(today):'🛑 Стоп-кран';
-  var brkCls=svOk?'qbtn saved':svOn?'qbtn saved':'qbtn stop';
+  var rhOn=isRehabOn(today),rhOk=isDayRehabOk(today);
+  var brkLbl=rhOk?'🛌 Без догона ✓':rhOn?'🛌 Тишина':svOk?'🛡️ День спасён':svOn?'🛡️ Спасение '+doneCore+'/'+dayTarget(today):'🛑 Стоп-кран';
+  var brkCls=(rhOk||svOk)?'qbtn saved':(rhOn||svOn)?'qbtn saved':'qbtn stop';
   var frzLbl='🧊 '+(fw?'24ч ('+fw+')':ms?rub(ms):'Морозилка 24ч');
   var redLbl=rc?'💪 Отработано ('+rc+')':'💪 Отработать';
   var ancHtml=canOfferRestore8()?'<button class="anc warn" data-act="restore8">🔄 Вернуть мои 8 дней (уйти с Дня 1!) ›</button>':'<button class="anc'+(anc.ok?' ok':'')+'" data-act="anc">'+anc.txt+'</button>';
@@ -1068,8 +1087,17 @@ function brkOpen(){
 }
 function brkRender(){
   var cur=S.days[today]||[],cn=coreIds().length,dc=coreDoneCount(today),tgt=brkCalcTarget(brkSel),need=Math.max(0,tgt-dc),svOn=!!(S.saved&&S.saved[today]);
-  var h='<div class="tip" style="max-width:none">Сгорел забор — не сжигай весь двор. НИКОГДА не жми «Сбросить прогресс» из-за одного прокола: отметь его здесь и спаси день!</div>';
-  h+='<div class="lb" style="max-width:none">1. На чём сегодня прокол?</div><div class="sl bad" style="max-width:none;justify-content:flex-start">';
+  var rhOn=isRehabOn(today),rhSteps=rhOn?(S.rehab[today].steps||[]):[],rhOk=isDayRehabOk(today);
+  var h='<div class="en" style="border:2px solid '+(rhOn?'#ffd23f':'#ffffff2e')+';background:'+(rhOn?'#ffd23f18':'#ffffff10')+'"><b style="font-size:18px;color:#ffd23f">🛌 Сорвался и 0 сил — хочется просто лежать?</b><div style="font-size:14.5px;opacity:.9;line-height:1.35;margin-top:4px">Это <b>не лень</b>: после слива в мозге подскакивает <b>пролактин</b> — он биологически выключает волю. Не заставляй себя делать рекорды сегодня! Включи <b>«День тишины без догона»</b> — можно спокойно лежать и восстанавливаться, главное выполнить 2 микро-правила ниже, и серия <b>не сгорит</b>:</div>';
+  REHAB_STEPS.forEach(function(s){
+    var on=rhSteps.indexOf(s.id)>-1;
+    h+='<div class="rcard'+(on?' on':'')+'" data-rhs="'+s.id+'" style="margin-top:7px;margin-bottom:0"><b>'+(on?'✅ ':'⬜ ')+s.t+'</b><span>'+s.d+'</span></div>';
+  });
+  h+='<button class="cta" id="rh_btn" style="max-width:none;margin-top:8px;background:#ff9600;box-shadow:0 5px 0 #c97400">'+(rhOk?'🛡️ День тишины защищён! Отдыхай спокойно ✓':rhOn?'🛌 Включить защиту (отметь «Стоп догон» + ещё 1 шаг)':'🛌 Лежу и восстанавливаюсь — включить «Без догона»')+'</button>';
+  if(rhOn)h+='<button class="cta alt" id="rh_off" style="max-width:none;margin-top:6px;font-size:14px">Появились силы — вернуться в обычный режим</button>';
+  h+='</div>';
+  h+='<div class="lb" style="max-width:none;margin-top:14px">Или если силы есть — активное спасение дня:</div>';
+  h+='<div class="sl bad" style="max-width:none;justify-content:flex-start">';
   orderedHabits().forEach(function(it,i){
     h+='<button data-bi="'+it.id+'" class="'+(brkSel.indexOf(it.id)>-1?'on':'')+'">'+(i<cn?'🔥 ':'')+it.t+'</button>';
   });
@@ -1109,7 +1137,35 @@ function brkCommit(){
 }
 $('brkx').onclick=function(){$('brk').classList.remove('on')};
 $('brkbody').onclick=function(e){
+  var rhs=e.target.closest('[data-rhs]');
+  if(rhs){
+    S.rehab=S.rehab||{};
+    var rObj=S.rehab[today]||{on:1,steps:[]};
+    rObj.on=1;
+    var ix=rObj.steps.indexOf(rhs.dataset.rhs);
+    if(ix>-1)rObj.steps.splice(ix,1);else rObj.steps.push(rhs.dataset.rhs);
+    S.rehab[today]=rObj;
+    sayOff=0;save();achNew();feedRender();brkRender();
+    return;
+  }
   var b=e.target.closest('button');if(!b)return;
+  if(b.id==='rh_btn'){
+    S.rehab=S.rehab||{};
+    var rObj2=S.rehab[today]||{on:1,steps:[]};
+    rObj2.on=1;
+    if(rObj2.steps.indexOf('nochase')<0)rObj2.steps.push('nochase');
+    S.rehab[today]=rObj2;
+    sayOff=0;save();achNew();feedRender();
+    if(isDayRehabOk(today)){
+      $('brk').classList.remove('on');
+      burst(innerWidth/2,innerHeight/2,28,true,'День тишины 🛡️');
+    }else brkRender();
+    return;
+  }
+  if(b.id==='rh_off'){
+    if(S.rehab)delete S.rehab[today];
+    sayOff=0;save();feedRender();brkRender();return;
+  }
   if(b.dataset.bi){var id=b.dataset.bi,p=brkSel.indexOf(id);if(p>-1)brkSel.splice(p,1);else brkSel.push(id);brkRender();return}
   if(b.dataset.bt){brkTrg=b.dataset.bt;brkRender();return}
   if(b.id==='brk_go'){brkCommit();$('brk').classList.remove('on');burst(innerWidth/2,innerHeight/2,28,true,'Стоп-кран 🛡️');return}
@@ -1469,6 +1525,7 @@ function nofapRender(){
   h+='<div class="fact" style="border:1px solid #fe2c5588">⚡ <b>Почему тебя срывало именно на 6–7-й день?</b><br>На 7-й день воздержания уровень тестостерона подскакивает почти до <b>145% от нормы</b>! В теле кипит дикая энергия, а старая привычка шепчет слить её в экран. Как только пройдёшь шторм 6–10-го дня — тяга резко падает, а энергия уходит в мышцы, голос и уверенность!</div>';
   h+='<div class="en"><b style="color:#25f4ee">3 железных правила, с которыми ты пробьёшь 7, 14 и 90 дней:</b><div style="margin-top:6px;font-size:15px;line-height:1.4">1. 📵 <b>Кровать и туалет = 0% телефона.</b> Оставляй телефон на столе. 90% срывов начинаются лёжа с экраном в руке.<br>2. 🦵 <b>Правило 3 секунд на 6–7-й день:</b> мелькнула мысль или картинка — встал, 40 приседаний до жжения + ледяная вода на лицо и запястья.<br>3. 🛡️ <b>Косяк в магазине ≠ срыв на дрочке!</b> Съел сладкое — чистые дни ЖИВЫ. И даже если оступился раз — <b>никогда не жми «Сбросить прогресс»!</b> Сразу встал и пошёл бить новый рекорд.</div></div>';
   h+='<button class="cta" id="nf_sos" style="max-width:none;background:#fe2c55;box-shadow:0 5px 0 #b81d3c">🚨 Накрыло прямо сейчас — экстренный сброс!</button>';
+  h+='<button class="cta" id="nf_rehab" style="max-width:none;margin-top:8px;background:#ff9600;box-shadow:0 5px 0 #c97400">🛌 Сорвался и 0 сил — режим «Без догона»</button>';
   h+='<button class="cta'+(bothClean?' alt':'')+'" id="nf_mark" style="max-width:none;margin-top:8px">'+(bothClean?'✓ Чистота за сегодня отмечена (без дрочки и порно)':'🔥 Отметить чистый день (без дрочки + без порно)')+'</button>';
   if(!S.restored8){
     h+='<button class="cta alt" id="nf_rest8" style="max-width:none;margin-top:8px;color:#ffd23f;border-color:#ffd23f66">🔄 Вернуть мои 6 чистых дней в рекорд</button>';
@@ -1479,6 +1536,15 @@ $('nofapx').onclick=function(){$('nofap').classList.remove('on')};
 $('nofapbody').onclick=function(e){
   var b=e.target.closest('button');if(!b)return;
   if(b.id==='nf_sos'){$('nofap').classList.remove('on');sosOpen('lust');return}
+  if(b.id==='nf_rehab'){
+    S.rehab=S.rehab||{};
+    var rObj=S.rehab[today]||{on:1,steps:['nochase']};
+    rObj.on=1;
+    if(rObj.steps.indexOf('nochase')<0)rObj.steps.push('nochase');
+    S.rehab[today]=rObj;
+    sayOff=0;save();feedRender();
+    $('nofap').classList.remove('on');brkOpen();return;
+  }
   if(b.id==='nf_rest8'){restoreMy8Days();return}
   if(b.id==='nf_mark'){
     var a=S.days[today]||[];
