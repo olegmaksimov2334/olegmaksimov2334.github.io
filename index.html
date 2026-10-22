@@ -29,7 +29,8 @@ button{font-family:inherit}
 .xb i{display:block;height:100%;width:0;background:linear-gradient(90deg,#25f4ee,#fe2c55);transition:width .5s}
 .segs{display:flex;gap:3px;margin-top:10px}
 .segs b{flex:1;height:4px;border-radius:3px;background:#ffffff33;cursor:pointer}
-.segs b.d{background:#fff}.segs b.cur{box-shadow:0 0 0 2px #ffffff88}
+.segs b.bon{background:#ffffff17;height:3px;margin-top:.5px}
+.segs b.d{background:#fff}.segs b.bon.d{background:#25f4ee}.segs b.cur{box-shadow:0 0 0 2px #ffffff88}
 .pill{background:#ffffff22;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-radius:20px;padding:3px 14px;font-size:15px;letter-spacing:.5px}
 .em{width:132px;height:132px;border-radius:50%;display:grid;place-items:center;font-size:72px;margin:16px 0 6px;background:#ffffff14;border:2px solid #ffffff30;box-shadow:0 0 60px hsl(var(--h) 90% 50%/.5)}
 .cd.ok .em:after{content:"✅";font-size:34px;position:absolute;right:-6px;bottom:0}
@@ -58,7 +59,7 @@ button{font-family:inherit}
 .lg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
 .chest{font-size:90px;line-height:1}
 .mini{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;width:100%;max-width:330px;margin:12px 0 0}
-.mini i{aspect-ratio:1;border-radius:6px;background:#ffffff14;display:grid;place-items:center;font:500 11px Oswald,sans-serif;font-style:normal;color:#ffffffa6}.mini i.f{background:#25f4ee;color:#07070c;font-weight:600}.mini i.s{background:#ffb400;color:#07070c;font-weight:600}.mini i.p{background:#25f4ee59;color:#e8feff}.mini i.n{outline:2px solid #fe2c55;outline-offset:-1px}.mini i.u{opacity:.45}@media (max-height:760px){.cd{padding:88px 18px 52px}.mini{max-width:280px;gap:3px}.mini i{font-size:10px;border-radius:5px}.chest{font-size:64px}.pet svg{max-width:80px;max-height:80px}.bubble{margin:5px 0 7px;padding:6px 12px;font-size:15px}.rings{width:118px;height:118px}.lg{margin-top:4px;font-size:13px}}
+.mini i{aspect-ratio:1;border-radius:6px;background:#ffffff14;display:grid;place-items:center;font:500 11px Oswald,sans-serif;font-style:normal;color:#ffffffa6}.mini i.f{background:#25f4ee;color:#07070c;font-weight:600}.mini i.s{background:#ffb400;color:#07070c;font-weight:600}.mini i.p{background:#25f4ee59;color:#e8feff}.mini i.n{outline:2px solid #fe2c55;outline-offset:-1px}.mini i.u{opacity:.45}@media (max-height:760px){.cd{padding:86px 18px 48px}.mini{max-width:280px;gap:3px}.mini i{font-size:10px;border-radius:5px}.chest{font-size:64px}.pet svg{max-width:72px;max-height:72px}.bubble{margin:4px 0 5px;padding:5px 11px;font-size:14px}.rings{width:102px;height:102px}.lg{margin-top:3px;font-size:12px}}
 .cta{width:100%;max-width:320px;padding:15px;border:0;border-radius:16px;background:#58cc02;color:#fff;font:400 19px 'Russo One',sans-serif;box-shadow:0 5px 0 #46a302;cursor:pointer;margin-top:14px}
 .cta:active{transform:translateY(4px);box-shadow:0 1px 0 #46a302}
 .cta.alt{background:#ffffff1f;box-shadow:0 5px 0 #ffffff14;margin-top:12px;max-width:220px;padding:10px;font-size:16px}
@@ -142,12 +143,12 @@ button{font-family:inherit}
 .toprow{display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap}
 .anc{border:1px solid #ffffff38;background:#ffffff16;color:#fff;border-radius:16px;padding:4px 12px;font:500 14px Oswald,sans-serif;margin-top:5px;max-width:330px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .anc.ok{background:#58cc0233;border-color:#58cc02;color:#d6ffbd}
-.qrow{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:7px;max-width:340px}
-.qbtn{border:1px solid #ffffff30;background:#ffffff18;color:#fff;border-radius:14px;padding:4px 11px;font:500 14px Oswald,sans-serif;cursor:pointer;white-space:nowrap}
+.qrow{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px;width:min(88vw,324px)}
+.qbtn{border:1px solid #ffffff30;background:#ffffff18;color:#fff;border-radius:14px;padding:5px 8px;font:500 13.5px Oswald,sans-serif;cursor:pointer;white-space:nowrap;text-align:center;overflow:hidden;text-overflow:ellipsis}
 .qbtn.stop{background:#fe2c5533;border-color:#fe2c55aa}
 .qbtn.saved{background:#ffb40033;border-color:#ffb400;color:#ffe699}
 .qbtn.done{background:#58cc0233;border-color:#58cc02;color:#d6ffbd}
-.sub-cta{margin:2px 0 4px;border:1px solid #ffffff45;background:#ffffff1c;color:#fff;border-radius:16px;padding:5px 14px;font:500 15px Oswald,sans-serif;cursor:pointer}
+.sub-cta{margin:2px 0 4px;border:1px solid #ffffff45;background:#ffffff1c;color:#fff;border-radius:16px;padding:5px 13px;font:500 14px Oswald,sans-serif;cursor:pointer;max-width:calc(100vw - 122px)}
 .sub-cta:active,.qbtn:active,.anc:active{transform:scale(.96)}
 #menu,#sos{justify-content:flex-start;padding-bottom:32px}
 #menu .cta{margin-top:4px;padding:12px}
@@ -181,14 +182,17 @@ button{font-family:inherit}
 .wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%}
 .witem{background:#ffffff12;border:2px solid #ffffff22;border-radius:16px;padding:8px 4px;text-align:center;color:#fff;cursor:pointer}
 .witem.on{border-color:#25f4ee;background:#25f4ee22}
-.witem b{display:block;font-size:14px;margin-top:2px;font-weight:500}</style>
+.witem b{display:block;font-size:14px;margin-top:2px;font-weight:500}
+.anc.warn{background:linear-gradient(90deg,#ffb40038,#fe2c5538);border-color:#ffd23f;color:#fff3bd}
+.cleanbar{border:1px solid #ffd23f77;background:linear-gradient(90deg,#ff6a1a33,#fe2c5530);color:#fff;border-radius:14px;padding:5px 13px;font:500 14px Oswald,sans-serif;cursor:pointer;margin-bottom:4px;max-width:335px;white-space:nowrap}
+.cleanbar b{color:#ffd23f}</style>
 </head>
 <body>
 <div id="feed"><div class="hud"><div class="r1"><span class="chip" id="lv"></span><div class="xb"><i id="xi"></i></div><span class="chip" id="sk"></span><button class="chip hot" id="sosb">Помощь</button><button class="chip" id="days" aria-label="Дни"></button><button class="chip" id="wayb" aria-label="Мой путь"></button></div><div class="segs" id="segs"></div></div><div id="cards"></div>
 <div id="win"><div id="wf"><svg viewBox="0 0 64 64"><path d="M32 3c3 14 20 20 20 37a20 20 0 0 1-40 0c0-8 5-13 8-19 2 6 6 8 8 8 0-10-2-17 4-26z" fill="#ff6a1a"/><path d="M32 30c1 7 9 10 9 18a9 9 0 0 1-18 0c0-5 3-7 5-11 1 3 3 4 4 4z" fill="#ffd23f"/></svg></div><h2 style="font:400 34px 'Russo One',sans-serif;margin:8px 0">День пройден!</h2><div id="wp" style="opacity:.85"></div><div class="tiles" id="tiles"></div><button class="cta" id="wb">Продолжить</button></div></div>
 <div class="ov" id="sos"><div class="pill">тянет — перехват желания</div><div class="stabs" id="stabs"></div><div class="sbox" id="sprot"></div><div class="br"><span id="bt">Вдох</span></div><div class="stt" id="st">10:00</div><div class="tip" id="sw" style="max-width:350px;font-size:16px"></div><button class="cta" id="sdone">Я справился (+15 XP)</button><button class="cta alt" id="sx">Закрыть</button></div>
 <div class="ov" id="sheet"><h3 id="sdt" style="font:400 26px 'Russo One',sans-serif;margin:0"></h3><div class="sg" id="sg"></div><div class="sl" id="sl"></div><button class="cta" id="shx">Готово</button></div>
-<div class="ov" id="menu"><div class="pill">чем помочь?</div><button class="cta" id="m_brk" style="background:#fe2c55;box-shadow:0 5px 0 #b8193a">🛑 Сорвался — торможу цепочку</button><button class="cta" id="m1">Тянет — желание накрывает</button><button class="cta" id="m2" style="background:#ff9600;box-shadow:0 5px 0 #c97400">Злюсь или стресс на работе</button><div class="mgrid"><button class="cta alt" id="m_red">💪 Отработать срыв</button><button class="cta alt" id="m_frz">🧊 Морозилка 24ч</button><button class="cta alt" id="m_rem">🔔 Напоминания</button><button class="cta alt" id="m_ward">🔥 Наряды Огонька</button><button class="cta alt" id="m8">🏋️ Спорт: лесенка</button><button class="cta alt" id="m5">🔮 Оракул</button><button class="cta alt" id="m4">✍️ Записать мысли</button><button class="cta alt" id="m3">❤️ Мои слова</button></div><button class="cta alt" id="m7">💾 Копия прогресса</button><button class="cta alt" id="m6">Сбросить прогресс</button><button class="cta alt" id="m0">Закрыть</button></div>
+<div class="ov" id="menu"><div class="pill">чем помочь?</div><button class="cta" id="m_nofap" style="background:#ff5500;box-shadow:0 5px 0 #b83b00">🔥 Главный щит: Без дрочки и порно</button><button class="cta" id="m_shop" style="background:#25a89e;box-shadow:0 5px 0 #18756e">🏪 У магазина — что взять вместо сахара</button><button class="cta" id="m_brk" style="background:#fe2c55;box-shadow:0 5px 0 #b8193a">🛑 Сорвался — торможу цепочку</button><div class="mgrid"><button class="cta alt" id="m1">⚡ Тянет сейчас</button><button class="cta alt" id="m2">😤 Стресс / злость</button><button class="cta alt" id="m_tier">🎯 Ступени (5/9/13)</button><button class="cta alt" id="m_red">💪 Отработать срыв</button><button class="cta alt" id="m_frz">🧊 Морозилка 24ч</button><button class="cta alt" id="m_rem">🔔 Будильники</button><button class="cta alt" id="m_ward">🔥 Наряды Огонька</button><button class="cta alt" id="m8">🏋️ Спорт: лесенка</button><button class="cta alt" id="m5">🔮 Оракул</button><button class="cta alt" id="m4">✍️ Дневник мыслей</button><button class="cta alt" id="m3">❤️ Мои слова</button><button class="cta alt" id="m7">💾 Копия прогресса</button></div><button class="cta alt" id="m6">Сбросить прогресс</button><button class="cta alt" id="m0">Закрыть</button></div>
 <div class="ov" id="cool"><div class="pill" id="cp"></div><div id="cb" style="width:100%;max-width:340px"></div><button class="cta" id="cn">Дальше</button><button class="cta alt" id="cx">Закрыть</button></div>
 <div class="ov" id="words"><h3 style="font:400 26px 'Russo One',sans-serif;margin:0">Мои слова</h3><div class="wl" id="wl"></div><button class="cta" id="wx">Закрыть</button></div>
 <div class="ov" id="bak"><div class="pill">сохранение прогресса</div><div class="tip" style="max-width:320px">Прогресс сохраняется автоматически на этом телефоне. Раз в неделю жми «Скачать копию файла» — и прогресс никогда не потеряется: копия открывается на любом телефоне или компьютере.</div><div class="code" id="bcode"></div><div class="tip" id="bcodetip" style="font-size:15px;max-width:320px;margin:0 0 6px">код восстановления — нажми, чтобы скопировать</div><input id="bcode_in" placeholder="Код с другого устройства" maxlength="12" autocapitalize="characters" autocomplete="off" spellcheck="false"><button class="cta" id="brestore">Восстановить по коду</button><button class="cta alt" id="bexp">Скачать копию файла</button><button class="cta alt" id="bimp">Загрузить копию файла</button><input type="file" id="bfile" accept="application/json,.json" style="display:none"><div class="tip" id="bstat" style="max-width:320px;min-height:52px"></div><button class="cta alt" id="bx">Закрыть</button></div>
@@ -200,6 +204,9 @@ button{font-family:inherit}
 <div class="ov way" id="red"><div class="wtop"><button class="chip" id="redx">‹ Назад</button><h3>Отработка срыва</h3><span></span></div><div id="redbody"></div></div>
 <div class="ov way" id="rem"><div class="wtop"><button class="chip" id="remx">‹ Назад</button><h3>Напоминания</h3><span></span></div><div id="rembody"></div></div>
 <div class="ov way" id="ward"><div class="wtop"><button class="chip" id="wardx">‹ Назад</button><h3>Гардероб Огонька</h3><span></span></div><div id="wardbody"></div></div>
+<div class="ov way" id="tier"><div class="wtop"><button class="chip" id="tierx">‹ Назад</button><h3>Ступени нагрузки</h3><span></span></div><div id="tierbody"></div></div>
+<div class="ov way" id="shop"><div class="wtop"><button class="chip" id="shopx">‹ Назад</button><h3>У магазина</h3><span></span></div><div id="shopbody"></div></div>
+<div class="ov way" id="nofap"><div class="wtop"><button class="chip" id="nofapx">‹ Назад</button><h3>Щит чистоты</h3><span></span></div><div id="nofapbody"></div></div>
 <div id="ld" style="display:none;position:fixed;inset:0;z-index:99;background:#07070c;color:#fff;place-items:center;font:20px Oswald,sans-serif">Загружаю твой прогресс…</div>
 <script>
 var G=[{g:'Не делаю',i:[{id:'porn',t:'Без порно'},{id:'fap',t:'Без дрочки'},{id:'sugar',t:'Без сахара и сладкого'},{id:'alc',t:'Без алкоголя и лимонадов'},{id:'scroll',t:'Без тикток и ютуба'},{id:'music',t:'Без музыки'},{id:'silence',t:'Молчу о планах, не жалуюсь'},{id:'money',t:'Без импульсивных трат'}]},{g:'Делаю',i:[{id:'sport',t:'Спорт'},{id:'cold',t:'Холодный душ'},{id:'read',t:'Чтение'},{id:'neck',t:'Осанка и шея'},{id:'plan',t:'Дела по плану, без лени'}]}];
@@ -214,8 +221,48 @@ function save(){S._t=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}
 var today=ds(new Date());
 if(!S.start){S.start=today;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function ci(){return Math.min(Math.max(df(today,S.start),0),89)}
-function fr(d){var a=S.days[d];return a?a.length/H.length:0}
+var TIERS={
+ t1:{n:'Ступень 1',full:'Ступень 1 · Главный удар (5)',sub:'Вся энергия — на полный отказ от дрочки и порно! Остальные 8 привычек идут бонусом (+10 XP) и НЕ сжигают серию, даже если зашёл в магазин.',core:['fap','porn','cold','sport','plan']},
+ t2:{n:'Ступень 2',full:'Ступень 2 · Плюс анти-сахар (9)',sub:'База закреплена — подключаем отказ от сахара, лимонадов, импульсивных трат и чтение.',core:['fap','porn','sugar','alc','money','cold','sport','read','plan']},
+ t3:{n:'Ступень 3',full:'Ступень 3 · Полный режим (13)',sub:'Все 13 привычек в обязательном ядре на максимальной мощности.',core:H.map(function(x){return x.id})}
+};
+function curTierKey(){return (S.tier&&TIERS[S.tier])?S.tier:'t1'}
+function coreIds(){return TIERS[curTierKey()].core}
+function isCore(id){return coreIds().indexOf(id)>-1}
+function orderedHabits(){
+  var c=coreIds(),out=[];
+  c.forEach(function(id){for(var i=0;i<H.length;i++)if(H[i].id===id)out.push(H[i])});
+  H.forEach(function(x){if(c.indexOf(x.id)<0)out.push(x)});
+  return out;
+}
+function coreDoneCount(d){
+  var a=S.days[d]||[],c=coreIds(),n=0;
+  for(var i=0;i<c.length;i++)if(a.includes(c[i]))n++;
+  return n;
+}
+function fr(d){return coreDoneCount(d)/coreIds().length}
 function streak(id){var i=Math.min(df(today,S.start),89),n=0;if(!(S.days[ad(S.start,i)]||[]).includes(id))i--;for(;i>=0;i--){if((S.days[ad(S.start,i)]||[]).includes(id))n++;else break}return n}
+function cleanStreak(){return streak('fap')}
+function cleanBest(){
+  var run=0,best=S.bestFap||0,ks=Object.keys(S.days||{}).sort(),prev=null;
+  ks.forEach(function(d){
+    if((S.days[d]||[]).includes('fap')){
+      run=(prev&&df(d,prev)===1)?run+1:1;
+      if(run>best)best=run;
+      prev=d;
+    }else{run=0;prev=null}
+  });
+  if(best>(S.bestFap||0))S.bestFap=best;
+  return best;
+}
+function cleanTotal(){var n=0,d;for(d in (S.days||{}))if((S.days[d]||[]).includes('fap'))n++;return n}
+function cleanGoal(cur,best){var ref=Math.max(cur,best||0);return cur<7&&ref<7?7:cur<7?7:cur<14?14:cur<21?21:cur<30?30:cur<60?60:90}
+function canOfferRestore8(){
+  if(S.restored8||S.hideRestore8)return false;
+  var nonEmpty=0,d;
+  for(d in (S.days||{}))if((S.days[d]||[]).length>0)nonEmpty++;
+  return nonEmpty<=1&&ci()<=1;
+}
 function $(i){return document.getElementById(i)}
 </script>
 <script>
@@ -285,12 +332,12 @@ function mascot(lv,done,n,ovOut,fixedSz){
   var ch=lv>=3?'<circle cx="27" cy="54" r="3" fill="#ff5d73" opacity=".6"/><circle cx="53" cy="54" r="3" fill="#ff5d73" opacity=".6"/>':'';
   return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 80 80"><defs><linearGradient id="'+gid+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+o.c1+'"/><stop offset="1" stop-color="'+o.c2+'"/></linearGradient></defs>'+(lv>=8?'<circle cx="40" cy="47" r="32" fill="'+o.c1+'" opacity=".18"/>':'')+(o.back||'')+'<path d="M40 11C43 24 60 30 60 48A20 20 0 0 1 20 48C20 40 25 35 28 29C30 35 34 37 36 37C36 27 34 20 40 11Z" fill="url(#'+gid+')"/><path d="M40 37C41 44 49 47 49 55A9 9 0 0 1 31 55C31 50 34 48 36 44C37 47 39 48 40 48Z" fill="'+o.core+'" opacity=".6"/>'+eyes+mouth+ch+crown+(o.front||'')+'</svg>';
 }
-var TIP={porn:'Тянет — встань и выпей воды. Через 10 минут отпустит.',fap:'Вышел из комнаты — желание вышло вместе с тобой.',sugar:'Хочется сладкого? Яблоко или стакан воды.',alc:'Налей воды с лимоном. Рука занята, голова спокойна.',scroll:'Телефон экраном вниз. Сегодня ты в нём не нужен.',music:'Тишина — тренажёр для головы.',silence:'Сказал вслух — и сила ушла. Пусть дела говорят за тебя. Жалоба — тоже слив: заметил — переключись в действие.',money:'Правило 24 часа: запиши хотелку и вернись завтра.',sport:'Хотя бы 10 минут. Начни — дальше пойдёт само.',cold:'30 секунд холодной в конце. Выдохни и терпи.',read:'10 страниц. Телефон в другую комнату.',neck:'Подбородок назад, макушка вверх, плечи вниз. Минута.',plan:'Одно дело, которое откладывал. Сделай его первым.'};
+var TIP={porn:'Нет порно = в 3 раза легче держаться без дрочки. В кровать и туалет — БЕЗ телефона!',fap:'Главный закон: в кровать и туалет без телефона. На 6–7-й день пик тестостерона — сжигай его в приседания, не торгуйся!',sugar:'Не выходи на улицу голодным! Потянуло у магазина — жми кнопку «У магазина» ниже.',alc:'Хочется газировки? Возьми ледяную минералку с газом — удар тот же, ноль сахара.',scroll:'Телефон экраном вниз. Сегодня ты в нём не нужен.',music:'Тишина — тренажёр для головы.',silence:'Сказал вслух — и сила ушла. Пусть дела говорят за тебя. Жалоба — тоже слив: заметил — переключись в действие.',money:'Правило 24 часа: запиши хотелку и вернись завтра.',sport:'Хотя бы 10 минут. Слей лишнее напряжение в мышцы — голову сразу отпустит.',cold:'30 секунд холодной в конце. Выдохни и терпи.',read:'10 страниц. Телефон в другую комнату.',neck:'Подбородок назад, макушка вверх, плечи вниз. Минута.',plan:'Одно дело, которое откладывал. Сделай его первым.'};
 var CH={c:['Ты сделал то, что другие откладывают.','Ещё один кирпич в стену.','Победа и должна быть будничной.'],r:['Это уже не случайность, это ты.','Неделю назад ты бы так не смог.','Характер строится вот так, по галочке.'],l:['Ты сегодня на другом уровне. Запомни это чувство.','Через 90 дней скажешь себе спасибо за этот день.'],s:['Ты не дал одному промаху сжечь весь день — это сильнее идеальной галочки.','Тормознуть срыв на полпути — вот где куётся настоящий характер.','Серия спасена. Завтра снова идём ровно.']};
 var TT={c:'Обычная награда',r:'Редкая награда!',l:'ЛЕГЕНДАРНАЯ НАГРАДА!',s:'День спасён 🛡️'},XX={c:20,r:50,l:120,s:25},PET=[[1,'🥚'],[2,'🐣'],[3,'🐥'],[5,'🦅'],[8,'🐉']],justId=null;
 function rub(n){n=Math.round(+n||0);return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' ₽'}
-function dayTarget(d){var v=(S.saved||{})[d];return typeof v==='number'&&v>=2?v:Math.max(2,H.length-3)}
-function isDaySaved(d){if(!S.saved||!S.saved[d])return false;var n=(S.days[d]||[]).length;return n<H.length&&n>=dayTarget(d)}
+function dayTarget(d){var cn=coreIds().length,v=(S.saved||{})[d];return typeof v==='number'&&v>=2?Math.min(cn-1,v):Math.max(2,cn-Math.min(3,Math.ceil(cn/4)))}
+function isDaySaved(d){if(!S.saved||!S.saved[d])return false;var n=coreDoneCount(d);return n<coreIds().length&&n>=dayTarget(d)}
 function dayChainOk(d){return fr(d)===1||isDaySaved(d)}
 function savedCount(){var n=0,d;for(d in (S.saved||{}))if(isDaySaved(d))n++;return n}
 function moneySaved(){var s=0;(S.freeze||[]).forEach(function(x){if(x.status==='skip')s+=(+x.sum||0)});return s}
@@ -300,112 +347,104 @@ function redTodayCount(){var n=0;(S.redeem||[]).forEach(function(x){if(x.d===tod
 function anchorInfo(cur){
   var hr=window._testHour!=null?window._testHour:new Date().getHours(),u=[],tgt=null;
   function chk(id,lbl){if(!cur.includes(id)){u.push(lbl);if(!tgt)tgt=id}}
-  if(hr>=5&&hr<15){chk('cold','Холодный душ');chk('neck','Осанка');chk('plan','План');return u.length?{ok:false,txt:'☀️ Утро: '+u.join(' · ')+' ›',t:tgt}:{ok:true,txt:'☀️ Утренний якорь закрыт ✓',t:null}}
+  if(hr>=5&&hr<15){chk('cold','Холодный душ');chk('sport','Спорт');chk('plan','План');return u.length?{ok:false,txt:'☀️ Утро: '+u.join(' · ')+' ›',t:tgt}:{ok:true,txt:'☀️ Утренний якорь закрыт ✓',t:null}}
   if(hr>=15&&hr<19){if(!cur.includes('cold'))return {ok:false,txt:'🚿 Забыл душ утром? Успеешь до 00:00 ›',t:'cold'};chk('sport','Спорт');chk('plan','План');return u.length?{ok:false,txt:'⚡ День: '+u.join(' · ')+' ›',t:tgt}:{ok:true,txt:'⚡ Дневной якорь закрыт ✓',t:null}}
-  chk('cold','Душ');chk('read','Чтение');if(!((S.j||{})[today]||{}).ok){u.push('Итог');if(!tgt)tgt='__jr'}
+  chk('fap','Без дрочки');chk('porn','Без порно');if(!((S.j||{})[today]||{}).ok){u.push('Итог');if(!tgt)tgt='__jr'}
   return u.length?{ok:false,txt:'🌙 Вечер: '+u.join(' · ')+' ›',t:tgt}:{ok:true,txt:'🌙 Вечерний якорь закрыт ✓',t:null};
 }
-function xpTotal(){var t=0;for(var d in S.days){var n=S.days[d].length;t+=n*10;if(n===H.length)t+=30}for(var k in (S.bonus||{}))t+=S.bonus[k];return t}
+function xpTotal(){var t=0;for(var d in S.days){var n=S.days[d].length;t+=n*10;if(fr(d)===1)t+=30}for(var k in (S.bonus||{}))t+=S.bonus[k];return t}
 function pstreak(){var i=Math.min(df(today,S.start),89),n=0;if(!dayChainOk(ad(S.start,i)))i--;for(;i>=0&&dayChainOk(ad(S.start,i));i--)n++;return n}
 function left(){var n=new Date(),e=new Date(n.getFullYear(),n.getMonth(),n.getDate()+1),m=Math.floor((e-n)/60000);return Math.floor(m/60)+' ч '+m%60+' мин'}
 function ring(r,p,col){var c=2*Math.PI*r;return '<circle cx="80" cy="80" r="'+r+'" fill="none" stroke="'+col+'33" stroke-width="14"/><circle cx="80" cy="80" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="14" stroke-linecap="round" stroke-dasharray="'+c+'" stroke-dashoffset="'+c*(1-p)+'" transform="rotate(-90 80 80)" style="transition:stroke-dashoffset .6s"/>'}
 var sayOff=0;
-function petSayPool(cur,n,hr,svOn,svOk,out){
-  var l=n-cur.length,L=[],need=Math.max(0,dayTarget(today)-cur.length);
+function petSayPool(doneCore,cn,hr,svOn,svOk,out){
+  var l=cn-doneCore,L=[],need=Math.max(0,dayTarget(today)-doneCore),cs=cleanStreak(),cb=cleanBest();
   if(l===0){
     L=[
-      '13 из 13! Машина, брат. Иди забирай сундук и отдыхай с чистой совестью.',
-      'Вот это уровень. Спокойная сила без лишних слов — горжусь тобой!',
-      'День закрыт всухую! За 90 таких дней характер становится стальным.',
-      'Сегодня ты победил себя. Запомни это чувство — ради него всё и идёт.',
+      'Главное ядро ('+cn+' из '+cn+') закрыто! Машина, брат — иди за сундуком!',
+      'Вот так и ломается потолок недели: спокойно, без перегруза, день за днём!',
+      'День взят! Хочешь — добей бонусы снизу ради XP, не хочешь — ты уже победил.',
       out.q
     ];
   }else if(svOk){
     L=[
       'Щит стоит, серия жива! Вытащить тяжёлый день круче, чем лёгкий.',
       'День спасён! Не дал одному косяку сжечь весь сарай — вот это по-мужски.',
-      'Цепочка срыва остановлена. Спускайся вниз за сундуком стойкости!',
       out.q
     ];
   }else if(svOn){
     L=[
-      'Цепочку тормознули — уже красава! Добей ещё '+need+' п., спасём этот день.',
+      'Цепочку тормознули — красава! Добей ещё '+need+' из главных, спасём день.',
       'Споткнулся — отряхнулся — пошёл дальше. Осталось '+need+' п. до щита!',
       out.q
     ];
-  }else if(cur.length===0){
+  }else if(doneCore===0){
     if(hr<12)L=[
       out.q,
-      'Ну чё, брат, проснулся? Плесни холодной в лицо — и погнали делать красиво.',
-      'Утро решает весь день. Закрой пару пунктов сходу — дальше само покатится.',
-      'Новый день — новый прикид! Не подведи мой стиль, жми первую галочку.',
-      'Пока остальные залипают в ленту в кровати, мы строим дисциплину.'
+      'Главное сегодня — чистота без дрочки и '+cn+' базовых шагов. Остальное без давления!',
+      (cb>=5?'Твой рекорд '+cb+' дн. — идём пробивать '+cleanGoal(cs,cb)+'! Начни с холодной воды.':'Утро решает весь день. Закрой пару главных пунктов сходу!'),
+      'Не берись за всё сразу: держим ядро из '+cn+' пунктов — и неделя падёт легко.'
     ];
     else if(hr<19)L=[
       out.q,
-      'Слышь, я тут вообще-то наряжался не чтобы мы по нулям сидели!',
-      'Полдня за спиной, а галочек ноль. Начни с самого простого прямо сейчас.',
-      'Одна галочка сдвинет лавину. Листай вниз и забирай первый пункт!'
+      'Идёшь мимо магазина — не заходи голодным! Жми «🏪 Магазин», там готовая замена.',
+      'Сфокусируйся только на '+cn+' главных пунктах — разгоним день прямо сейчас!'
     ];
     else L=[
       out.q,
-      'Вечер уже! Быстро забираем базу до полуночи — не отдавай день просто так.',
-      'До 00:00 ещё можно вытащить день за уши. Включайся, брат!'
+      'Вечер — главное время держать оборону: кровать без телефона и чистая голова!',
+      'Закрываем главные '+cn+' пунктов до полуночи и спокойно ложимся спать.'
     ];
-  }else if(l<=2){
+  }else if(l===1){
     L=[
-      'Брат, осталось ВСЕГО '+l+'! Добей сейчас, чтобы вечером ходить королём.',
-      'Ну тут копейки остались — '+l+' п., и идеальный день в кармане!',
+      'Брат, остался ВСЕГО 1 главный пункт! Добей сейчас и забирай сундук!',
       out.q,
-      'Финиш в двух шагах! Не вздумай тормознуть у самой ленточки.'
-    ];
-  }else if(cur.length>=7){
-    L=[
-      'Экватор позади! Осталось всего '+l+' — тут уже грех сливаться.',
-      out.q,
-      'Большую часть дня уже забрал. Дожимаем оставшиеся '+l+' спокойно!',
-      'Чувствуешь, как голова чище, когда не кормишь дешёвый дофамин? Ещё '+l+'.'
+      'Один шаг до победного дня — не тормози у самой ленточки!'
     ];
   }else{
     L=[
       out.q,
-      'О, процесс пошёл! Осталось '+l+' — разбираем по одному без суеты.',
-      'Галочка к галочке — так и куётся кремень. Ещё '+l+' на сегодня.',
-      'Сахар — мусор, лента — болото, а мы идём ровно. Осталось '+l+'!',
-      'Видишь, как бодрее, когда начал? Давай ещё парочку закроем!'
+      'Отлично идём! Из главного ядра осталось всего '+l+' из '+cn+' — спокойно дожимаем.',
+      'Даже если в магазине рука дрогнула — главное ядро и чистота не сгорают! Ещё '+l+'.',
+      'Помни: на 6–7-й день бьёт тестостерон — сжигай его в приседания, а не в телефон!'
     ];
   }
   return L;
 }
 function feedRender(){
-    var cd=$('cards'),st=cd.scrollTop,cur=S.days[today]||[],c=ci(),xp=xpTotal(),lv=Math.floor(xp/150)+1,ps=pstreak(),n=H.length,out=curOutfit();
-  var pet=mascot(lv,cur.length,n,out);
-  function cnt(g){return G[g].i.filter(function(h){return cur.includes(h.id)}).length}
-  var hr=window._testHour!=null?window._testHour:new Date().getHours(),left0=n-cur.length,anc=anchorInfo(cur),svOn=!!(S.saved&&S.saved[today]),svOk=isDaySaved(today),fw=frzWaitCount(),ms=moneySaved(),rc=redTodayCount();
-  var pool=petSayPool(cur,n,hr,svOn,svOk,out),say=pool[sayOff%pool.length];
+  var cd=$('cards'),st=cd.scrollTop,cur=S.days[today]||[],c=ci(),xp=xpTotal(),lv=Math.floor(xp/150)+1,ps=pstreak(),out=curOutfit();
+  var OH=orderedHabits(),cn=coreIds().length,doneCore=coreDoneCount(today),left0=cn-doneCore,bonTotal=OH.length-cn,doneBon=cur.length-doneCore;
+  var pet=mascot(lv,doneCore,cn,out);
+  var hr=window._testHour!=null?window._testHour:new Date().getHours(),anc=anchorInfo(cur),svOn=!!(S.saved&&S.saved[today]),svOk=isDaySaved(today),fw=frzWaitCount(),ms=moneySaved(),rc=redTodayCount();
+  var cs=cleanStreak(),cb=cleanBest(),cg=cleanGoal(cs,cb),tk=curTierKey();
+  var pool=petSayPool(doneCore,cn,hr,svOn,svOk,out),say=pool[sayOff%pool.length];
   $('lv').textContent='Ур. '+lv;$('xi').style.width=(xp%150)/150*100+'%';$('sk').innerHTML=I.fl+' '+ps;
-  var sg='';H.forEach(function(it,i){sg+='<b data-i="'+i+'" class="'+(cur.includes(it.id)?'d':'')+'"></b>'});$('segs').innerHTML=sg;
-  var brkLbl=svOk?'🛡️ День спасён ✓':svOn?'🛡️ Спасение '+cur.length+'/'+dayTarget(today):'🛑 Стоп-кран';
+  var sg='';OH.forEach(function(it,i){var bon=i>=cn;sg+='<b data-i="'+i+'" class="'+(bon?'bon':'')+(cur.includes(it.id)?' d':'')+'"></b>'});$('segs').innerHTML=sg;
+  var brkLbl=svOk?'🛡️ День спасён':svOn?'🛡️ Спасение '+doneCore+'/'+dayTarget(today):'🛑 Стоп-кран';
   var brkCls=svOk?'qbtn saved':svOn?'qbtn saved':'qbtn stop';
-  var frzLbl='🧊 '+(fw?'24ч ('+fw+')':ms?rub(ms):'24ч');
+  var frzLbl='🧊 '+(fw?'24ч ('+fw+')':ms?rub(ms):'Морозилка 24ч');
   var redLbl=rc?'💪 Отработано ('+rc+')':'💪 Отработать';
-  var stLine=left0===0?'идеальный день закрыт ✓':svOk?'🛡️ день спасён · серия под защитой':'серия сгорит через '+left();
-  var h=(S.signed?'':CT())+'<section class="cd" style="--h:200"><div class="toprow"><div class="pill">день '+(c+1)+' из 90</div><button class="chip" data-act="rem" style="font-size:13px;padding:3px 9px">🔔 будильник</button></div><button class="anc'+(anc.ok?' ok':'')+'" data-act="anc">'+anc.txt+'</button><div class="pet" data-act="pet">'+pet+'<span class="pettag">👕 '+esc(out.n)+'</span></div><div class="bubble" data-act="say"><span id="pet_say">'+esc(say)+'</span><small>нажми — скажу ещё</small></div><svg class="rings" width="150" height="150" viewBox="0 0 160 160">'+ring(70,cur.length/n,'#25f4ee')+ring(52,cnt(1)/G[1].i.length,'#fe2c55')+ring(34,cnt(0)/G[0].i.length,'#b6ff3c')+'</svg><div class="lg"><span><i style="background:#25f4ee"></i>всё</span><span><i style="background:#fe2c55"></i>делаю</span><span><i style="background:#b6ff3c"></i>не делаю</span></div><div class="qrow"><button class="'+brkCls+'" data-act="brk">'+brkLbl+'</button><button class="qbtn'+(rc?' done':'')+'" data-act="red">'+redLbl+'</button><button class="qbtn'+(ms?' done':'')+'" data-act="frz">'+frzLbl+'</button></div><div class="xp" style="margin-top:6px">'+stLine+'</div><div class="xp">свайп вправо — оракул, влево — спорт</div><div class="arr">⌄</div></section>';
-  H.forEach(function(it,i){
-    var on=cur.includes(it.id),sr=streak(it.id),tag=it.t.toLowerCase().replace(/[^а-яa-z0-9 ]/g,'').replace(/ /g,'_').slice(0,20),extra='';
-    if(it.id==='money')extra='<button class="sub-cta" data-act="frz">🧊 В морозилку 24ч'+(ms?' · спас '+rub(ms):fw?' · ждёт: '+fw:'')+'</button>';
-    else if(it.id==='sugar'||it.id==='alc')extra='<button class="sub-cta" data-act="sos-sweet">⚡ Тянет сейчас? Перехват за 2 мин</button>';
-    h+='<section class="cd'+(on?' ok':'')+(it.id===justId?' just':'')+'" data-id="'+it.id+'" style="--h:'+((i*47+190)%360)+'"><div class="pill">'+(i<G[0].i.length?'не делаю':'делаю')+' · '+(i+1)+'/'+n+'</div><div class="em">'+ico(it.id)+'</div><h3>'+it.t+'</h3><div class="tip">'+TIP[it.id]+'</div>'+extra+'<div class="xp">'+(sr?'серия '+sr+' дн. · ':'')+'+10 XP</div><button class="go" data-id="'+it.id+'">'+(on?'Сделано':'Сделал')+'</button><div class="rail"><div><span>'+I.fl+'</span>'+sr+'</div><div><span>'+I.bolt+'</span>'+xp+'</div><div><span>'+I.cal+'</span>'+(c+1)+'</div></div><div class="cap"><b>@ты</b> · день '+(c+1)+'<br><i>#90дней #'+tag+'</i><br><i>двойной тап — отметить</i></div><div class="arr">⌄</div></section>';
+  var ancHtml=canOfferRestore8()?'<button class="anc warn" data-act="restore8">🔄 Вернуть мои 8 дней (уйти с Дня 1!) ›</button>':'<button class="anc'+(anc.ok?' ok':'')+'" data-act="anc">'+anc.txt+'</button>';
+  var cleanP=((cur.includes('fap')?1:0)+(cur.includes('porn')?1:0))/2;
+  var bonP=bonTotal>0?doneBon/bonTotal:doneCore/cn;
+  var h=(S.signed?'':CT())+'<section class="cd" style="--h:200"><div class="toprow"><div class="pill">день '+(c+1)+' из 90</div><button class="chip" data-act="tier" style="font-size:13px;padding:3px 9px">🎯 '+TIERS[tk].n+' ('+cn+')</button><button class="chip" data-act="rem" style="font-size:13px;padding:3px 8px">🔔</button></div>'+ancHtml+'<div class="pet" data-act="pet">'+pet+'<span class="pettag">👕 '+esc(out.n)+'</span></div><div class="bubble" data-act="say"><span id="pet_say">'+esc(say)+'</span><small>нажми — скажу ещё</small></div><button class="cleanbar" data-act="nofap">🔥 Без дрочки: <b>'+cs+' дн.</b> · рекорд '+cb+' → цель <b>'+cg+' дн.</b> ›</button><svg class="rings" width="124" height="124" viewBox="0 0 160 160">'+ring(70,doneCore/cn,'#25f4ee')+ring(52,cleanP,'#fe2c55')+ring(34,bonP,'#b6ff3c')+'</svg><div class="lg"><span><i style="background:#25f4ee"></i>ядро '+doneCore+'/'+cn+'</span><span><i style="background:#fe2c55"></i>чистота</span><span><i style="background:#b6ff3c"></i>бонус</span></div><div class="qrow"><button class="qbtn" data-act="shop">🏪 У магазина</button><button class="'+brkCls+'" data-act="brk">'+brkLbl+'</button><button class="qbtn'+(rc?' done':'')+'" data-act="red">'+redLbl+'</button><button class="qbtn'+(ms?' done':'')+'" data-act="frz">'+frzLbl+'</button></div><div class="xp">свайп вправо — оракул, влево — спорт</div><div class="arr">⌄</div></section>';
+  OH.forEach(function(it,i){
+    var on=cur.includes(it.id),sr=streak(it.id),core=i<cn,tag=it.t.toLowerCase().replace(/[^а-яa-z0-9 ]/g,'').replace(/ /g,'_').slice(0,20),extra='';
+    if(it.id==='fap'||it.id==='porn')extra='<button class="sub-cta" data-act="nofap">🔥 Щит чистоты: как пройти 7+ дней</button>';
+    else if(it.id==='sugar'||it.id==='alc')extra='<button class="sub-cta" data-act="shop">🏪 У магазина — чем заменить без срыва</button>';
+    else if(it.id==='money')extra='<button class="sub-cta" data-act="frz">🧊 В морозилку 24ч'+(ms?' · спас '+rub(ms):fw?' · ждёт: '+fw:'')+'</button>';
+    var badge=core?('главное ядро · '+(i+1)+'/'+cn):('бонус без штрафа · +'+(i-cn+1)+'/'+bonTotal);
+    h+='<section class="cd'+(on?' ok':'')+(it.id===justId?' just':'')+'" data-id="'+it.id+'" style="--h:'+((i*47+190)%360)+'"><div class="pill">'+badge+'</div><div class="em">'+ico(it.id)+'</div><h3>'+it.t+'</h3><div class="tip">'+TIP[it.id]+'</div>'+extra+'<div class="xp">'+(sr?'серия '+sr+' дн. · ':'')+'+10 XP'+(core?'':' · не сжигает серию')+'</div><button class="go" data-id="'+it.id+'">'+(on?'Сделано':'Сделал')+'</button><div class="rail"><div><span>'+I.fl+'</span>'+sr+'</div><div><span>'+I.bolt+'</span>'+xp+'</div><div><span>'+I.cal+'</span>'+(c+1)+'</div></div><div class="cap"><b>@ты</b> · день '+(c+1)+'<br><i>#90дней #'+tag+'</i><br><i>двойной тап — отметить</i></div><div class="arr">⌄</div></section>';
   });
   justId=null;
   h+=JR();
-  var rw=(S.chest||{})[today],all=cur.length===n;
+  var rw=(S.chest||{})[today],all=doneCore===cn;
   h+='<section class="cd" style="--h:330">';
   if(rw)h+='<div class="chest">'+I.chest+'</div><h3>'+TT[rw.r]+'</h3><div class="tip">'+rw.t+'</div><div class="xp">+'+XX[rw.r]+' XP · завтра новый сундук</div>';
   else if(all)h+='<div class="chest">'+I.chest+'</div><h3>Сундук готов</h3><button class="go" id="open">Открыть</button>';
   else if(svOk)h+='<div class="chest">'+I.chest+'</div><h3>День спасён 🛡️</h3><div class="xp">серия под защитой · награда за стойкость</div><button class="go" id="open_save">Открыть</button>';
-  else if(svOn)h+='<div class="chest" style="filter:grayscale(1) opacity(.65)">'+I.chest+'</div><h3>Спасение дня 🛡️</h3><div class="tip">Закрой ещё '+Math.max(1,dayTarget(today)-cur.length)+' п. (до '+dayTarget(today)+' из '+n+') — серия сохранится и откроется сундук стойкости.</div>';
-  else h+='<div class="chest" style="filter:grayscale(1) opacity(.65)">'+I.chest+'</div><h3>Сундук закрыт</h3><div class="tip">Закрой ещё '+left0+' — получишь награду. Сорвался на 1–3 пунктах? Жми «Стоп-кран», чтобы спасти день.</div>';
+  else if(svOn)h+='<div class="chest" style="filter:grayscale(1) opacity(.65)">'+I.chest+'</div><h3>Спасение дня 🛡️</h3><div class="tip">Закрой ещё '+Math.max(1,dayTarget(today)-doneCore)+' из главных пунктов — серия сохранится и откроется сундук стойкости.</div>';
+  else h+='<div class="chest" style="filter:grayscale(1) opacity(.65)">'+I.chest+'</div><h3>Сундук закрыт</h3><div class="tip">Закрой ещё '+left0+' из '+cn+' главных пунктов — получишь награду. Бонусные пункты не давят!</div>';
   h+='<div class="mini">';
   for(var d=0;d<90;d++){var ds0=ad(S.start,d),f=fr(ds0),svD=isDaySaved(ds0);h+='<i class="'+(f===1?'f':svD?'s':f>0?'p':'')+(d===c?' n':'')+(d>c?' u':'')+'">'+(d+1)+'</i>'}
   h+='</div><button class="cta alt" id="share">Поделиться результатом</button></section>';
@@ -423,18 +462,18 @@ function burst(x,y,n,big,txt){
   try{navigator.vibrate&&navigator.vibrate(big?[30,40,60]:25)}catch(e){}
 }
 function showWin(){
-  var cur=S.days[today]||[];
-  $('wp').textContent='Ты закрыл все '+H.length+' пунктов. Так держать.';
+  var cur=S.days[today]||[],cn=coreIds().length;
+  $('wp').textContent='Главное ядро дня закрыто ('+cn+' из '+cn+'). Потолок недели трещит!';
   function t(c,l,v){return '<div class="tile" style="border-color:'+c+';color:'+c+'"><small style="background:'+c+'">'+l+'</small><b>'+v+'</b></div>'}
-  $('tiles').innerHTML=t('#ffc800','XP за день',cur.length*10+30)+t('#ff9600','серия',pstreak())+t('#58cc02','идеальных',(function(){var k=0;for(var i=0;i<=ci();i++)if(fr(ad(S.start,i))===1)k++;return k})());
+  $('tiles').innerHTML=t('#ffc800','XP за день',cur.length*10+30)+t('#ff9600','серия',pstreak())+t('#58cc02','без дрочки',cleanStreak()+' дн.');
   $('win').className='on';burst(innerWidth/2,innerHeight/3,50,true);
 }
 function toggle(id,x,y,idx){
   var a=S.days[today]||[],i=a.indexOf(id);
   if(i>-1)a.splice(i,1);else a.push(id);
-  S.days[today]=a;save();
+  S.days[today]=a;cleanBest();save();
   if(i<0){
-    var full=a.length===H.length;justId=id;
+    var full=fr(today)===1;justId=id;
     burst(x,y,full?36:14,full,'+10 XP');feedRender();
     setTimeout(function(){var n=$('cards').children[idx+1];if(n){$('cards').style.scrollBehavior='smooth';n.scrollIntoView({behavior:'smooth'})}},full?800:650);
     if(full){S.cel=S.cel||{};if(!S.cel[today]){S.cel[today]=1;save();setTimeout(showWin,1300)}}
@@ -508,14 +547,14 @@ function sosClose(){clearInterval(sosT);clearInterval(brT);$('sos').classList.re
 $('sx').onclick=sosClose;
 $('sdone').onclick=function(){S.bonus=S.bonus||{};S.bonus['s'+Date.now()]=15;save();sosClose();burst(innerWidth/2,innerHeight/2,30,true,'+15 XP');feedRender()};
 function sheet(){
-  var c=ci(),g='',date=ad(S.start,sd),cur=S.days[date]||[],h='';
+  var c=ci(),g='',date=ad(S.start,sd),cur=S.days[date]||[],h='',OH=orderedHabits(),cn=coreIds().length;
   for(var d=0;d<90;d++){var ds2=ad(S.start,d),f=fr(ds2);g+='<button data-i="'+d+'" class="'+(f===1?'f':isDaySaved(ds2)?'s':f>0?'p':'')+(d===sd?' sel':'')+'"'+(d>c?' disabled':'')+'>'+(d+1)+'</button>'}
-  H.forEach(function(it){h+='<button data-id="'+it.id+'" class="'+(cur.includes(it.id)?'on':'')+'">'+it.t+'</button>'});
-  $('sg').innerHTML=g;$('sl').innerHTML=h;$('sdt').textContent='День '+(sd+1)+(sd===c?' · сегодня':'');
+  OH.forEach(function(it,i){h+='<button data-id="'+it.id+'" class="'+(cur.includes(it.id)?'on':'')+'">'+(i<cn?'🔥 ':'')+it.t+'</button>'});
+  $('sg').innerHTML=g;$('sl').innerHTML=h;$('sdt').textContent='День '+(sd+1)+(sd===c?' · сегодня':'')+' · ядро '+coreDoneCount(date)+'/'+cn;
 }
 $('days').onclick=function(){sd=ci();$('sheet').classList.add('on');sheet()};
 $('sg').onclick=function(e){var b=e.target.closest('button');if(!b||b.disabled)return;sd=+b.dataset.i;sheet()};
-$('sl').onclick=function(e){var b=e.target.closest('button');if(!b)return;var k=ad(S.start,sd),a=S.days[k]||[],i=a.indexOf(b.dataset.id);if(i>-1)a.splice(i,1);else a.push(b.dataset.id);S.days[k]=a;save();sheet();feedRender()};
+$('sl').onclick=function(e){var b=e.target.closest('button');if(!b)return;var k=ad(S.start,sd),a=S.days[k]||[],i=a.indexOf(b.dataset.id);if(i>-1)a.splice(i,1);else a.push(b.dataset.id);S.days[k]=a;cleanBest();save();sheet();feedRender()};
 $('shx').onclick=function(){$('sheet').classList.remove('on')};
 function warm(){var a=[];for(var d in (S.j||{})){var j=S.j[d];(j.g||[]).forEach(function(x){if(x)a.push(x)});if(j.me)a.push('Я благодарю себя за '+j.me)}(S.praise||[]).forEach(function(p){a.push('Я горжусь собой за '+p.t)});return a.length?a[Math.floor(Math.random()*a.length)]:''}
 function stAvg(){var a={w:[],o:[]};for(var d in (S.j||{})){var j=S.j[d];if(j.ok&&j.st!=null)a[j.t||(pr(d).getDay()%6===0?'o':'w')].push(j.st)}function f(x){return x.length?(x.reduce(function(p,c){return p+c},0)/x.length).toFixed(1):'—'}return 'В среднем: работа '+f(a.w)+' · выходные '+f(a.o)}
@@ -541,11 +580,30 @@ function jrClick(e){
   if(!j.ok){j.ok=1;S.bonus=S.bonus||{};S.bonus['j'+today]=20;save();var r=bt.getBoundingClientRect();burst(r.left+r.width/2,r.top,24,true,'+20 XP');feedRender()}
   else{save();bt.textContent='Сохранено ✓'}
 }
+var m6T=null;
 $('menu').onclick=function(e){
-  var b=e.target.closest('button');if(!b)return;if(b.id==='m6'){if(b.dataset.arm){S={start:today,days:{}};save();$('menu').classList.remove('on');feedRender();$('cards').scrollTop=0;return}b.dataset.arm=1;b.textContent='Точно? Нажми ещё раз — всё сотрётся';return}$('menu').classList.remove('on');
-  if(b.id==='m1')sosOpen();else if(b.id==='m2')coolOpen();else if(b.id==='m3')wordsOpen();else if(b.id==='m5')oracleOpen();else if(b.id==='m4'){WKI=null;achNew();$('way').classList.add('on');wayRender('d')}else if(b.id==='m7')bakOpen();else if(b.id==='m8')spOpen();else if(b.id==='m_brk')brkOpen();else if(b.id==='m_red')redOpen();else if(b.id==='m_frz')frzOpen();else if(b.id==='m_rem')remOpen();else if(b.id==='m_ward')wardOpen();
+  var b=e.target.closest('button');if(!b)return;
+  if(b.id==='m6'){
+    if(b.dataset.arm==='ready'){
+      var kt=S.tier||'t1';
+      S={start:today,days:{},tier:kt,hideRestore8:1};
+      save();$('menu').classList.remove('on');feedRender();$('cards').scrollTop=0;return;
+    }
+    if(b.dataset.arm==='wait')return;
+    b.dataset.arm='wait';var sLeft=5;
+    b.textContent='СТОП! Не стирай сгоряча ('+sLeft+' сек) — лучше жми Стоп-кран выше!';
+    clearInterval(m6T);
+    m6T=setInterval(function(){
+      sLeft--;
+      if(sLeft>0){b.textContent='СТОП! Не стирай сгоряча ('+sLeft+' сек) — лучше жми Стоп-кран выше!'}
+      else{clearInterval(m6T);b.dataset.arm='ready';b.textContent='Точно стереть все дни с нуля? Нажми ещё раз'}
+    },1000);
+    return;
+  }
+  $('menu').classList.remove('on');
+  if(b.id==='m1')sosOpen();else if(b.id==='m2')coolOpen();else if(b.id==='m3')wordsOpen();else if(b.id==='m5')oracleOpen();else if(b.id==='m4'){WKI=null;achNew();$('way').classList.add('on');wayRender('d')}else if(b.id==='m7')bakOpen();else if(b.id==='m8')spOpen();else if(b.id==='m_brk')brkOpen();else if(b.id==='m_red')redOpen();else if(b.id==='m_frz')frzOpen();else if(b.id==='m_rem')remOpen();else if(b.id==='m_ward')wardOpen();else if(b.id==='m_tier')tierOpen();else if(b.id==='m_shop')shopOpen();else if(b.id==='m_nofap')nofapOpen();
 };
-$('sosb').onclick=function(){var r6=$('m6');r6.dataset.arm='';r6.textContent='Сбросить прогресс';$('menu').classList.add('on')};
+$('sosb').onclick=function(){clearInterval(m6T);var r6=$('m6');r6.dataset.arm='';r6.textContent='Сбросить прогресс';$('menu').classList.add('on')};
 function wordsOpen(){
   var h='',ds_=Object.keys(S.j||{}).sort().reverse();
   if(S.why)h+='<div class="wi"><small>моя причина</small>'+esc(S.why)+'</div>';
@@ -583,15 +641,17 @@ $('cx').onclick=function(){$('cool').classList.remove('on')};
 var CUP='<svg viewBox="0 0 24 24" fill="none" stroke="#ffd23f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3M12 14v4M8 20h8"/></svg>';
 function ru(n,a,b,c){var m=n%100,k=n%10;if(m>10&&m<20)return c;if(k==1)return a;if(k>1&&k<5)return b;return c}
 function cnt(id){var n=0;for(var d in S.days)if(S.days[d].includes(id))n++;return n}
-function perf(){var n=0;for(var d in S.days)if(S.days[d].length===H.length)n++;return n}
+function perf(){var n=0;for(var d in S.days)if(fr(d)===1)n++;return n}
 function urges(){return Object.keys(S.bonus||{}).filter(function(k){return k[0]==='s'}).length}
 function jcount(){var n=0;for(var d in (S.j||{}))if(S.j[d].ok)n++;return n}
 var AC=[
 ['start','Первый шаг','Отметил первую привычку',function(){return Object.keys(S.days).some(function(d){return S.days[d].length})}],
-['p1','Идеальный день','Закрыл все '+H.length+' пунктов',function(){return perf()>=1}],
-['p7','Неделя силы','7 идеальных дней',function(){return perf()>=7}],
-['p30','Месяц силы','30 идеальных дней',function(){return perf()>=30}],
-['p90','Прошёл путь','90 идеальных дней',function(){return perf()>=90}],
+['p1','Идеальный день','Закрыл главное ядро дня',function(){return perf()>=1}],
+['p7','Неделя силы','7 победных дней',function(){return perf()>=7}],
+['p30','Месяц силы','30 победных дней',function(){return perf()>=30}],
+['p90','Прошёл путь','90 победных дней',function(){return perf()>=90}],
+['nf7','Потолок пробит','7 дней подряд без дрочки',function(){return cleanBest()>=7}],
+['sh1','Мимо кассы','Вышел из магазина без сахара',function(){return (S.shops||[]).length>=1}],
 ['u1','Устоял','Справился с желанием',function(){return urges()>=1}],
 ['u10','Сильнее желания','10 раз справился',function(){return urges()>=10}],
 ['c1','Остыл','Успокоил себя в стрессе',function(){return (S.cool||[]).length>=1}],
@@ -616,8 +676,10 @@ function achNew(){
 }
 function badge(on){return '<svg viewBox="0 0 64 64"><path d="M32 4l24 10v18c0 14-10 24-24 28C18 56 8 46 8 32V14z" fill="'+(on?'#ffc800':'#ffffff14')+'" stroke="'+(on?'#fff':'#ffffff40')+'" stroke-width="3" stroke-linejoin="round"/>'+(on?'<path d="M32 18l4.5 9.5 10 1.3-7.4 7 1.9 10L32 41l-9 4.8 1.9-10-7.4-7 10-1.3z" fill="#fff"/>':'<rect x="25" y="28" width="14" height="12" rx="3" fill="#ffffff40"/><path d="M28 28v-4a4 4 0 0 1 8 0v4" fill="none" stroke="#ffffff40" stroke-width="3"/>')+'</svg>'}
 function facts(){
-  var f=[],p=perf(),u=urges(),cl=(S.cool||[]).length,jc=jcount(),c=cnt('cold'),sp=cnt('sport'),rd=cnt('read'),pn=cnt('porn');
-  if(p)f.push('Ты закрыл все пункты '+p+' '+ru(p,'день','дня','дней')+'. Каждый из них — выбор в пользу себя.');
+  var f=[],p=perf(),u=urges(),cl=(S.cool||[]).length,jc=jcount(),c=cnt('cold'),sp=cnt('sport'),rd=cnt('read'),pn=cnt('porn'),fp=cleanTotal(),fb=cleanBest(),shN=(S.shops||[]).length;
+  if(fp)f.push('Чистых дней без дрочки всего: '+fp+' (рекорд подряд: '+fb+' дн.). Ни один чистый день не пропадает зря!');
+  if(shN)f.push('Вышел из магазина без сахара и газировки: '+shN+' '+ru(shN,'раз','раза','раз')+'.');
+  if(p)f.push('Ты закрыл главное ядро дня '+p+' '+ru(p,'день','дня','дней')+'. Каждый из них — выбор в пользу себя.');
   if(u)f.push(u+' '+ru(u,'раз','раза','раз')+' ты справился с желанием. Это и есть сила воли.');
   if(cl){var sm=0;S.cool.forEach(function(x){sm+=Math.max(0,x.b-x.a)});f.push('Ты '+cl+' '+ru(cl,'раз','раза','раз')+' остановил злость вместо того, чтобы сорваться'+(sm?' и снизил напряжение суммарно на '+sm+' п.':'')+'.')}
   if(c)f.push('Холодный душ: '+c+' '+ru(c,'раз','раза','раз')+'. Ты делаешь неприятное, потому что так нужно.');
@@ -869,7 +931,8 @@ function srvOff(){
   try{['bcode','bcodetip','bcode_in','brestore'].forEach(function(id){var el=$(id);if(el)el.style.display='none'})}catch(e){}
 }
 /* есть ли сервер сохранения по коду? На обычном хостинге его нет — тогда кодовую часть скрываем */
-fetch('/api/state/Z9Z9Z9Z9',{cache:'no-store'}).then(function(r){
+if(/\.github\.io$/i.test(location.hostname))srvOff();
+else fetch('/api/state/Z9Z9Z9Z9',{cache:'no-store'}).then(function(r){
   var ct=(r.headers.get('content-type')||'');
   if(r.status===204||(r.ok&&ct.indexOf('json')!==-1)){SRV=true;pullDb()}
   else{srvOff()}
@@ -961,10 +1024,14 @@ function cardAct(act){
   if(act==='frz')return frzOpen();
   if(act==='rem')return remOpen();
   if(act==='pet')return wardOpen();
+  if(act==='tier')return tierOpen();
+  if(act==='shop')return shopOpen();
+  if(act==='nofap')return nofapOpen();
+  if(act==='restore8')return restoreMy8Days();
   if(act==='say'){
     sayOff++;
-    var cur=S.days[today]||[],hr=window._testHour!=null?window._testHour:new Date().getHours();
-    var pool=petSayPool(cur,H.length,hr,!!(S.saved&&S.saved[today]),isDaySaved(today),curOutfit());
+    var hr=window._testHour!=null?window._testHour:new Date().getHours();
+    var pool=petSayPool(coreDoneCount(today),coreIds().length,hr,!!(S.saved&&S.saved[today]),isDaySaved(today),curOutfit());
     var el=$('pet_say');
     if(el){
       el.textContent=pool[sayOff%pool.length];
@@ -985,8 +1052,11 @@ function cardAct(act){
 /* 1. Стоп-кран + спасение дня */
 var brkSel=[],brkTrg='forgot';
 function brkCalcTarget(sel){
-  var k=sel.length;
-  return k>0?Math.max(H.length-4,H.length-k):Math.max(2,H.length-3);
+  var cn=coreIds().length,kc=0;
+  (sel||[]).forEach(function(id){if(isCore(id))kc++});
+  if(cn<=5)return Math.max(3,cn-Math.min(2,Math.max(1,kc)));
+  if(cn<=9)return Math.max(6,cn-Math.min(3,Math.max(2,kc)));
+  return kc>0?Math.max(cn-4,cn-kc):Math.max(2,cn-3);
 }
 function brkOpen(){
   var tod=(S.slips||[]).filter(function(x){return x.d===today});
@@ -997,13 +1067,16 @@ function brkOpen(){
   brkRender();
 }
 function brkRender(){
-  var cur=S.days[today]||[],tgt=brkCalcTarget(brkSel),need=Math.max(0,tgt-cur.length),svOn=!!(S.saved&&S.saved[today]);
-  var h='<div class="tip" style="max-width:none">Сгорел забор — не сжигай весь двор. Отметь за 5 секунд, где споткнулся, тормози цепочку и спасай остаток дня.</div>';
+  var cur=S.days[today]||[],cn=coreIds().length,dc=coreDoneCount(today),tgt=brkCalcTarget(brkSel),need=Math.max(0,tgt-dc),svOn=!!(S.saved&&S.saved[today]);
+  var h='<div class="tip" style="max-width:none">Сгорел забор — не сжигай весь двор. НИКОГДА не жми «Сбросить прогресс» из-за одного прокола: отметь его здесь и спаси день!</div>';
   h+='<div class="lb" style="max-width:none">1. На чём сегодня прокол?</div><div class="sl bad" style="max-width:none;justify-content:flex-start">';
-  H.forEach(function(it){
-    h+='<button data-bi="'+it.id+'" class="'+(brkSel.indexOf(it.id)>-1?'on':'')+'">'+it.t+'</button>';
+  orderedHabits().forEach(function(it,i){
+    h+='<button data-bi="'+it.id+'" class="'+(brkSel.indexOf(it.id)>-1?'on':'')+'">'+(i<cn?'🔥 ':'')+it.t+'</button>';
   });
   h+='</div>';
+  if((brkSel.indexOf('sugar')>-1||brkSel.indexOf('alc')>-1)&&!isCore('sugar')){
+    h+='<div class="fact" style="border:1px solid #ffd23f88">🍬 <b>Выдохни!</b> На твоей ступени сладкое — бонусный пункт без штрафа. Оно <b>НЕ сжигает</b> ни серию, ни твою чистоту без дрочки! Просто сделай 40 приседаний и иди дальше.</div>';
+  }
   if(brkSel.indexOf('cold')>-1&&!cur.includes('cold')){
     h+='<div class="fact" style="border:1px solid #25f4ee88">🚿 <b>Стоп!</b> День длится до 00:00: если просто забыл холодный душ утром — залезь на 30 сек вечером и честно закрой пункт без срыва!</div>';
   }
@@ -1012,7 +1085,7 @@ function brkRender(){
     h+='<button data-bt="'+t[0]+'" class="'+(brkTrg===t[0]?'on':'')+'">'+t[1]+'</button>';
   });
   h+='</div>';
-  h+='<div class="fact">🛡️ <b>План спасения дня:</b> закрой <b>'+tgt+' из '+H.length+'</b> пунктов сегодня (сейчас '+cur.length+(need?', осталось '+need:', цель уже выполнена ✓')+') — серия <b>не сгорит</b>, а день станет золотым спасённым!</div>';
+  h+='<div class="fact">🛡️ <b>План спасения дня:</b> закрой <b>'+tgt+' из '+cn+'</b> главных пунктов сегодня (сейчас '+dc+(need?', осталось '+need:', цель уже выполнена ✓')+') — серия <b>не сгорит</b>, а день станет золотым спасённым!</div>';
   h+='<button class="cta" id="brk_go" style="max-width:none">🛡️ '+(svOn?'Обновить план спасения дня':'Включить спасение дня')+'</button>';
   h+='<button class="cta" id="brk_red" style="max-width:none;background:#ff9600;box-shadow:0 5px 0 #c97400;margin-top:8px">💪 Включить + сразу отработать срыв</button>';
   if(svOn)h+='<button class="cta alt" id="brk_off" style="max-width:none;margin-top:8px">Отменить режим спасения за сегодня</button>';
@@ -1293,6 +1366,128 @@ $('wardbody').onclick=function(e){
   S.outfit=el.dataset.wo;sayOff=0;save();
   feedRender();wardRender();
   burst(innerWidth/2,innerHeight/4,18,false);
+};
+
+/* Восстановление реальных 8 дней (6 чистых + срыв + камбэк → День 9) */
+function restoreMy8Days(){
+  var curToday=(S.days&&S.days[today])?S.days[today].slice():[];
+  var allIds=H.map(function(x){return x.id});
+  S.start=ad(today,-8);
+  S.days=S.days||{};
+  for(var i=0;i<6;i++)S.days[ad(S.start,i)]=allIds.slice();
+  S.days[ad(S.start,6)]=['cold','sport','plan'];
+  S.days[ad(S.start,7)]=['fap','porn','cold','sport','plan'];
+  S.days[today]=curToday;
+  S.signed=1;
+  S.tier=S.tier||'t1';
+  S.bestFap=Math.max(S.bestFap||0,6);
+  S.restored8=1;
+  delete S.hideRestore8;
+  save();achNew();feedRender();
+  if($('tier').classList.contains('on'))tierRender();
+  if($('nofap').classList.contains('on'))nofapRender();
+  burst(innerWidth/2,innerHeight/3,42,true,'8 дней в зачёте! 🔥');
+}
+
+/* 🎯 Ступени нагрузки (без выгорания на 6–7-й день) */
+function habitTitle(id){for(var i=0;i<H.length;i++)if(H[i].id===id)return H[i].t;return id}
+function tierOpen(){$('tier').classList.add('on');$('tier').scrollTop=0;tierRender()}
+function tierRender(){
+  var tk=curTierKey();
+  var h='<div class="tip" style="max-width:none">Когда держишь все 13 запретов разом, мозг перегревается к 6–7-му дню — и покупка булки в магазине рушит всю серию. Разделим задачу на <b>3 ступени</b>: сначала намертво закрепляем <b>полный отказ от дрочки и порно</b>, остальные привычки остаются в ленте как бонус (+10 XP) <b>без сжигания серии!</b></div>';
+  ['t1','t2','t3'].forEach(function(k){
+    var o=TIERS[k],on=tk===k;
+    h+='<div class="rcard'+(on?' on':'')+'" data-tk="'+k+'"><b>'+(on?'✅ ':'')+esc(o.full)+'</b><span>'+esc(o.sub)+'</span><div style="margin-top:6px;font-size:13px;opacity:.9;color:#25f4ee">Ядро: '+o.core.map(habitTitle).join(' · ')+'</div></div>';
+  });
+  if(!S.restored8){
+    h+='<div class="fact" style="margin-top:12px;border:1px solid #ffd23f88">🔄 <b>Твои прошлые 8 дней (6 + 2) не пропали!</b> Верни их одним нажатием: сегодня станет <b>Днём 9 из 90</b>, в зачёт встанут 7 чистых дней и твой рекорд <b>6 дней подряд</b>, который мы сейчас пробьём.<div style="margin-top:8px"><button class="cta" id="t_rest8" style="max-width:none;margin:0;background:#ff9600;box-shadow:0 5px 0 #c97400">🔄 Вернуть мои 8 дней (стать на День 9)</button></div></div>';
+  }else{
+    h+='<div class="en" style="margin-top:10px;text-align:center;color:#58cc02">✓ Твои 8 дней возвращены в историю — ты на Дне '+(ci()+1)+' из 90!</div>';
+  }
+  $('tierbody').innerHTML=h;
+}
+$('tierx').onclick=function(){$('tier').classList.remove('on')};
+$('tierbody').onclick=function(e){
+  var b=e.target.closest('#t_rest8');
+  if(b){restoreMy8Days();return}
+  var el=e.target.closest('[data-tk]');if(!el)return;
+  S.tier=el.dataset.tk;save();feedRender();tierRender();
+  burst(innerWidth/2,innerHeight/3,22,false,TIERS[S.tier].n);
+};
+
+/* 🏪 Режим «У магазина» — анти-сахар на улице */
+var SHOP_SWAPS=[
+ {id:'water',t:'🥤 Ледяная минералка с газом (Ессентуки / Нарзан / с лимоном)',d:'Бьёт по рецепторам пузырьками так же мощно, как кола или энергетик — 0 г сахара!'},
+ {id:'prot',t:'🥛 Греческий йогурт / Exponenta / творожок без сахара',d:'Густой, вкусный, даёт 20–30 г белка и вырубает тягу к сладкому на 4 часа.'},
+ {id:'nuts',t:'🥜 Пачка орехов (миндаль / фундук / кешью 30–50 г)',d:'Идеально жевать на ходу вместо шоколадки или батончика у кассы.'},
+ {id:'gum',t:'🌿 Мятная жвачка без сахара сразу на входе',d:'Резкая мята во рту за 20 секунд делает любую булку и лимонад невкусными.'},
+ {id:'meat',t:'🧀 Сыр-косичка / вяленое мясо / яблоко или мандарины',d:'Если реально проголодался по дороге — дай телу еду, а не сахарные качели.'}
+];
+var shopPick='water';
+function shopOpen(){$('shop').classList.add('on');$('shop').scrollTop=0;shopRender()}
+function shopRender(){
+  var cntS=(S.shops||[]).length,todS=(S.shops||[]).filter(function(x){return x.d===today}).length;
+  var h='<div class="sc2"><div><small>Побед у прилавка</small><b style="color:#58cc02">'+cntS+'</b></div><div><small>Сегодня устоял</small><b style="color:#ffd23f">'+todS+' раз</b></div></div>';
+  h+='<div class="fact" style="margin-top:10px;border:1px solid #ffd23f66">💡 <b>Почему ноги сами несут в магазин?</b><br>Это не слабость, а связка «голод + привычный маршрут». <b>Главный секрет:</b> съешь 2–3 яйца / кусок мяса или выпей большой стакан воды <b>ДО выхода из дома</b> — сытый мозг равнодушно проходит мимо витрин!</div>';
+  h+='<div class="lb" style="max-width:none">Уже зашёл в магазин? Выбери замену прямо у полки:</div>';
+  SHOP_SWAPS.forEach(function(x){
+    h+='<div class="rcard'+(shopPick===x.id?' on':'')+'" data-sp="'+x.id+'"><b>'+x.t+'</b><span>'+x.d+'</span></div>';
+  });
+  h+='<button class="cta" id="sh_win" style="max-width:none">🏪 Вышел из магазина БЕЗ сахара! (+15 XP)</button>';
+  h+='<button class="cta alt" id="sh_sos" style="max-width:none;margin-top:8px;font-size:15px">⚡ Всё ещё ломает на сладкое — 2-мин перехват</button>';
+  $('shopbody').innerHTML=h;
+}
+$('shopx').onclick=function(){$('shop').classList.remove('on')};
+$('shopbody').onclick=function(e){
+  var c=e.target.closest('[data-sp]');
+  if(c){shopPick=c.dataset.sp;shopRender();return}
+  var b=e.target.closest('button');if(!b)return;
+  if(b.id==='sh_sos'){$('shop').classList.remove('on');sosOpen('sweet');return}
+  if(b.id==='sh_win'){
+    S.shops=S.shops||[];
+    var todN=S.shops.filter(function(x){return x.d===today}).length;
+    S.shops.push({id:Date.now(),d:today,ts:Date.now(),pick:shopPick});
+    if(todN<2){S.bonus=S.bonus||{};S.bonus['sh'+Date.now()]=15}
+    save();achNew();$('shop').classList.remove('on');
+    burst(innerWidth/2,innerHeight/2,32,true,todN<2?'Мимо сахара! +15 XP':'Красава! 🏪');
+    feedRender();
+  }
+};
+
+/* 🔥 Главный щит: полный отказ от дрочки и порно (пробиваем потолок 7 дней) */
+function nofapOpen(){$('nofap').classList.add('on');$('nofap').scrollTop=0;nofapRender()}
+function nofapRender(){
+  var cs=cleanStreak(),cb=cleanBest(),ct=cleanTotal(),cg=cleanGoal(cs,cb),cur=S.days[today]||[];
+  var bothClean=cur.includes('fap')&&cur.includes('porn');
+  var h='<div class="sc2" style="grid-template-columns:repeat(3,1fr)"><div><small>Сейчас подряд</small><b style="color:#fe2c55">'+cs+' дн.</b></div><div><small>Личный рекорд</small><b style="color:#ffd23f">'+cb+' дн.</b></div><div><small>Всего чистых</small><b style="color:#58cc02">'+ct+' дн.</b></div></div>';
+  h+='<div class="en" style="margin-top:10px"><small>Шкала свободы · следующая цель: <b>'+cg+' дней</b></small><div style="display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-top:6px;text-align:center">';
+  [3,7,14,30,60,90].forEach(function(m){
+    var ok=Math.max(cs,cb)>=m;
+    h+='<div style="padding:7px 2px;border-radius:10px;font-weight:800;font-size:13px;background:'+(ok?'#58cc0233':'#ffffff0d')+';border:1px solid '+(ok?'#58cc02':(m===7?'#ffd23f88':'#ffffff1f'))+'">'+(ok?'✓ ':'')+m+'д</div>';
+  });
+  h+='</div></div>';
+  h+='<div class="fact" style="border:1px solid #fe2c5588">⚡ <b>Почему тебя срывало именно на 6–7-й день?</b><br>На 7-й день воздержания уровень тестостерона подскакивает почти до <b>145% от нормы</b>! В теле кипит дикая энергия, а старая привычка шепчет слить её в экран. Как только пройдёшь шторм 6–10-го дня — тяга резко падает, а энергия уходит в мышцы, голос и уверенность!</div>';
+  h+='<div class="en"><b style="color:#25f4ee">3 железных правила, с которыми ты пробьёшь 7, 14 и 90 дней:</b><div style="margin-top:6px;font-size:15px;line-height:1.4">1. 📵 <b>Кровать и туалет = 0% телефона.</b> Оставляй телефон на столе. 90% срывов начинаются лёжа с экраном в руке.<br>2. 🦵 <b>Правило 3 секунд на 6–7-й день:</b> мелькнула мысль или картинка — встал, 40 приседаний до жжения + ледяная вода на лицо и запястья.<br>3. 🛡️ <b>Косяк в магазине ≠ срыв на дрочке!</b> Съел сладкое — чистые дни ЖИВЫ. И даже если оступился раз — <b>никогда не жми «Сбросить прогресс»!</b> Сразу встал и пошёл бить новый рекорд.</div></div>';
+  h+='<button class="cta" id="nf_sos" style="max-width:none;background:#fe2c55;box-shadow:0 5px 0 #b81d3c">🚨 Накрыло прямо сейчас — экстренный сброс!</button>';
+  h+='<button class="cta'+(bothClean?' alt':'')+'" id="nf_mark" style="max-width:none;margin-top:8px">'+(bothClean?'✓ Чистота за сегодня отмечена (без дрочки и порно)':'🔥 Отметить чистый день (без дрочки + без порно)')+'</button>';
+  if(!S.restored8){
+    h+='<button class="cta alt" id="nf_rest8" style="max-width:none;margin-top:8px;color:#ffd23f;border-color:#ffd23f66">🔄 Вернуть мои 6 чистых дней в рекорд</button>';
+  }
+  $('nofapbody').innerHTML=h;
+}
+$('nofapx').onclick=function(){$('nofap').classList.remove('on')};
+$('nofapbody').onclick=function(e){
+  var b=e.target.closest('button');if(!b)return;
+  if(b.id==='nf_sos'){$('nofap').classList.remove('on');sosOpen('lust');return}
+  if(b.id==='nf_rest8'){restoreMy8Days();return}
+  if(b.id==='nf_mark'){
+    var a=S.days[today]||[];
+    if(!a.includes('fap'))a.push('fap');
+    if(!a.includes('porn'))a.push('porn');
+    S.days[today]=a;cleanBest();save();achNew();
+    feedRender();nofapRender();
+    burst(innerWidth/2,innerHeight/2,28,true,'Чистый день! 🔥');
+  }
 };
 
 feedRender();
