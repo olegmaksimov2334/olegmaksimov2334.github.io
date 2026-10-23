@@ -236,12 +236,33 @@ var today=ds(new Date());
 if(!S.start){S.start=today;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function ci(){return Math.min(Math.max(df(today,S.start),0),89)}
 var TIERS={
- t1:{n:'Ступень 1',full:'Ступень 1 · Главный удар (5)',sub:'Вся энергия — на полный отказ от дрочки и порно! Остальные 8 привычек идут бонусом (+10 XP) и НЕ сжигают серию, даже если зашёл в магазин.',core:['fap','porn','cold','sport','plan']},
- t2:{n:'Ступень 2',full:'Ступень 2 · Плюс анти-сахар (9)',sub:'База закреплена — подключаем отказ от сахара, лимонадов, импульсивных трат и чтение.',core:['fap','porn','sugar','alc','money','cold','sport','read','plan']},
- t3:{n:'Ступень 3',full:'Ступень 3 · Полный режим (13)',sub:'Все 13 привычек в обязательном ядре на максимальной мощности.',core:H.map(function(x){return x.id})}
+ t1:{n:'Ступень 1',short:'Ступ. 1',full:'Ступень 1 · Главный удар (5)',win:'0–7 чистых дн.',sub:'Режим выхода из Вампира в Человека: только 5 главных задач. Остальные 8 — бонусом (+10 XP) без сжигания серии!',core:['fap','porn','cold','sport','plan']},
+ t2:{n:'Ступень 2',short:'Ступ. 2',full:'Ступень 2 · Плюс анти-сахар (9)',win:'после 7 чистых дн.',sub:'Включается САМА на утро после 7 чистых дней подряд (когда ты стал 100% Человеком): добавляются анти-сахар, напитки, траты и чтение.',core:['fap','porn','sugar','alc','money','cold','sport','read','plan']},
+ t3:{n:'Ступень 3',short:'Ступ. 3',full:'Ступень 3 · Полный режим (13)',win:'после 21 чистого дня',sub:'Включается САМА на утро после 21 чистого дня подряд: полная броня на все 13 привычек, включая контроль рилсов и музыки.',core:H.map(function(x){return x.id})}
 };
-function curTierKey(){return (S.tier&&TIERS[S.tier])?S.tier:'t1'}
-function coreIds(){return TIERS[curTierKey()].core}
+function isTierManual(){return S.tierMode==='manual'&&S.tier&&!!TIERS[S.tier]}
+function cleanBefore(d){
+  if(S.vampDay===d)return 0;
+  var idx=df(d,S.start)-1,n=0;
+  if(idx>89)idx=89;
+  for(;idx>=0;idx--){
+    if((S.days[ad(S.start,idx)]||[]).includes('fap'))n++;
+    else break;
+  }
+  return n;
+}
+function autoTierForDay(d){
+  var cb=cleanBefore(d);
+  return cb>=21?'t3':cb>=7?'t2':'t1';
+}
+function tierKeyAt(d){
+  if(S.dayTier&&S.dayTier[d]&&TIERS[S.dayTier[d]])return S.dayTier[d];
+  if(d===today&&isTierManual())return S.tier;
+  return autoTierForDay(d);
+}
+function curTierKey(){return tierKeyAt(today)}
+function coreIdsAt(d){return TIERS[tierKeyAt(d)].core}
+function coreIds(){return coreIdsAt(today)}
 function isCore(id){return coreIds().indexOf(id)>-1}
 function orderedHabits(){
   var c=coreIds(),out=[];
@@ -250,11 +271,11 @@ function orderedHabits(){
   return out;
 }
 function coreDoneCount(d){
-  var a=S.days[d]||[],c=coreIds(),n=0;
+  var a=S.days[d]||[],c=coreIdsAt(d),n=0;
   for(var i=0;i<c.length;i++)if(a.includes(c[i]))n++;
   return n;
 }
-function fr(d){return coreDoneCount(d)/coreIds().length}
+function fr(d){var c=coreIdsAt(d);return coreDoneCount(d)/c.length}
 function streak(id){var i=Math.min(df(today,S.start),89),n=0;if(!(S.days[ad(S.start,i)]||[]).includes(id))i--;for(;i>=0;i--){if((S.days[ad(S.start,i)]||[]).includes(id))n++;else break}return n}
 function cleanStreak(){
   if(S.vampDay===today&&!(S.days[today]||[]).includes('fap'))return 0;
@@ -405,8 +426,8 @@ function isDayRehabOk(d){
   var st=(S.rehab[d].steps||[]);
   return st.indexOf('nochase')>-1&&st.length>=2;
 }
-function dayTarget(d){var cn=coreIds().length,v=(S.saved||{})[d];return typeof v==='number'&&v>=2?Math.min(cn-1,v):Math.max(2,cn-Math.min(3,Math.ceil(cn/4)))}
-function isDaySaved(d){if(isDayRehabOk(d))return true;if(!S.saved||!S.saved[d])return false;var n=coreDoneCount(d);return n<coreIds().length&&n>=dayTarget(d)}
+function dayTarget(d){var cn=coreIdsAt(d).length,v=(S.saved||{})[d];return typeof v==='number'&&v>=2?Math.min(cn-1,v):Math.max(2,cn-Math.min(3,Math.ceil(cn/4)))}
+function isDaySaved(d){if(isDayRehabOk(d))return true;if(!S.saved||!S.saved[d])return false;var n=coreDoneCount(d);return n<coreIdsAt(d).length&&n>=dayTarget(d)}
 function dayChainOk(d){return fr(d)===1||isDaySaved(d)}
 function savedCount(){var n=0,d;for(d in (S.saved||{}))if(isDaySaved(d))n++;return n}
 function moneySaved(){var s=0;(S.freeze||[]).forEach(function(x){if(x.status==='skip')s+=(+x.sum||0)});return s}
@@ -426,8 +447,21 @@ function pstreak(){var i=Math.min(df(today,S.start),89),n=0;if(!dayChainOk(ad(S.
 function left(){var n=new Date(),e=new Date(n.getFullYear(),n.getMonth(),n.getDate()+1),m=Math.floor((e-n)/60000);return Math.floor(m/60)+' ч '+m%60+' мин'}
 function ring(r,p,col){var c=2*Math.PI*r;return '<circle cx="80" cy="80" r="'+r+'" fill="none" stroke="'+col+'33" stroke-width="14"/><circle cx="80" cy="80" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="14" stroke-linecap="round" stroke-dasharray="'+c+'" stroke-dashoffset="'+c*(1-p)+'" transform="rotate(-90 80 80)" style="transition:stroke-dashoffset .6s"/>'}
 var sayOff=0;
+function tierChipText(tk,cn,cs){
+  if(isTierManual())return '✋ '+TIERS[tk].short+' ('+cn+')';
+  if(tk==='t1')return cs>=7?'🚀 Завтра Ступ. 2 (9)!':'🎯 Ступ. 1 (5) · '+cs+'/7д';
+  if(tk==='t2')return cs>=21?'🚀 Завтра Ступ. 3 (13)!':'🎯 Ступ. 2 (9) · '+cs+'/21д';
+  return '⚡ Ступ. 3 (13) · МАКС';
+}
 function petSayPool(doneCore,cn,hr,svOn,svOk,out){
   var l=cn-doneCore,L=[],need=Math.max(0,dayTarget(today)-doneCore),cs=cleanStreak(),cb=cleanBest();
+  if(S.stepDownNote===today&&l>0){
+    return [
+      'Сработал авто-щит: я сам снизил нагрузку обратно до Ступени 1 (5 задач), чтобы после срыва тебя не раздавило!',
+      'Спокойно набирай 7 чистых дней — как станешь 100% Человеком, Ступень 2 включится сама!',
+      out.q
+    ];
+  }
   if(isRehabOn(today)&&l>0){
     return [
       'Полежи и восстановись без вины, брат. После слива скачет пролактин — 0 сил это чистая биология.',
@@ -498,6 +532,14 @@ function feedRender(){
   var pet=mascot(lv,doneCore,cn,out);
   var hr=window._testHour!=null?window._testHour:new Date().getHours(),anc=anchorInfo(cur),svOn=!!(S.saved&&S.saved[today]),svOk=isDaySaved(today),fw=frzWaitCount(),ms=moneySaved(),rc=redTodayCount();
   var cs=cleanStreak(),cb=cleanBest(),cg=cleanGoal(cs,cb),tk=curTierKey(),hi=humanInfo(cs);
+  if(!isTierManual()){
+    var rk={t1:1,t2:2,t3:3};
+    if(S.seenTier&&S.seenTier!==tk){
+      if(rk[tk]>rk[S.seenTier]){delete S.stepDownNote;setTimeout(function(){burst(innerWidth/2,innerHeight/3,44,true,'🚀 '+TIERS[tk].n+'!')},250)}
+      else if(rk[tk]<rk[S.seenTier])S.stepDownNote=today;
+      S.seenTier=tk;save();
+    }else if(!S.seenTier){S.seenTier=tk;save()}
+  }
   var pool=petSayPool(doneCore,cn,hr,svOn,svOk,out),say=pool[sayOff%pool.length];
   $('lv').textContent='Ур. '+lv;$('xi').style.width=(xp%150)/150*100+'%';$('sk').innerHTML=I.fl+' '+ps;
   var sg='';OH.forEach(function(it,i){var bon=i>=cn;sg+='<b data-i="'+i+'" class="'+(bon?'bon':'')+(cur.includes(it.id)?' d':'')+'"></b>'});$('segs').innerHTML=sg;
@@ -511,7 +553,7 @@ function feedRender(){
   var bonP=bonTotal>0?doneBon/bonTotal:doneCore/cn;
   var hSub=hi.left>0?('ещё '+hi.left+' дн. ›'):('день '+cs+' ✓ ›');
   var humHtml='<div class="humbox '+hi.cls+'" data-act="human">'+humanSvg(cs,62)+'<div class="hbar"><i style="height:'+hi.bar+'%;background:'+hi.grad+'"></i></div><div class="hinfo"><b style="color:'+hi.col+'">'+hi.pct+'%</b><span>'+hi.title+'</span><small>'+hSub+'</small></div></div>';
-  var h=(S.signed?'':CT())+'<section class="cd" style="--h:200"><div class="toprow"><div class="pill">день '+(c+1)+' из 90</div><button class="chip" data-act="tier" style="font-size:13px;padding:3px 9px">🎯 '+TIERS[tk].n+' ('+cn+')</button><button class="chip" data-act="rem" style="font-size:13px;padding:3px 8px">🔔</button></div>'+ancHtml+'<div class="duo"><div class="pet" data-act="pet">'+pet+'<span class="pettag">👕 '+esc(out.n)+'</span></div>'+humHtml+'</div><div class="bubble" data-act="say"><span id="pet_say">'+esc(say)+'</span><small>нажми — скажу ещё</small></div><button class="cleanbar" data-act="nofap">🔥 Без дрочки: <b>'+cs+' дн.</b> · рекорд '+cb+' → цель <b>'+cg+' дн.</b> ›</button><svg class="rings" width="124" height="124" viewBox="0 0 160 160">'+ring(70,doneCore/cn,'#25f4ee')+ring(52,cleanP,'#fe2c55')+ring(34,bonP,'#b6ff3c')+'</svg><div class="lg"><span><i style="background:#25f4ee"></i>ядро '+doneCore+'/'+cn+'</span><span><i style="background:#fe2c55"></i>чистота</span><span><i style="background:#b6ff3c"></i>бонус</span></div><div class="qrow"><button class="qbtn" data-act="shop">🏪 У магазина</button><button class="'+brkCls+'" data-act="brk">'+brkLbl+'</button><button class="qbtn'+(rc?' done':'')+'" data-act="red">'+redLbl+'</button><button class="qbtn'+(ms?' done':'')+'" data-act="frz">'+frzLbl+'</button></div><div class="xp">свайп вправо — оракул, влево — спорт</div><div class="arr">⌄</div></section>';
+  var h=(S.signed?'':CT())+'<section class="cd" style="--h:200"><div class="toprow"><div class="pill">день '+(c+1)+' из 90</div><button class="chip" data-act="tier" style="font-size:13px;padding:3px 9px">'+tierChipText(tk,cn,cs)+'</button><button class="chip" data-act="rem" style="font-size:13px;padding:3px 8px">🔔</button></div>'+ancHtml+'<div class="duo"><div class="pet" data-act="pet">'+pet+'<span class="pettag">👕 '+esc(out.n)+'</span></div>'+humHtml+'</div><div class="bubble" data-act="say"><span id="pet_say">'+esc(say)+'</span><small>нажми — скажу ещё</small></div><button class="cleanbar" data-act="nofap">🔥 Без дрочки: <b>'+cs+' дн.</b> · рекорд '+cb+' → цель <b>'+cg+' дн.</b> ›</button><svg class="rings" width="124" height="124" viewBox="0 0 160 160">'+ring(70,doneCore/cn,'#25f4ee')+ring(52,cleanP,'#fe2c55')+ring(34,bonP,'#b6ff3c')+'</svg><div class="lg"><span><i style="background:#25f4ee"></i>ядро '+doneCore+'/'+cn+'</span><span><i style="background:#fe2c55"></i>чистота</span><span><i style="background:#b6ff3c"></i>бонус</span></div><div class="qrow"><button class="qbtn" data-act="shop">🏪 У магазина</button><button class="'+brkCls+'" data-act="brk">'+brkLbl+'</button><button class="qbtn'+(rc?' done':'')+'" data-act="red">'+redLbl+'</button><button class="qbtn'+(ms?' done':'')+'" data-act="frz">'+frzLbl+'</button></div><div class="xp">свайп вправо — оракул, влево — спорт</div><div class="arr">⌄</div></section>';
   OH.forEach(function(it,i){
     var on=cur.includes(it.id),sr=streak(it.id),core=i<cn,tag=it.t.toLowerCase().replace(/[^а-яa-z0-9 ]/g,'').replace(/ /g,'_').slice(0,20),extra='';
     if(it.id==='fap'||it.id==='porn')extra='<button class="sub-cta" data-act="nofap">🔥 Щит чистоты: как пройти 7+ дней</button>';
@@ -1513,18 +1555,23 @@ function restoreMy8Days(){
   burst(innerWidth/2,innerHeight/3,42,true,'8 дней в зачёте! 🔥');
 }
 
-/* 🎯 Ступени нагрузки (без выгорания на 6–7-й день) */
+/* 🎯 Ступени нагрузки (умный авто-рост по чистым дням + авто-откат при срыве) */
 function habitTitle(id){for(var i=0;i<H.length;i++)if(H[i].id===id)return H[i].t;return id}
 function tierOpen(){$('tier').classList.add('on');$('tier').scrollTop=0;tierRender()}
 function tierRender(){
-  var tk=curTierKey();
-  var h='<div class="tip" style="max-width:none">Когда держишь все 13 запретов разом, мозг перегревается к 6–7-му дню — и покупка булки в магазине рушит всю серию. Разделим задачу на <b>3 ступени</b>: сначала намертво закрепляем <b>полный отказ от дрочки и порно</b>, остальные привычки остаются в ленте как бонус (+10 XP) <b>без сжигания серии!</b></div>';
+  var tk=curTierKey(),man=isTierManual(),cs=cleanStreak();
+  var pct=tk==='t1'?Math.min(100,Math.round(cs/7*100)):tk==='t2'?Math.min(100,Math.round(cs/21*100)):100;
+  var nextTxt=tk==='t1'?(cs>=7?'🚀 Рубеж 7 чистых дней взят! С завтрашнего утра САМА включится Ступень 2 (9 задач)!':'Авто-переход на Ступень 2: <b>'+cs+' из 7</b> чистых дней подряд (ровно когда станешь 100% Человеком!)'):
+    tk==='t2'?(cs>=21?'🚀 Рубеж 21 чистого дня взят! С завтрашнего утра САМА включится Ступень 3 (13 задач)!':'Авто-переход на Ступень 3: <b>'+cs+' из 21</b> чистого дня подряд'):
+    '⚡ Максимальная Ступень 3 активна! Все 13 привычек в броне.';
+  var h='<div class="en" style="border:2px solid '+(man?'#ffffff33':'#25f4eeaa')+';background:#0d1420"><b style="font-size:18px;color:'+(man?'#ffd23f':'#25f4ee')+'">'+(man?'✋ Сейчас включён ручной выбор ступени':'🤖 Умный авто-рост ступеней (включён ✓)')+'</b><div style="font-size:14.5px;margin-top:5px;line-height:1.35">'+nextTxt+'</div><div style="height:12px;border-radius:99px;background:#ffffff18;overflow:hidden;margin:9px 0 7px"><div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,#25f4ee,#58cc02);border-radius:99px"></div></div><div style="font-size:13.5px;opacity:.88;line-height:1.35">🛡️ <b>Как работает защита при срыве:</b> ничего продавать себе вручную не нужно! Новая ступень включается <b>сама</b> с утра после 7 и 21 чистого дня. А если ты сорвался на дрочке (стал 0% Вампиром) — система <b>сама сбрасывает нагрузку обратно на Ступень 1 (5 задач)</b>, чтобы в яме после срыва тебя не раздавило задачами!</div>'+(man?'<button class="cta" id="t_auto" style="max-width:none;margin-top:8px;padding:11px;font-size:16px">🤖 Вернуть умный Авто-рост (рекомендуется!)</button>':'')+'</div>';
+  h+='<div class="lb" style="max-width:none;margin-top:10px">Лестница ступеней (можно и переключить вручную):</div>';
   ['t1','t2','t3'].forEach(function(k){
     var o=TIERS[k],on=tk===k;
-    h+='<div class="rcard'+(on?' on':'')+'" data-tk="'+k+'"><b>'+(on?'✅ ':'')+esc(o.full)+'</b><span>'+esc(o.sub)+'</span><div style="margin-top:6px;font-size:13px;opacity:.9;color:#25f4ee">Ядро: '+o.core.map(habitTitle).join(' · ')+'</div></div>';
+    h+='<div class="rcard'+(on?' on':'')+'" data-tk="'+k+'"><b>'+(on?'✅ ':'')+esc(o.full)+' <small style="display:inline;font-size:12px;color:#ffd23f;font-weight:500">('+o.win+')</small></b><span>'+esc(o.sub)+'</span><div style="margin-top:6px;font-size:13px;opacity:.9;color:#25f4ee">Ядро: '+o.core.map(habitTitle).join(' · ')+'</div></div>';
   });
   if(!S.restored8){
-    h+='<div class="fact" style="margin-top:12px;border:1px solid #ffd23f88">🔄 <b>Твои прошлые 8 дней (6 + 2) не пропали!</b> Верни их одним нажатием: сегодня станет <b>Днём 9 из 90</b>, в зачёт встанут 7 чистых дней и твой рекорд <b>6 дней подряд</b>, который мы сейчас пробьём.<div style="margin-top:8px"><button class="cta" id="t_rest8" style="max-width:none;margin:0;background:#ff9600;box-shadow:0 5px 0 #c97400">🔄 Вернуть мои 8 дней (стать на День 9)</button></div></div>';
+    h+='<div class="fact" style="margin-top:12px;border:1px solid #ffd23f88">🔄 <b>Твои прошлые 8 дней (6 + 2) не пропали!</b> Верни их одним нажатием: сегодня станет <b>Днём 9 из 90</b>, в зачёт встанут 7 чистых дней и твой рекорд <b>6 дней подряд</b>.<div style="margin-top:8px"><button class="cta" id="t_rest8" style="max-width:none;margin:0;background:#ff9600;box-shadow:0 5px 0 #c97400">🔄 Вернуть мои 8 дней (стать на День 9)</button></div></div>';
   }else{
     h+='<div class="en" style="margin-top:10px;text-align:center;color:#58cc02">✓ Твои 8 дней возвращены в историю — ты на Дне '+(ci()+1)+' из 90!</div>';
   }
@@ -1534,8 +1581,20 @@ $('tierx').onclick=function(){$('tier').classList.remove('on')};
 $('tierbody').onclick=function(e){
   var b=e.target.closest('#t_rest8');
   if(b){restoreMy8Days();return}
+  var ba=e.target.closest('#t_auto');
+  if(ba){
+    delete S.tierMode;
+    if(S.dayTier)delete S.dayTier[today];
+    S.seenTier=curTierKey();
+    save();feedRender();tierRender();
+    burst(innerWidth/2,innerHeight/3,24,false,'🤖 Авто-рост ✓');
+    return;
+  }
   var el=e.target.closest('[data-tk]');if(!el)return;
-  S.tier=el.dataset.tk;save();feedRender();tierRender();
+  S.tierMode='manual';
+  S.tier=el.dataset.tk;
+  S.dayTier=S.dayTier||{};S.dayTier[today]=el.dataset.tk;
+  save();feedRender();tierRender();
   burst(innerWidth/2,innerHeight/3,22,false,TIERS[S.tier].n);
 };
 
