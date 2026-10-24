@@ -290,7 +290,13 @@ function humanInfo(d){
   if(d===5)return {pct:75,bar:75,cls:'hum',col:'#84cc16',grad:'linear-gradient(0deg,#10b981,#a3e635)',title:'Почти человек',full:'🌤️ 75% · Почти человек',sub:'5 чистых дней! Тестостерон разгоняется — направляй его в тело и движение.',left:2};
   if(d===6)return {pct:90,bar:90,cls:'hum',col:'#ffd23f',grad:'linear-gradient(0deg,#58cc02,#ffd23f)',title:'Почти Человек!',full:'🔥 90% · В шаге от Человека!',sub:'Твой главный рубеж! Всего 1 чистый день — и проклятие вампира падёт окончательно!',left:1};
   if(d<14)return {pct:100,bar:100,cls:'hum',col:'#ffd23f',grad:'linear-gradient(0deg,#58cc02,#ffd23f)',title:'Человек!',full:'☀️ 100% · ЖИВОЙ ЧЕЛОВЕК!',sub:'Потолок 7 дней пробит! Тёплая кровь, ясный взгляд, живая сила — береги свой облик!',left:0};
-  return {pct:100,bar:100,cls:'hum',col:'#ffd23f',grad:'linear-gradient(0deg,#f59e0b,#fef08a)',title:'Человек Силы',full:'⚡ 100% · ЧЕЛОВЕК СИЛЫ ('+d+' дн.)',sub:'Высшая форма чистоты! Ночной вампир остался в прошлом.',left:0};
+  if(d<21)return {pct:100,bar:100,cls:'hum',col:'#ffd23f',grad:'linear-gradient(0deg,#f59e0b,#fef08a)',title:'Страж рассвета',full:'🛡️ 100% · СТРАЖ РАССВЕТА · '+d+' дн.',sub:'Две недели позади. Ты уже знаешь свои вечерние ловушки и учишься выбирать по-своему — не на автопилоте.',left:0};
+  if(d<30)return {pct:100,bar:100,cls:'hum',col:'#ffd23f',grad:'linear-gradient(0deg,#f59e0b,#fef08a)',title:'Воин воли',full:'⚔️ 100% · ВОИН ВОЛИ · '+d+' дн.',sub:'Три недели выдержки. Не магия и не гарантия: это твои повторённые решения, день за днём.',left:0};
+  if(d<45)return {pct:100,bar:100,cls:'hum',col:'#ffd23f',grad:'linear-gradient(0deg,#f59e0b,#fef08a)',title:'Хозяин своей силы',full:'🔥 100% · ХОЗЯИН СВОЕЙ СИЛЫ · '+d+' дн.',sub:'Месяц рядом. Ты не обязан быть идеальным — важно возвращаться к выбранному курсу и защищать вечерний режим.',left:0};
+  if(d<60)return {pct:100,bar:100,cls:'hum',col:'#ffd23f',grad:'linear-gradient(0deg,#f59e0b,#fef08a)',title:'Капитан своей жизни',full:'🧭 100% · КАПИТАН СВОЕЙ ЖИЗНИ · '+d+' дн.',sub:'Полтора месяца практики. Ты всё лучше замечаешь триггеры и заранее выбираешь следующий шаг.',left:0};
+  if(d<75)return {pct:100,bar:100,cls:'hum',col:'#ffd23f',grad:'linear-gradient(0deg,#f59e0b,#fef08a)',title:'Архитектор привычек',full:'🏗️ 100% · АРХИТЕКТОР ПРИВЫЧЕК · '+d+' дн.',sub:'Два месяца: не полагайся только на силу воли — настрой окружение и понятные планы на сложные моменты.',left:0};
+  if(d<90)return {pct:100,bar:100,cls:'hum',col:'#ffd23f',grad:'linear-gradient(0deg,#f59e0b,#fef08a)',title:'Человек нового пути',full:'🌅 100% · ЧЕЛОВЕК НОВОГО ПУТИ · '+d+' дн.',sub:'Финиш уже близко. Это не конец работы, а доказательство, что ты умеешь снова выбирать свой путь.',left:0};
+  return {pct:100,bar:100,cls:'hum',col:'#ffd23f',grad:'linear-gradient(0deg,#f59e0b,#fef08a)',title:'Легенда 90 дней',full:'👑 100% · ЛЕГЕНДА 90 ДНЕЙ',sub:'Ты прошёл весь путь. Сохрани то, что сработало, и продолжай строить жизнь без культа идеальности.',left:0};
 }
 function humanSvg(d,sz){
   sz=sz||64;
@@ -319,7 +325,7 @@ function humanSvg(d,sz){
     d<=2?'<path d="M34 45Q40 44.2 46 45" fill="none" stroke="#3b0719" stroke-width="2" stroke-linecap="round"/><polygon points="36,45 37.3,48.2 38.6,45" fill="#fff"/><polygon points="41.4,45 42.7,48.2 44,45" fill="#fff"/>':
     d<=4?'<path d="M35 44.5Q40 48 45 44.5" fill="none" stroke="#5b2c1a" stroke-width="2.2" stroke-linecap="round"/>':
     '<path d="M33.5 43.5Q40 50.5 46.5 43.5Z" fill="#fff" stroke="#5b2c1a" stroke-width="1.6" stroke-linejoin="round"/>';
-  var crown=d>=14?'<path d="M31 13l3-6 6 4 6-4 3 6z" fill="#ffd23f" stroke="#a16207" stroke-width="1.3"/>':'';
+  var crown=d>=90?'<path d="M31 13l3-6 6 4 6-4 3 6z" fill="#ffd23f" stroke="#a16207" stroke-width="1.3"/>':d>=14?'<path d="M31 13l3-6 6 4 6-4 3 6z" fill="#ffd23f" stroke="#a16207" stroke-width="1.3"/><circle cx="40" cy="8" r="1.5" fill="#fff7ae"/>':'';
   return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 80 80">'+aura+wings+body+'<rect x="35" y="48" width="10" height="10" rx="4" fill="'+skin+'"/>'+ears+'<rect x="24" y="19" width="32" height="33" rx="14" fill="'+skin+'"/>'+bags+eyes+cheeks+mouth+hairPath+crown+'</svg>';
 }
 function cleanBest(){
@@ -1693,7 +1699,7 @@ function humRender(){
   var h='<div class="en" style="text-align:center;border:2px solid '+inf.col+'aa;background:#0e0c18"><div style="font-size:13px;opacity:.8;margin-bottom:4px">'+(isPrev?'👁️ Предпросмотр стадии ('+d+' дн. чистоты)':'Твой облик сейчас · чистых подряд: <b>'+realD+' дн.</b>')+'</div><div style="display:flex;justify-content:center">'+humanSvg(d,128)+'</div><b style="font:400 22px \'Russo One\',sans-serif;color:'+inf.col+';display:block;margin-top:4px">'+inf.full+'</b><div style="height:14px;border-radius:99px;background:#ffffff18;border:1px solid #ffffff30;overflow:hidden;margin:10px 0 6px"><div style="height:100%;width:'+inf.bar+'%;background:'+inf.grad+';border-radius:99px;transition:width .4s"></div></div><div style="font-size:14.5px;line-height:1.35;opacity:.92">'+esc(inf.sub)+'</div></div>';
   h+='<div class="lb" style="max-width:none;margin-top:10px">Посмотри, как ты превращаешься в Человека день за днём:</div><div class="sl" style="max-width:none;margin:4px 0">';
   h+='<button data-hp="now" class="'+(humPrev==null?'on':'')+'">Сейчас ('+realD+'д)</button>';
-  [[0,'0д 🧛 Вампир'],[1,'1д · 15%'],[3,'3д · Без клыков'],[5,'5д · 75%'],[7,'7д ☀️ Человек!'],[14,'14д+ ⚡ Сила']].forEach(function(p){
+  [[0,'0д 🧛 Вампир'],[1,'1д · 15%'],[3,'3д · Без клыков'],[5,'5д · 75%'],[7,'7д ☀️ Человек!'],[14,'14д 🛡️ Страж'],[21,'21д ⚔️ Воин'],[30,'30д 🔥 Хозяин силы'],[45,'45д 🧭 Капитан'],[60,'60д 🏗️ Архитектор'],[75,'75д 🌅 Новый путь'],[90,'90д 👑 Легенда']].forEach(function(p){
     h+='<button data-hp="'+p[0]+'" class="'+(humPrev===p[0]?'on':'')+'">'+p[1]+'</button>';
   });
   h+='</div>';
