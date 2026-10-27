@@ -220,6 +220,7 @@ button{font-family:inherit}
 <div class="ov way" id="tier"><div class="wtop"><button class="chip" id="tierx">‹ Назад</button><h3>Ступени нагрузки</h3><span></span></div><div id="tierbody"></div></div>
 <div class="ov way" id="shop"><div class="wtop"><button class="chip" id="shopx">‹ Назад</button><h3>У магазина</h3><span></span></div><div id="shopbody"></div></div>
 <div class="ov way" id="nofap"><div class="wtop"><button class="chip" id="nofapx">‹ Назад</button><h3>Щит чистоты</h3><span></span></div><div id="nofapbody"></div></div>
+<div class="ov way" id="read30"><div class="wtop"><button class="chip" id="read30x">‹ Назад</button><h3>Челлендж 30 дней</h3><span></span></div><div id="read30body"></div></div>
 <div class="ov way" id="hum"><div class="wtop"><button class="chip" id="humx">‹ Назад</button><h3>Вампир → Человек</h3><span></span></div><div id="humbody"></div></div>
 <div id="ld" style="display:none;position:fixed;inset:0;z-index:99;background:#07070c;color:#fff;place-items:center;font:20px Oswald,sans-serif">Загружаю твой прогресс…</div>
 <script>
@@ -417,14 +418,14 @@ function mascot(lv,done,n,ovOut,fixedSz){
   var ch=lv>=3?'<circle cx="27" cy="54" r="3" fill="#ff5d73" opacity=".6"/><circle cx="53" cy="54" r="3" fill="#ff5d73" opacity=".6"/>':'';
   return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 80 80"><defs><linearGradient id="'+gid+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+o.c1+'"/><stop offset="1" stop-color="'+o.c2+'"/></linearGradient></defs>'+(lv>=8?'<circle cx="40" cy="47" r="32" fill="'+o.c1+'" opacity=".18"/>':'')+(o.back||'')+'<path d="M40 11C43 24 60 30 60 48A20 20 0 0 1 20 48C20 40 25 35 28 29C30 35 34 37 36 37C36 27 34 20 40 11Z" fill="url(#'+gid+')"/><path d="M40 37C41 44 49 47 49 55A9 9 0 0 1 31 55C31 50 34 48 36 44C37 47 39 48 40 48Z" fill="'+o.core+'" opacity=".6"/>'+eyes+mouth+ch+crown+(o.front||'')+'</svg>';
 }
-var TIP={porn:'Нет порно = в 3 раза легче держаться без дрочки. В кровать и туалет — БЕЗ телефона!',fap:'Главный закон: в кровать и туалет без телефона. На 6–7-й день пик тестостерона — сжигай его в приседания, не торгуйся!',sugar:'Не выходи на улицу голодным! Потянуло у магазина — жми кнопку «У магазина» ниже.',alc:'Хочется газировки? Возьми ледяную минералку с газом — удар тот же, ноль сахара.',scroll:'Телефон экраном вниз. Сегодня ты в нём не нужен.',music:'Тишина — тренажёр для головы.',silence:'Сказал вслух — и сила ушла. Пусть дела говорят за тебя. Жалоба — тоже слив: заметил — переключись в действие.',money:'Правило 24 часа: запиши хотелку и вернись завтра.',sport:'Хотя бы 10 минут. Слей лишнее напряжение в мышцы — голову сразу отпустит.',cold:'30 секунд холодной в конце. Выдохни и терпи.',read:'10 страниц. Телефон в другую комнату.',neck:'Подбородок назад, макушка вверх, плечи вниз. Минута.',plan:'Одно дело, которое откладывал. Сделай его первым.'};
+var TIP={porn:'Нет порно = в 3 раза легче держаться без дрочки. В кровать и туалет — БЕЗ телефона!',fap:'В кровать и туалет — без телефона. Если накрывает, отложи решение на 10 минут, выйди из комнаты и открой SOS-перехват.',sugar:'Не выходи на улицу голодным! Потянуло у магазина — жми кнопку «У магазина» ниже.',alc:'Хочется газировки? Возьми ледяную минералку с газом — удар тот же, ноль сахара.',scroll:'Телефон экраном вниз. Сегодня ты в нём не нужен.',music:'Тишина — тренажёр для головы.',silence:'Сказал вслух — и сила ушла. Пусть дела говорят за тебя. Жалоба — тоже слив: заметил — переключись в действие.',money:'Правило 24 часа: запиши хотелку и вернись завтра.',sport:'Хотя бы 10 минут. Слей лишнее напряжение в мышцы — голову сразу отпустит.',cold:'30 секунд холодной в конце. Выдохни и терпи.',read:'10 страниц. Телефон в другую комнату.',neck:'Подбородок назад, макушка вверх, плечи вниз. Минута.',plan:'Одно дело, которое откладывал. Сделай его первым.'};
 var CH={c:['Ты сделал то, что другие откладывают.','Ещё один кирпич в стену.','Победа и должна быть будничной.'],r:['Это уже не случайность, это ты.','Неделю назад ты бы так не смог.','Характер строится вот так, по галочке.'],l:['Ты сегодня на другом уровне. Запомни это чувство.','Через 90 дней скажешь себе спасибо за этот день.'],s:['Ты не дал одному промаху сжечь весь день — это сильнее идеальной галочки.','Тормознуть срыв на полпути — вот где куётся настоящий характер.','Серия спасена. Завтра снова идём ровно.']};
 var TT={c:'Обычная награда',r:'Редкая награда!',l:'ЛЕГЕНДАРНАЯ НАГРАДА!',s:'День спасён 🛡️'},XX={c:20,r:50,l:120,s:25},PET=[[1,'🥚'],[2,'🐣'],[3,'🐥'],[5,'🦅'],[8,'🐉']],justId=null;
 function rub(n){n=Math.round(+n||0);return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' ₽'}
 var REHAB_STEPS=[
  {id:'nochase',t:'🛑 Стоп «догон» — НЕ срываться второй раз до сна',d:'Один срыв откатывает нервную систему на сутки, а «догон» 2–3 раза подряд — на целую неделю! Остановиться на одном разе = уже мужская победа.'},
  {id:'water',t:'💧 Ровно 60 секунд: умыть лицо холодной водой + стакан воды',d:'Никаких тренировок не надо! Просто дойди до крана на минуту, смой пролактиновый туман — и можешь спокойно лечь обратно отдыхать.'},
- {id:'nophone',t:'📵 Лежать отдыхать / спать БЕЗ ленты и порно в руках',d:'Лежать с закрытыми глазами или спать — восстанавливает дофамин. Лежать с телефоном и рилсами — почти гарантированный второй срыв вечером.'}
+ {id:'nophone',t:'📵 Лежать отдыхать / спать БЕЗ ленты и порно в руках',d:'После смены оставь телефон вне спальни и дай себе восстановиться. Если рука тянется к экрану — выйди из кровати и отложи решение на 10 минут.'}
 ];
 function isRehabOn(d){return !!(S.rehab&&S.rehab[d]&&S.rehab[d].on)}
 function isDayRehabOk(d){
@@ -527,7 +528,7 @@ function petSayPool(doneCore,cn,hr,svOn,svOk,out){
       out.q,
       'Отлично идём! Из главного ядра осталось всего '+l+' из '+cn+' — спокойно дожимаем.',
       'Даже если в магазине рука дрогнула — главное ядро и чистота не сгорают! Ещё '+l+'.',
-      'Помни: на 6–7-й день бьёт тестостерон — сжигай его в приседания, а не в телефон!'
+      'После тяжёлого дня не спорь с тягой лёжа с телефоном в руках — убери телефон и дай себе восстановиться.'
     ];
   }
   return L;
@@ -1646,6 +1647,35 @@ $('shopbody').onclick=function(e){
 
 /* 🔥 Главный щит: полный отказ от дрочки и порно (пробиваем потолок 7 дней) */
 function nofapOpen(){$('nofap').classList.add('on');$('nofap').scrollTop=0;nofapRender()}
+function read30Streak(){
+  var m=S.read30||{},d=today,n=0;
+  if(!(m[d]&&m[d].book&&m[d].feed))d=ad(d,-1);
+  while(m[d]&&m[d].book&&m[d].feed&&n<90){n++;d=ad(d,-1)}
+  return n;
+}
+function read30Open(){$('read30').classList.add('on');$('read30').scrollTop=0;read30Render()}
+function read30Render(){
+  S.read30=S.read30||{};
+  var d=S.read30[today]||{},st=read30Streak(),day=Math.min(30,st+1),done=st>=30;
+  var phase=st>=30?'🏆 Ты прошёл 30 дней. Ты доказал себе, что можешь держать выбранный челлендж.':st>=14?'🔥 Две недели позади: ты всё чаще выбираешь книгу и своё внимание вместо бесконечной ленты.':st>=7?'📖 Неделя за плечами: чтение уже стало частью твоего челленджа.':st>0?'⚡ Хорошее начало. Каждый день выполняй оба маленьких обещания.':'🎯 Сегодня — день 1. Не надо менять всю жизнь разом: прочитай немного и не открывай ленту.';
+  var h='<div class="sc2" style="grid-template-columns:1fr 1fr"><div><small>Твой счёт</small><b style="color:#ffd23f">'+st+' / 30 дней</b></div><div><small>Рубеж впереди</small><b style="color:#25f4ee">'+(done?'Пройдено':'День '+day)+'</b></div></div>';
+  h+='<div class="en" style="margin-top:10px"><b style="color:#25f4ee">📚 Челлендж, который однажды помог тебе:</b><div style="margin-top:6px;line-height:1.4">На 30 дней замени бесконечную ленту ежедневным чтением. Не нужно удалять всё общение: задача — не проваливаться в рекомендации и каналы, которые уводят тебя в порно. После тяжёлой смены книга вместо телефона в кровати.</div></div>';
+  h+='<button class="cta'+(d.book?' alt':'')+'" id="r30book" style="max-width:none;margin-top:10px">'+(d.book?'✓ Сегодня почитал':'📖 Сегодня почитать хотя бы 10 минут')+'</button>';
+  h+='<button class="cta'+(d.feed?' alt':'')+'" id="r30feed" style="max-width:none;margin-top:8px">'+(d.feed?'✓ Сегодня без залипания в ленте':'📵 Сегодня без бесконечной ленты')+'</button>';
+  h+='<div class="fact" style="border:1px solid #ffd23f88;margin-top:10px"><b>🌟 Твои рубежи:</b><br>7 дней — ты удержал недельный челлендж.<br>14 дней — чтение и осознанное использование телефона уже стали твоей практикой.<br>30 дней — финиш: отметь, что лично изменилось в твоей собранности, уверенности и свободном времени. Это не магия — ты день за днём делал выбор в свою пользу.</div>';
+  h+='<button class="cta" id="r30sos" style="max-width:none;margin-top:8px;background:#fe2c55;box-shadow:0 5px 0 #b81d3c">🚨 Тянет сейчас — включить 10-минутный перехват</button>';
+  $('read30body').innerHTML=h;
+}
+$('read30x').onclick=function(){$('read30').classList.remove('on')};
+$('read30body').onclick=function(e){
+  var b=e.target.closest('button');if(!b)return;
+  if(b.id==='r30sos'){$('read30').classList.remove('on');sosOpen('lust');return}
+  var id=b.id==='r30book'?'book':b.id==='r30feed'?'feed':null;if(!id)return;
+  S.read30=S.read30||{};S.read30[today]=S.read30[today]||{book:0,feed:0};
+  S.read30[today][id]=S.read30[today][id]?0:1;
+  save();read30Render();
+  if(read30Streak()===7||read30Streak()===14||read30Streak()===30)burst(innerWidth/2,innerHeight/2,24,true,read30Streak()+' дней!');
+};
 function nofapRender(){
   var cs=cleanStreak(),cb=cleanBest(),ct=cleanTotal(),cg=cleanGoal(cs,cb),cur=S.days[today]||[];
   var bothClean=cur.includes('fap')&&cur.includes('porn');
@@ -1656,8 +1686,8 @@ function nofapRender(){
     h+='<div style="padding:7px 2px;border-radius:10px;font-weight:800;font-size:13px;background:'+(ok?'#58cc0233':'#ffffff0d')+';border:1px solid '+(ok?'#58cc02':(m===7?'#ffd23f88':'#ffffff1f'))+'">'+(ok?'✓ ':'')+m+'д</div>';
   });
   h+='</div></div>';
-  h+='<div class="fact" style="border:1px solid #fe2c5588">⚡ <b>Почему тебя срывало именно на 6–7-й день?</b><br>На 7-й день воздержания уровень тестостерона подскакивает почти до <b>145% от нормы</b>! В теле кипит дикая энергия, а старая привычка шепчет слить её в экран. Как только пройдёшь шторм 6–10-го дня — тяга резко падает, а энергия уходит в мышцы, голос и уверенность!</div>';
-  h+='<div class="en"><b style="color:#25f4ee">3 железных правила, с которыми ты пробьёшь 7, 14 и 90 дней:</b><div style="margin-top:6px;font-size:15px;line-height:1.4">1. 📵 <b>Кровать и туалет = 0% телефона.</b> Оставляй телефон на столе. 90% срывов начинаются лёжа с экраном в руке.<br>2. 🦵 <b>Правило 3 секунд на 6–7-й день:</b> мелькнула мысль или картинка — встал, 40 приседаний до жжения + ледяная вода на лицо и запястья.<br>3. 🛡️ <b>Косяк в магазине ≠ срыв на дрочке!</b> Съел сладкое — чистые дни ЖИВЫ. И даже если оступился раз — <b>никогда не жми «Сбросить прогресс»!</b> Сразу встал и пошёл бить новый рекорд.</div></div>';
+  h+='<div class="en"><b style="color:#25f4ee">Твой план после тяжёлой смены:</b><div style="margin-top:6px;font-size:15px;line-height:1.4">Не оставайся с телефоном в кровати. Перед сном оставь его заряжаться вне спальни; если накрыло — отложи решение на 10 минут и открой SOS-перехват. Один срыв не требует второго: остановись, восстановись, а после сна вернись к плану.</div></div>';
+  h+='<button class="cta alt" id="nf_read30" style="max-width:none;margin-top:8px">📚 Мой челлендж: читать каждый день, без ленты соцсетей</button>';
   h+='<button class="cta" id="nf_sos" style="max-width:none;background:#fe2c55;box-shadow:0 5px 0 #b81d3c">🚨 Накрыло прямо сейчас — экстренный сброс!</button>';
   h+='<button class="cta" id="nf_rehab" style="max-width:none;margin-top:8px;background:#ff9600;box-shadow:0 5px 0 #c97400">🛌 Сорвался и 0 сил — режим «Без догона»</button>';
   h+='<button class="cta'+(bothClean?' alt':'')+'" id="nf_mark" style="max-width:none;margin-top:8px">'+(bothClean?'✓ Чистота за сегодня отмечена (без дрочки и порно)':'🔥 Отметить чистый день (без дрочки + без порно)')+'</button>';
@@ -1670,6 +1700,7 @@ $('nofapx').onclick=function(){$('nofap').classList.remove('on')};
 $('nofapbody').onclick=function(e){
   var b=e.target.closest('button');if(!b)return;
   if(b.id==='nf_sos'){$('nofap').classList.remove('on');sosOpen('lust');return}
+  if(b.id==='nf_read30'){$('nofap').classList.remove('on');read30Open();return}
   if(b.id==='nf_rehab'){
     S.rehab=S.rehab||{};
     var rObj=S.rehab[today]||{on:1,steps:['nochase']};
