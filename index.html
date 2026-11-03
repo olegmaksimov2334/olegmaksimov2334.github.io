@@ -210,7 +210,7 @@ button{font-family:inherit}
 <div class="ov" id="words"><h3 style="font:400 26px 'Russo One',sans-serif;margin:0">Мои слова</h3><div class="wl" id="wl"></div><button class="cta" id="wx">Закрыть</button></div>
 <div class="ov" id="bak"><div class="pill">сохранение прогресса</div><div class="tip" style="max-width:320px">Прогресс сохраняется автоматически на этом телефоне. Раз в неделю жми «Скачать копию файла» — и прогресс никогда не потеряется: копия открывается на любом телефоне или компьютере.</div><div class="code" id="bcode"></div><div class="tip" id="bcodetip" style="font-size:15px;max-width:320px;margin:0 0 6px">код восстановления — нажми, чтобы скопировать</div><input id="bcode_in" placeholder="Код с другого устройства" maxlength="12" autocapitalize="characters" autocomplete="off" spellcheck="false"><button class="cta" id="brestore">Восстановить по коду</button><button class="cta alt" id="bexp">Скачать копию файла</button><button class="cta alt" id="bimp">Загрузить копию файла</button><input type="file" id="bfile" accept="application/json,.json" style="display:none"><div class="tip" id="bstat" style="max-width:320px;min-height:52px"></div><button class="cta alt" id="bx">Закрыть</button></div>
 <div class="ov way" id="way"><div class="wtop"><h3>Мой путь</h3><button class="chip" id="wayx">Закрыть</button></div><div class="tabs" id="tabs"><button data-t="a" class="on">Награды</button><button data-t="d">Дневник</button><button data-t="p">Горжусь</button><button data-t="l">Письма</button><button data-t="w">Неделя</button></div><div id="wbody"></div></div>
-<div class="ov way" id="sp"><div class="wtop"><button class="chip" id="spx">‹ Назад</button><h3>Спорт</h3><span></span></div><div class="tabs" id="spt"><button data-e="push" class="on">Отжимания</button><button data-e="pull">Подтягивания</button><button data-e="dips">Брусья</button><button data-e="abs">Пресс</button><button data-e="sq">Приседания</button><button data-e="calf">На носки</button><button data-e="lunge">Выпады</button></div><div id="spc" class="spl"></div></div>
+<div class="ov way" id="sp"><div class="wtop"><button class="chip" id="spx">‹ Назад</button><h3>Спорт</h3><span></span></div><div class="tabs" id="spt"><button data-e="push" class="on">Отжимания</button><button data-e="pull">Подтягивания</button><button data-e="dips">Брусья</button><button data-e="abs">Пресс</button><button data-e="squat">Приседания</button><button data-e="sq">На одной ноге</button><button data-e="calf">На носки</button><button data-e="lunge">Выпады</button></div><div id="spc" class="spl"></div></div>
 <div class="ov way" id="orc"><div class="wtop"><button class="chip" id="orx">‹ Назад</button><h3>Оракул</h3><span></span></div><div class="tabs" id="otabs"><button data-t="t" class="on">Таро</button><button data-t="b">Шар</button><button data-t="c">Печенье</button></div><div id="obody"></div></div>
 <div class="ov way" id="brk"><div class="wtop"><button class="chip" id="brkx">‹ Назад</button><h3>Стоп-кран</h3><span></span></div><div id="brkbody"></div></div>
 <div class="ov way" id="frz"><div class="wtop"><button class="chip" id="frzx">‹ Назад</button><h3>Морозилка 24ч</h3><span></span></div><div id="frzbody"></div></div>
@@ -400,6 +400,12 @@ var OUTFITS=[
   front:'<rect x="17" y="42" width="5" height="10" rx="2" fill="#25f4ee" stroke="#07070c" stroke-width="1.2"/><rect x="58" y="42" width="5" height="10" rx="2" fill="#25f4ee" stroke="#07070c" stroke-width="1.2"/><path d="M21 42H59L56 52H43L40 49L37 52H24Z" fill="#07070ce6" stroke="#25f4ee" stroke-width="2"/><path d="M26 46H54" stroke="#fe2c55" stroke-width="2.6" stroke-linecap="round"/>'},
  {id:'king',n:'Король дня',c1:'#fff3b0',c2:'#ff7b00',core:'#ffffff',q:'Корона держится только на тех, кто управляет своими желаниями.',
   front:'<path d="M22 30L20 14L30 22L40 10L50 22L60 14L58 30Z" fill="#ffd23f" stroke="#996300" stroke-width="1.7" stroke-linejoin="round"/><circle cx="40" cy="23" r="2.6" fill="#fe2c55"/><circle cx="29" cy="25" r="2" fill="#25f4ee"/><circle cx="51" cy="25" r="2" fill="#25f4ee"/><path d="M22 62Q40 72 58 62L62 69Q40 77 18 69Z" fill="#d91424" stroke="#fff" stroke-width="1.5"/>'},
+ {id:'reader',n:'Книжник',c1:'#84dcc6',c2:'#285943',core:'#fff1c1',q:'Одна глава вместо бесконечной ленты — и ты снова сам выбираешь, куда идёт внимание.',
+  front:'<path d="M19 47Q29 42 40 48V68Q29 62 19 66Z" fill="#f5e6bd" stroke="#693c22" stroke-width="1.8"/><path d="M61 47Q51 42 40 48V68Q51 62 61 66Z" fill="#fff3d0" stroke="#693c22" stroke-width="1.8"/><path d="M40 48V68M24 53l10 2M24 58l10 2M56 53l-10 2M56 58l-10 2" fill="none" stroke="#b56b3d" stroke-width="1.3" stroke-linecap="round"/>'},
+ {id:'runner',n:'Марафонец',c1:'#a0c4ff',c2:'#4361ee',core:'#ffffff',q:'Не жди идеального настроя. Надень кроссовки и начни спокойно, в своём темпе.',
+  front:'<path d="M19 42Q40 35 61 42L59 48Q40 42 21 48Z" fill="#fe2c55" stroke="#7f1024" stroke-width="1.4"/><path d="M24 56L34 59M56 56L46 59" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/><path d="M20 68Q30 64 39 68L38 73H20Z M60 68Q50 64 41 68L42 73H60Z" fill="#f4f4f5" stroke="#64748b" stroke-width="1.4"/><path d="M23 70h11M57 70H46" stroke="#25f4ee" stroke-width="1.6"/>'},
+ {id:'sea',n:'Морской',c1:'#90e0ef',c2:'#0077b6',core:'#d8f3ff',q:'Шум волн, спокойный вдох и следующий верный шаг. Сегодня без ленты перед сном.',
+  front:'<path d="M20 50Q28 44 36 50T52 50T64 50M18 58Q26 52 34 58T50 58T66 58M20 66Q28 60 36 66T52 66T64 66" fill="none" stroke="#d8f3ff" stroke-width="2.5" stroke-linecap="round"/><path d="M40 44v19M40 52c-8-9-13-5-12 1 3 3 7 3 12 0M40 56c8-9 13-5 12 1-3 3-7 3-12 0" fill="none" stroke="#ffd166" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'},
  {id:'classic',n:'Классика',c1:'#ffb400',c2:'#ff3d2e',core:'#ffe27a',q:'Я горю ровно настолько, насколько ты держишь слово перед собой.',classicCrown:1}
 ];
 function curOutfit(){
@@ -532,7 +538,15 @@ function petSayPool(doneCore,cn,hr,svOn,svOk,out){
       'После тяжёлого дня не спорь с тягой лёжа с телефоном в руках — убери телефон и дай себе восстановиться.'
     ];
   }
-  return L;
+  return L.concat([
+    'Ты уже проходил больше месяца — значит, знаешь, как выглядит день, когда держишь слово себе.',
+    'После смены не нужен подвиг: телефон на зарядку подальше, книга рядом, сон.',
+    'Не жди, когда появится желание. Начни с десяти минут чтения — дальше решишь.',
+    'Один отказ или игнор не отменяет твоих планов и не уменьшает твою ценность.',
+    'Сегодня не нужно быть идеальным. Нужно сделать следующий выбранный шаг.',
+    'Шум волн, ровное дыхание, закрытая лента. Верни себе вечер.',
+    'Сильный день строится из простых решений, которые ты повторяешь.'
+  ]);
 }
 function feedRender(){
   var cd=$('cards'),st=cd.scrollTop,cur=S.days[today]||[],c=ci(),xp=xpTotal(),lv=Math.floor(xp/150)+1,ps=pstreak(),out=curOutfit();
@@ -983,12 +997,13 @@ var SPE={
  pull:{n:'Подтягивания узким хватом',sets:4,start:3,rate:4,cap:30,tip:'Хват узкий, тянись грудью к перекладине. Опускайся медленно, без раскачки.'},
  dips:{n:'Брусья',sets:3,start:8,rate:2,cap:60,tip:'Локти вдоль корпуса, опускайся до прямого угла, без болтанки ногами.'},
  abs:{n:'Пресс',sets:3,start:11,rate:1,cap:90,tip:'Без рывков, выдох на подъёме. Поясница прижата к полу.'},
- sq:{n:'Приседания',sets:3,start:30,rate:1,cap:180,pl:1,tip:'На одной ноге, меняй ногу через равные отрезки. Спина прямая, колено смотрит в носок.'},
+ squat:{n:'Приседания',sets:3,start:20,rate:1,cap:180,tip:'Стопы примерно на ширине плеч, носки слегка наружу. Садись комфортно, колени направляй по линии носков, спина нейтральная. Начни без веса.'},
+ sq:{n:'Приседания на одной ноге',sets:3,start:30,rate:1,cap:180,pl:1,tip:'На одной ноге, меняй ногу через равные отрезки. Спина прямая, колено смотрит в носок.'},
  calf:{n:'На носки',sets:3,start:30,rate:1,cap:180,pl:1,tip:'На одной ноге, потом меняй на другую. Поднимайся максимально высоко, опускайся медленно — на 2–3 секунды.'},
  lunge:{n:'Выпады на месте',sets:3,start:10,rate:2,cap:60,pl:1,tip:'Стой устойчиво, шагни назад в выпад и возвращайся на место; чередуй ноги. Колено передней ноги направляй по линии носка, корпус держи ровно. Начни без веса.'}
 };
 var spT='push';
-var SPMAP={push:{30:20,40:20},pull:{6:3},dips:{20:8},abs:{22:11},sq:{40:30},calf:{40:30}};
+var SPMAP={push:{30:20,40:20},pull:{6:3},dips:{20:8},abs:{22:11},squat:{60:20},sq:{40:30},calf:{40:30}};
 function spl(n,a,b,c){var m10=n%10,m100=n%100;if(m10===1&&m100!==11)return a;if(m10>=2&&m10<=4&&(m100<12||m100>14))return b;return c}
 function spInit(){
   if(!S.sp||typeof S.sp!=='object')S.sp={};
