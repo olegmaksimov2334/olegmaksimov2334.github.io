@@ -36,7 +36,7 @@ button{font-family:inherit}
 .cd.ok .em:after{content:"✅";font-size:34px;position:absolute;right:-6px;bottom:0}
 .cd h3{font:400 30px/1.1 'Russo One',Impact,sans-serif;margin:10px 0 8px;text-transform:uppercase}
 .tip{font-size:19px;max-width:300px;margin:0 0 8px;background:#00000040;border-radius:14px;padding:8px 14px}
-.xp{font-size:16px;opacity:.75}.missionline{width:min(88vw,324px);border:1px solid #ffd23f70;border-radius:12px;padding:6px 10px;background:linear-gradient(90deg,#ffd23f20,#25f4ee15);color:#fff;font:500 13px Oswald,sans-serif;cursor:pointer;line-height:1.2}.missionline b{display:block;color:#ffd23f;font-size:13px}.missionline small{display:block;font-size:11px;opacity:.85;margin-top:2px}
+.xp{font-size:16px;opacity:.75}.missionline{width:min(88vw,324px);border:1px solid #ffd23f70;border-radius:12px;padding:6px 10px;background:linear-gradient(90deg,#ffd23f20,#25f4ee15);color:#fff;font:500 13px Oswald,sans-serif;cursor:pointer;line-height:1.2}.missionline b{display:block;color:#ffd23f;font-size:13px}.missionline small{display:block;font-size:11px;opacity:.85;margin-top:2px}.sport-actions{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;width:100%}.sport-actions .go{margin-top:0}.sport-rest{min-width:92px;padding:12px 13px;border:1px solid #25f4ee77;border-radius:14px;background:#25f4ee18;color:#eaffff;font:600 15px Oswald,sans-serif;cursor:pointer}.sport-rest.done{border-color:#58cc02;background:#58cc0226;color:#c8ffad}
 .go{margin-top:16px;width:136px;height:136px;flex-shrink:0;border-radius:50%;border:0;cursor:pointer;color:#fff;font:400 22px 'Russo One',sans-serif;background:hsl(var(--h) 90% 50%);animation:beat 1.6s infinite}
 #open,#open_save{width:100px;height:100px;margin-top:8px;font-size:19px}
 @media (max-height:760px){#open,#open_save{width:80px;height:80px;margin-top:6px;font-size:16px}.chest svg{width:72px;height:72px}}
@@ -272,13 +272,14 @@ function orderedHabits(){
   H.forEach(function(x){if(c.indexOf(x.id)<0)out.push(x)});
   return out;
 }
+function habitDone(id,d){return (S.days[d]||[]).includes(id)||(id==='sport'&&!!(S.sportRest&&S.sportRest[d]))}
 function coreDoneCount(d){
-  var a=S.days[d]||[],c=coreIdsAt(d),n=0;
-  for(var i=0;i<c.length;i++)if(a.includes(c[i]))n++;
+  var c=coreIdsAt(d),n=0;
+  for(var i=0;i<c.length;i++)if(habitDone(c[i],d))n++;
   return n;
 }
 function fr(d){var c=coreIdsAt(d);return coreDoneCount(d)/c.length}
-function streak(id){var i=Math.min(df(today,S.start),89),n=0;if(!(S.days[ad(S.start,i)]||[]).includes(id))i--;for(;i>=0;i--){if((S.days[ad(S.start,i)]||[]).includes(id))n++;else break}return n}
+function streak(id){var i=Math.min(df(today,S.start),89),n=0;if(!habitDone(id,ad(S.start,i)))i--;for(;i>=0;i--){if(habitDone(id,ad(S.start,i)))n++;else break}return n}
 function cleanStreak(){
   if(S.vampDay===today&&!(S.days[today]||[]).includes('fap'))return 0;
   return streak('fap');
@@ -450,7 +451,7 @@ function frzWaitCount(){var n=0;(S.freeze||[]).forEach(function(x){if(x.status==
 function redTodayCount(){var n=0;(S.redeem||[]).forEach(function(x){if(x.d===today)n++});return n}
 function anchorInfo(cur){
   var hr=window._testHour!=null?window._testHour:new Date().getHours(),u=[],tgt=null;
-  function chk(id,lbl){if(!cur.includes(id)){u.push(lbl);if(!tgt)tgt=id}}
+  function chk(id,lbl){if(!habitDone(id,today)){u.push(lbl);if(!tgt)tgt=id}}
   if(hr>=5&&hr<15){chk('cold','Холодный душ');chk('sport','Спорт');chk('plan','План');return u.length?{ok:false,txt:'☀️ Утро: '+u.join(' · ')+' ›',t:tgt}:{ok:true,txt:'☀️ Утренний якорь закрыт ✓',t:null}}
   if(hr>=15&&hr<19){if(!cur.includes('cold'))return {ok:false,txt:'🚿 Забыл душ утром? Успеешь до 00:00 ›',t:'cold'};chk('sport','Спорт');chk('plan','План');return u.length?{ok:false,txt:'⚡ День: '+u.join(' · ')+' ›',t:tgt}:{ok:true,txt:'⚡ Дневной якорь закрыт ✓',t:null}}
   chk('fap','Без дрочки');chk('porn','Без порно');if(!((S.j||{})[today]||{}).ok){u.push('Итог');if(!tgt)tgt='__jr'}
@@ -550,7 +551,7 @@ function petSayPool(doneCore,cn,hr,svOn,svOk,out){
 }
 function feedRender(){
   var cd=$('cards'),st=cd.scrollTop,cur=S.days[today]||[],c=ci(),xp=xpTotal(),lv=Math.floor(xp/150)+1,ps=pstreak(),out=curOutfit();
-  var OH=orderedHabits(),cn=coreIds().length,doneCore=coreDoneCount(today),left0=cn-doneCore,bonTotal=OH.length-cn,doneBon=cur.length-doneCore;
+  var OH=orderedHabits(),cn=coreIds().length,doneCore=coreDoneCount(today),left0=cn-doneCore,bonTotal=OH.length-cn,coreToday=coreIdsAt(today),doneBon=cur.filter(function(id){return coreToday.indexOf(id)<0}).length;
   var pet=mascot(lv,doneCore,cn,out);
   var hr=window._testHour!=null?window._testHour:new Date().getHours(),anc=anchorInfo(cur),svOn=!!(S.saved&&S.saved[today]),svOk=isDaySaved(today),fw=frzWaitCount(),ms=moneySaved(),rc=redTodayCount();
   var cs=cleanStreak(),cb=cleanBest(),cg=cleanGoal(cs,cb),tk=curTierKey(),hi=humanInfo(cs);
@@ -565,7 +566,7 @@ function feedRender(){
   }
   var pool=petSayPool(doneCore,cn,hr,svOn,svOk,out),say=pool[sayOff%pool.length];
   $('lv').textContent='Ур. '+lv;$('xi').style.width=(xp%150)/150*100+'%';$('sk').innerHTML=I.fl+' '+ps;
-  var sg='';OH.forEach(function(it,i){var bon=i>=cn;sg+='<b data-i="'+i+'" class="'+(bon?'bon':'')+(cur.includes(it.id)?' d':'')+'"></b>'});$('segs').innerHTML=sg;
+  var sg='';OH.forEach(function(it,i){var bon=i>=cn;sg+='<b data-i="'+i+'" class="'+(bon?'bon':'')+(habitDone(it.id,today)?' d':'')+'"></b>'});$('segs').innerHTML=sg;
   var rhOn=isRehabOn(today),rhOk=isDayRehabOk(today);
   var brkLbl=rhOk?'🛌 Без догона ✓':rhOn?'🛌 Тишина':svOk?'🛡️ День спасён':svOn?'🛡️ Спасение '+doneCore+'/'+dayTarget(today):'🛑 Стоп-кран';
   var brkCls=(rhOk||svOk)?'qbtn saved':(rhOn||svOn)?'qbtn saved':'qbtn stop';
@@ -578,12 +579,13 @@ function feedRender(){
   var humHtml='<div class="humbox '+hi.cls+'" data-act="human">'+humanSvg(cs,62)+'<div class="hbar"><i style="height:'+hi.bar+'%;background:'+hi.grad+'"></i></div><div class="hinfo"><b style="color:'+hi.col+'">'+hi.pct+'%</b><span>'+hi.title+'</span><small>'+hSub+'</small></div></div>';
   var h=(S.signed?'':CT())+'<section class="cd" style="--h:200"><div class="toprow"><div class="pill">день '+(c+1)+' из 90</div><button class="chip" data-act="tier" style="font-size:13px;padding:3px 9px">'+tierChipText(tk,cn,cs)+'</button><button class="chip" data-act="rem" style="font-size:13px;padding:3px 8px">🔔</button></div>'+ancHtml+'<div class="duo"><div class="pet" data-act="pet">'+pet+'<span class="pettag">👕 '+esc(out.n)+'</span></div>'+humHtml+'</div><div class="bubble" data-act="say"><span id="pet_say">'+esc(say)+'</span><small>нажми — скажу ещё</small></div><button class="cleanbar" data-act="nofap">🔥 Без дрочки: <b>'+cs+' дн.</b> · рекорд '+cb+' → цель <b>'+cg+' дн.</b> ›</button><svg class="rings" width="124" height="124" viewBox="0 0 160 160">'+ring(70,doneCore/cn,'#25f4ee')+ring(52,cleanP,'#fe2c55')+ring(34,bonP,'#b6ff3c')+'</svg><div class="lg"><span><i style="background:#25f4ee"></i>ядро '+doneCore+'/'+cn+'</span><span><i style="background:#fe2c55"></i>чистота</span><span><i style="background:#b6ff3c"></i>бонус</span></div><div class="qrow"><button class="qbtn" data-act="shop">🏪 У магазина</button><button class="'+brkCls+'" data-act="brk">'+brkLbl+'</button><button class="qbtn'+(rc?' done':'')+'" data-act="red">'+redLbl+'</button><button class="qbtn'+(ms?' done':'')+'" data-act="frz">'+frzLbl+'</button></div><button class="missionline" data-act="codex"><b>📜 Ты уже проходил месяц — вернись к своему кодексу</b><small>Сегодня: '+codexStatus+'</small></button><div class="xp">свайп вправо — оракул, влево — спорт</div><div class="arr">⌄</div></section>';
   OH.forEach(function(it,i){
-    var on=cur.includes(it.id),sr=streak(it.id),core=i<cn,tag=it.t.toLowerCase().replace(/[^а-яa-z0-9 ]/g,'').replace(/ /g,'_').slice(0,20),extra='';
-    if(it.id==='fap'||it.id==='porn')extra='<button class="sub-cta" data-act="nofap">🔥 Щит чистоты: как пройти 7+ дней</button>';
+    var on=habitDone(it.id,today),restOn=it.id==='sport'&&!!(S.sportRest&&S.sportRest[today]),sr=streak(it.id),core=i<cn,tag=it.t.toLowerCase().replace(/[^а-яa-z0-9 ]/g,'').replace(/ /g,'_').slice(0,20),extra='';
+    if(it.id==='sport')extra='<div class="tip" style="font-size:13px;margin-top:6px">Чередуй тренировку и восстановление. Запланированный отдых закрывает дневную привычку, но не добавляет тренировку в спортивную лесенку.</div>';
+    else if(it.id==='fap'||it.id==='porn')extra='<button class="sub-cta" data-act="nofap">🔥 Щит чистоты: как пройти 7+ дней</button>';
     else if(it.id==='sugar'||it.id==='alc')extra='<button class="sub-cta" data-act="shop">🏪 У магазина — чем заменить без срыва</button>';
     else if(it.id==='money')extra='<button class="sub-cta" data-act="frz">🧊 В морозилку 24ч'+(ms?' · спас '+rub(ms):fw?' · ждёт: '+fw:'')+'</button>';
     var badge=core?('главное ядро · '+(i+1)+'/'+cn):('бонус без штрафа · +'+(i-cn+1)+'/'+bonTotal);
-    h+='<section class="cd'+(on?' ok':'')+(it.id===justId?' just':'')+'" data-id="'+it.id+'" style="--h:'+((i*47+190)%360)+'"><div class="pill">'+badge+'</div><div class="em">'+ico(it.id)+'</div><h3>'+it.t+'</h3><div class="tip">'+TIP[it.id]+'</div>'+extra+'<div class="xp">'+(sr?'серия '+sr+' дн. · ':'')+'+10 XP'+(core?'':' · не сжигает серию')+'</div><button class="go" data-id="'+it.id+'">'+(on?'Сделано':'Сделал')+'</button><div class="rail"><div><span>'+I.fl+'</span>'+sr+'</div><div><span>'+I.bolt+'</span>'+xp+'</div><div><span>'+I.cal+'</span>'+(c+1)+'</div></div><div class="cap"><b>@ты</b> · день '+(c+1)+'<br><i>#90дней #'+tag+'</i><br><i>двойной тап — отметить</i></div><div class="arr">⌄</div></section>';
+    h+='<section class="cd'+(on?' ok':'')+(it.id===justId?' just':'')+'" data-id="'+it.id+'" style="--h:'+((i*47+190)%360)+'"><div class="pill">'+badge+'</div><div class="em">'+ico(it.id)+'</div><h3>'+it.t+'</h3><div class="tip">'+TIP[it.id]+'</div>'+extra+'<div class="xp">'+(sr?'серия '+sr+' дн. · ':'')+'+10 XP'+(core?'':' · не сжигает серию')+'</div>'+(it.id==='sport'?('<div class="sport-actions"><button class="go" data-id="sport">'+(restOn?'Отметить тренировку':on?'Сделано ✓':'Тренировался')+'</button><button class="sport-rest'+(restOn?' done':'')+'" data-act="sportRest">'+(restOn?'🛌 Отдых ✓':'🛌 Отдых')+'</button></div>'):'<button class="go" data-id="'+it.id+'">'+(on?'Сделано':'Сделал')+'</button>')+'<div class="rail"><div><span>'+I.fl+'</span>'+sr+'</div><div><span>'+I.bolt+'</span>'+xp+'</div><div><span>'+I.cal+'</span>'+(c+1)+'</div></div><div class="cap"><b>@ты</b> · день '+(c+1)+'<br><i>#90дней #'+tag+'</i><br><i>двойной тап — отметить</i></div><div class="arr">⌄</div></section>';
   });
   justId=null;
   h+=JR();
@@ -618,6 +620,7 @@ function showWin(){
   $('win').className='on';burst(innerWidth/2,innerHeight/3,50,true);
 }
 function toggle(id,x,y,idx){
+  if(id==='sport'&&S.sportRest&&S.sportRest[today]){delete S.sportRest[today];if(!Object.keys(S.sportRest).length)delete S.sportRest;S.bonus=S.bonus||{};delete S.bonus['sportrest'+today]}
   var a=S.days[today]||[],i=a.indexOf(id);
   if(i>-1)a.splice(i,1);else{a.push(id);if(id==='fap'&&S.vampDay===today)delete S.vampDay}
   S.days[today]=a;cleanBest();save();
@@ -1168,7 +1171,20 @@ function topTriggerText(){
   for(k in m)if(!best||m[k]>best[1])best=[k,m[k]];
   return best?(trigName(best[0])+' ('+best[1]+')'):'';
 }
+function sportRestToggle(){
+  S.sportRest=S.sportRest||{};S.bonus=S.bonus||{};
+  if(S.sportRest[today]){delete S.sportRest[today];delete S.bonus['sportrest'+today]}
+  else{
+    S.sportRest[today]=1;
+    var a=S.days[today]||[],i=a.indexOf('sport');if(i>-1)a.splice(i,1);
+    if(a.length)S.days[today]=a;else delete S.days[today];
+    S.bonus['sportrest'+today]=10;
+  }
+  if(!Object.keys(S.sportRest).length)delete S.sportRest;
+  save();feedRender();
+}
 function cardAct(act){
+  if(act==='sportRest')return sportRestToggle();
   if(act==='brk')return brkOpen();
   if(act==='red')return redOpen();
   if(act==='frz')return frzOpen();
