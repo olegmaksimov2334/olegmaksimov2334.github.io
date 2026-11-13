@@ -1,5 +1,5 @@
 /* 90 дней — service worker: офлайн-режим для иконки на домашнем экране */
-var CACHE = 'ch90-shell-v24';
+var CACHE = 'ch90-shell-v25';
 var SHELL = [
   './',
   './index.html',
