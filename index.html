@@ -240,11 +240,11 @@ function ad(s,n){var d=pr(s);d.setDate(d.getDate()+n);return ds(d)}
 function df(a,b){return Math.round((pr(a)-pr(b))/864e5)}
 function save(){S._t=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}if(window.pushSoon)pushSoon()}
 var today=ds(new Date());
-if(!S.taskCycleStart){S.taskCycleStart=today;S.signed=1;save()}
+if(S.taskScheduleVersion!==2){S.taskCycleStart=today;S.taskScheduleVersion=2;if(S.signed==null)S.signed=1;save()}
 if(!S.start){S.start=today;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function ci(){return Math.min(Math.max(df(today,S.start),0),89)}
 var ACTIVE_TASKS=H.map(function(x){return x.id});
-function cyclePhaseAt(d){var base=S.taskCycleStart||S.start||today,delta=df(d,base);return ((delta%21)+21)%21}
+function cyclePhaseAt(d){var base=S.taskCycleStart||S.start||today,delta=Math.max(0,df(d,base));if(delta<7)return 14+delta;return (delta-7)%21}
 function isRestWeek(d){return cyclePhaseAt(d)>=14}
 function isTierManual(){return false}
 function tierKeyAt(d){return isRestWeek(d)?'rest':'active'}
@@ -1672,7 +1672,7 @@ function startFreshCycle(){
   delete prev.cycleArchive;
   archives.push({at:today,state:prev});
   var keepSport=prev.sp||{b:{},d:{},v:2};
-  S={start:today,taskCycleStart:today,days:{},sp:keepSport,cycleArchive:archives,hideRestore8:1,signed:1};
+  S={start:today,taskCycleStart:today,taskScheduleVersion:2,days:{},sp:keepSport,cycleArchive:archives,hideRestore8:1,signed:1};
   save();sayOff=0;feedRender();$('cards').scrollTop=0;
   $('nofap').classList.remove('on');$('menu').classList.remove('on');
   burst(innerWidth/2,innerHeight/3,36,true,'Новый старт · спорт сохранён!');
