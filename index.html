@@ -95,7 +95,7 @@ button{font-family:inherit}
 .stt{font:400 44px 'Russo One',sans-serif}
 .sg{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;width:100%;max-width:360px}
 .sg button{aspect-ratio:1;border:0;border-radius:6px;background:#ffffff1c;color:#fff;font:12px Oswald,sans-serif;padding:0}
-.sg button.f{background:#25f4ee;color:#07070c}.sg button.s{background:#ffb400;color:#07070c}.sg button.p{background:#25f4ee66}.sg button.sel{outline:2px solid #fe2c55}.sg button:disabled{opacity:.3}
+.sg button.f{background:#25f4ee;color:#07070c}.sg button.s{background:#ffb400;color:#07070c}.sg button.p{background:#25f4ee66}.sg button.r{background:#8b5cf6;color:#fff}.sg button.sel{outline:2px solid #fe2c55}.sg button:disabled{opacity:.3}
 .sl{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:380px;margin:8px 0}
 .sl button{border:1px solid #ffffff40;background:none;color:#fff;border-radius:16px;padding:6px 12px;font:15px Oswald,sans-serif}
 .sl button.on{background:#58cc02;border-color:#58cc02}
@@ -601,8 +601,8 @@ function feedRender(){
   else if(svOn)h+='<div class="chest" style="filter:grayscale(1) opacity(.65)">'+I.chest+'</div><h3>Спасение дня 🛡️</h3><div class="tip">Закрой ещё '+Math.max(1,dayTarget(today)-doneCore)+' из главных пунктов — серия сохранится и откроется сундук стойкости.</div>';
   else h+='<div class="chest" style="filter:grayscale(1) opacity(.65)">'+I.chest+'</div><h3>Сундук закрыт</h3><div class="tip">Закрой ещё '+left0+' из '+cn+' главных пунктов — получишь награду. Бонусные пункты не давят!</div>';
   h+='<div class="mini">';
-  for(var d=0;d<90;d++){var ds0=ad(S.start,d),f=fr(ds0),svD=isDaySaved(ds0),rd=isDayRest(ds0);h+='<i class="'+(rd?(isDayRestClean(ds0)?'r':'rx'):f===1?'f':svD?'s':f>0?'p':'')+(d===c?' n':'')+(d>c?' u':'')+'">'+(d+1)+'</i>'}
-  h+='</div>';
+  for(var d=0;d<90;d++){var ds0=ad(S.start,d),f=fr(ds0),svD=isDaySaved(ds0),rd=isRestWeek(ds0)||isDayRest(ds0);h+='<i class="'+(rd?'r':f===1?'f':svD?'s':f>0?'p':'')+(d===c?' n':'')+(d>c?' u':'')+'">'+(d+1)+'</i>'}
+  h+='</div><div class="xp" style="max-width:330px;text-align:left">🟪 отдых · 🟦 все задачи отмечены · 🟨 день сохранён · полупрозрачный синий — часть задач</div>';
   var decision=pendingTaskDecision(today);
   if(decision)h+='<div class="en" style="margin-top:12px;border:1px solid #ffd23f88"><b>Две недели продуктивности позади!</b><div class="tip">Продлить активный режим ещё на 7 дней или перейти к неделе отдыха?</div><button class="cta" data-choice="extend" data-key="'+decision+'">⚡ Продолжить ещё 7 дней</button><button class="cta alt" data-choice="rest" data-key="'+decision+'">🛌 Перейти к отдыху</button></div>';
   h+='<button class="cta alt" id="backfill" style="max-width:none">🗓️ Отметить забытый день</button><button class="cta alt" id="share">Поделиться результатом</button></section>';
@@ -705,7 +705,7 @@ $('sx').onclick=sosClose;
 $('sdone').onclick=function(){S.bonus=S.bonus||{};S.bonus['s'+Date.now()]=15;save();sosClose();burst(innerWidth/2,innerHeight/2,30,true,'+15 XP');feedRender()};
 function sheet(){
   var c=ci(),g='',date=ad(S.start,sd),cur=S.days[date]||[],h='',OH=orderedHabitsAt(date),cn=coreIdsAt(date).length;
-  for(var d=0;d<90;d++){var ds2=ad(S.start,d),f=fr(ds2);g+='<button data-i="'+d+'" class="'+(f===1?'f':isDaySaved(ds2)?'s':f>0?'p':'')+(d===sd?' sel':'')+'"'+(d>c?' disabled':'')+'>'+(d+1)+'</button>'}
+  for(var d=0;d<90;d++){var ds2=ad(S.start,d),f=fr(ds2),rd=isRestWeek(ds2)||isDayRest(ds2);g+='<button data-i="'+d+'" class="'+(rd?'r':f===1?'f':isDaySaved(ds2)?'s':f>0?'p':'')+(d===sd?' sel':'')+'"'+(d>c?' disabled':'')+'>'+(d+1)+'</button>'}
   if(!cn)h='<div class="tip">🛌 Неделя отдыха — задач нет.</div>';
   else OH.forEach(function(it,i){h+='<button data-id="'+it.id+'" class="'+(cur.includes(it.id)?'on':'')+'">'+(i<cn?'🔥 ':'')+it.t+'</button>'});
   $('sg').innerHTML=g;$('sl').innerHTML=h;$('sdt').textContent='День '+(sd+1)+(sd===c?' · сегодня':'')+(isRestWeek(date)?' · отдых, без задач':' · ядро '+coreDoneCount(date)+'/'+cn);
