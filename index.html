@@ -484,6 +484,7 @@ var sayOff=0;
 function tierChipText(tk,cn,cs){var p=taskPhaseAt(today);return p.rest?'🛌 Неделя отдыха · день '+(p.phase+1)+'/7':'⚡ Активный блок · день '+(p.phase+1)+'/'+p.activeLen}
 function petSayPool(doneCore,cn,hr,svOn,svOk,out){
   var l=cn-doneCore,L=[],need=Math.max(0,dayTarget(today)-doneCore),cs=cleanStreak(),cb=cleanBest();
+  if(isRestWeek(today))return ['Неделя отдыха. Задач нет — можно спокойно восстановиться.'];
   if(isRehabOn(today)&&l>0){
     return [
       'Полежи и восстановись без вины, брат. После слива скачет пролактин — 0 сил это чистая биология.',
@@ -590,9 +591,10 @@ function feedRender(){
   });
   justId=null;
   h+=JR();
-  var rw=(S.chest||{})[today],all=doneCore===cn;
+  var rw=(S.chest||{})[today],all=cn>0&&doneCore===cn;
   h+='<section class="cd" style="--h:330">';
   if(rw)h+='<div class="chest">'+I.chest+'</div><h3>'+TT[rw.r]+'</h3><div class="tip">'+rw.t+'</div><div class="xp">+'+XX[rw.r]+' XP · завтра новый сундук</div>';
+  else if(isRestWeek(today))h+='<div class="chest">🛌</div><h3>Неделя отдыха</h3><div class="tip">На этой неделе нет задач и сундуков за выполнение. Отдыхай спокойно.</div>';
   else if(isDayRest(today))h+='<div class="chest">🛌</div><h3>День восстановления отмечен</h3><div class="tip">'+(isDayRestClean(today)?'Чистота подтверждена — серия продолжается. Остальные привычки сегодня на паузе.':'Отдых отмечен без подтверждения чистоты, серия за этот день не растёт.')+'</div>';
   else if(all)h+='<div class="chest">'+I.chest+'</div><h3>Сундук готов</h3><button class="go" id="open">Открыть</button>';
   else if(svOk)h+='<div class="chest">'+I.chest+'</div><h3>День спасён 🛡️</h3><div class="xp">серия под защитой · награда за стойкость</div><button class="go" id="open_save">Открыть</button>';
