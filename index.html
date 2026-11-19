@@ -244,8 +244,26 @@ if(S.taskScheduleVersion!==2){S.taskCycleStart=today;S.taskScheduleVersion=2;if(
 if(!S.start){S.start=today;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function ci(){return Math.min(Math.max(df(today,S.start),0),89)}
 var ACTIVE_TASKS=H.map(function(x){return x.id});
-function cyclePhaseAt(d){var base=S.taskCycleStart||S.start||today,delta=Math.max(0,df(d,base));if(delta<7)return 14+delta;return (delta-7)%21}
-function isRestWeek(d){return cyclePhaseAt(d)>=14}
+function taskPhaseAt(d){
+  var base=S.taskCycleStart||S.start||today,target=Math.max(0,df(d,base));
+  if(target<7)return {rest:true,phase:14+target};
+  var cursor=7,activeLen=14,choices=S.taskChoices||{};
+  for(var guard=0;guard<1000;guard++){
+    var boundary=cursor+activeLen;
+    if(target<boundary)return {rest:false,phase:target-cursor,activeStart:cursor,activeLen:activeLen,decision:boundary};
+    var choice=choices[ad(base,boundary)];
+    if(choice==='extend'){
+      cursor=boundary;activeLen=7;
+    }else{
+      if(target<boundary+7)return {rest:true,phase:target-boundary};
+      cursor=boundary+7;activeLen=14;
+    }
+  }
+  return {rest:false,phase:0};
+}
+function cyclePhaseAt(d){var p=taskPhaseAt(d);return p.rest?14+p.phase:p.phase}
+function isRestWeek(d){return taskPhaseAt(d).rest}
+function pendingTaskDecision(d){var p=taskPhaseAt(d);if(p.rest||!p.decision)return null;var key=ad(S.taskCycleStart||S.start||today,p.decision);return df(key,d)===1?key:null}
 function isTierManual(){return false}
 function tierKeyAt(d){return isRestWeek(d)?'rest':'active'}
 function curTierKey(){return tierKeyAt(today)}
@@ -463,7 +481,7 @@ function pstreak(){var i=Math.min(df(today,S.start),89),n=0;if(!dayChainOk(ad(S.
 function left(){var n=new Date(),e=new Date(n.getFullYear(),n.getMonth(),n.getDate()+1),m=Math.floor((e-n)/60000);return Math.floor(m/60)+' ч '+m%60+' мин'}
 function ring(r,p,col){var c=2*Math.PI*r;return '<circle cx="80" cy="80" r="'+r+'" fill="none" stroke="'+col+'33" stroke-width="14"/><circle cx="80" cy="80" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="14" stroke-linecap="round" stroke-dasharray="'+c+'" stroke-dashoffset="'+c*(1-p)+'" transform="rotate(-90 80 80)" style="transition:stroke-dashoffset .6s"/>'}
 var sayOff=0;
-function tierChipText(tk,cn,cs){var p=cyclePhaseAt(today);return p<14?'⚡ Активный блок · день '+(p+1)+'/14':'🛌 Неделя отдыха · день '+(p-13)+'/7'}
+function tierChipText(tk,cn,cs){var p=taskPhaseAt(today);return p.rest?'🛌 Неделя отдыха · день '+(p.phase+1)+'/7':'⚡ Активный блок · день '+(p.phase+1)+'/'+p.activeLen}
 function petSayPool(doneCore,cn,hr,svOn,svOk,out){
   var l=cn-doneCore,L=[],need=Math.max(0,dayTarget(today)-doneCore),cs=cleanStreak(),cb=cleanBest();
   if(isRehabOn(today)&&l>0){
@@ -582,7 +600,10 @@ function feedRender(){
   else h+='<div class="chest" style="filter:grayscale(1) opacity(.65)">'+I.chest+'</div><h3>Сундук закрыт</h3><div class="tip">Закрой ещё '+left0+' из '+cn+' главных пунктов — получишь награду. Бонусные пункты не давят!</div>';
   h+='<div class="mini">';
   for(var d=0;d<90;d++){var ds0=ad(S.start,d),f=fr(ds0),svD=isDaySaved(ds0),rd=isDayRest(ds0);h+='<i class="'+(rd?(isDayRestClean(ds0)?'r':'rx'):f===1?'f':svD?'s':f>0?'p':'')+(d===c?' n':'')+(d>c?' u':'')+'">'+(d+1)+'</i>'}
-  h+='</div><button class="cta alt" id="share">Поделиться результатом</button></section>';
+  h+='</div>';
+  var decision=pendingTaskDecision(today);
+  if(decision)h+='<div class="en" style="margin-top:12px;border:1px solid #ffd23f88"><b>Две недели продуктивности позади!</b><div class="tip">Продлить активный режим ещё на 7 дней или перейти к неделе отдыха?</div><button class="cta" data-choice="extend" data-key="'+decision+'">⚡ Продолжить ещё 7 дней</button><button class="cta alt" data-choice="rest" data-key="'+decision+'">🛌 Перейти к отдыху</button></div>';
+  h+='<button class="cta alt" id="backfill" style="max-width:none">🗓️ Отметить забытый день</button><button class="cta alt" id="share">Поделиться результатом</button></section>';
   cd.innerHTML=h;cd.style.scrollBehavior='auto';cd.scrollTop=st;achNew();
 }
 function burst(x,y,n,big,txt){
@@ -618,6 +639,8 @@ function toggle(id,x,y,idx){
 var lastTap=0;
 $('cards').onclick=function(e){
   if(e.target.closest('#sign,#why'))return;
+  var choiceEl=e.target.closest('[data-choice]');if(choiceEl){S.taskChoices=S.taskChoices||{};S.taskChoices[choiceEl.dataset.key]=choiceEl.dataset.choice;save();feedRender();return}
+  if(e.target.closest('#backfill')){sd=Math.max(0,ci()-1);$('sheet').classList.add('on');sheet();return}
   var actEl=e.target.closest('[data-act]');if(actEl){cardAct(actEl.dataset.act);return}
   if(e.target.closest('.jr'))return jrClick(e);var cd=$('cards'),b=e.target.closest('.go'),sec=e.target.closest('.cd');
   if(e.target.closest('#share')){
