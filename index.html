@@ -240,26 +240,25 @@ function ad(s,n){var d=pr(s);d.setDate(d.getDate()+n);return ds(d)}
 function df(a,b){return Math.round((pr(a)-pr(b))/864e5)}
 function save(){S._t=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}if(window.pushSoon)pushSoon()}
 var today=ds(new Date());
-if(S.taskScheduleVersion!==2){S.taskCycleStart=today;S.taskScheduleVersion=2;if(S.signed==null)S.signed=1;save()}
+if(S.taskScheduleVersion!==3){S.taskCycleStart=today;S.taskScheduleVersion=3;if(S.signed==null)S.signed=1;save()}
 if(!S.start){S.start=today;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function ci(){return Math.min(Math.max(df(today,S.start),0),89)}
 var ACTIVE_TASKS=H.map(function(x){return x.id});
 function taskPhaseAt(d){
   var base=S.taskCycleStart||S.start||today,target=Math.max(0,df(d,base));
-  if(target<7)return {rest:true,phase:14+target};
-  var cursor=7,activeLen=14,choices=S.taskChoices||{};
+  var cursor=0,activeLen=14,activeBefore=0,choices=S.taskChoices||{};
   for(var guard=0;guard<1000;guard++){
     var boundary=cursor+activeLen;
-    if(target<boundary)return {rest:false,phase:target-cursor,activeStart:cursor,activeLen:activeLen,decision:boundary};
+    if(target<boundary)return {rest:false,phase:target-cursor,activeDay:activeBefore+target-cursor,activeStart:cursor,activeLen:activeLen,decision:boundary};
     var choice=choices[ad(base,boundary)];
     if(choice==='extend'){
-      cursor=boundary;activeLen=7;
+      cursor=boundary;activeBefore+=activeLen;activeLen=7;
     }else{
-      if(target<boundary+7)return {rest:true,phase:target-boundary};
-      cursor=boundary+7;activeLen=14;
+      if(target<boundary+7)return {rest:true,phase:target-boundary,activeDay:activeBefore+activeLen};
+      cursor=boundary+7;activeBefore+=activeLen;activeLen=14;
     }
   }
-  return {rest:false,phase:0};
+  return {rest:false,phase:0,activeDay:target};
 }
 function cyclePhaseAt(d){var p=taskPhaseAt(d);return p.rest?14+p.phase:p.phase}
 function isRestWeek(d){return taskPhaseAt(d).rest}
@@ -268,10 +267,15 @@ function isTierManual(){return false}
 function tierKeyAt(d){return isRestWeek(d)?'rest':'active'}
 function curTierKey(){return tierKeyAt(today)}
 var TIERS={active:{n:'Активные задачи',short:'Активный блок',core:ACTIVE_TASKS},rest:{n:'Неделя отдыха',short:'Неделя отдыха',core:[]}};
-function coreIdsAt(d){return TIERS[tierKeyAt(d)].core}
+var TASK_LADDER=['porn','fap','sport','cold','sugar','alc','scroll','music','silence','money','read','neck'];
+function coreIdsAt(d){
+  var p=taskPhaseAt(d);if(p.rest)return [];
+  var n=Math.min(TASK_LADDER.length,2+2*Math.floor(p.activeDay/7));
+  return TASK_LADDER.slice(0,n);
+}
 function coreIds(){return coreIdsAt(today)}
 function isCore(id){return coreIds().indexOf(id)>-1}
-function orderedHabitsAt(d){var c=coreIdsAt(d),out=[];c.forEach(function(id){for(var i=0;i<H.length;i++)if(H[i].id===id)out.push(H[i])});return out}
+function orderedHabitsAt(d){var c=coreIdsAt(d),out=[];c.forEach(function(id){for(var i=0;i<H.length;i++)if(H[i].id===id)out.push(H[i])});H.forEach(function(it){if(c.indexOf(it.id)<0)out.push(it)});return out}
 function orderedHabits(){return orderedHabitsAt(today)}
 function habitDone(id,d){return (S.days[d]||[]).includes(id)||(id==='sport'&&!!(S.sportRest&&S.sportRest[d]))}
 function coreDoneCount(d){
@@ -481,7 +485,7 @@ function pstreak(){var i=Math.min(df(today,S.start),89),n=0;if(!dayChainOk(ad(S.
 function left(){var n=new Date(),e=new Date(n.getFullYear(),n.getMonth(),n.getDate()+1),m=Math.floor((e-n)/60000);return Math.floor(m/60)+' ч '+m%60+' мин'}
 function ring(r,p,col){var c=2*Math.PI*r;return '<circle cx="80" cy="80" r="'+r+'" fill="none" stroke="'+col+'33" stroke-width="14"/><circle cx="80" cy="80" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="14" stroke-linecap="round" stroke-dasharray="'+c+'" stroke-dashoffset="'+c*(1-p)+'" transform="rotate(-90 80 80)" style="transition:stroke-dashoffset .6s"/>'}
 var sayOff=0;
-function tierChipText(tk,cn,cs){var p=taskPhaseAt(today);return p.rest?'🛌 Неделя отдыха · день '+(p.phase+1)+'/7':'⚡ Активный блок · день '+(p.phase+1)+'/'+p.activeLen}
+function tierChipText(tk,cn,cs){var p=taskPhaseAt(today);return p.rest?'🛌 Неделя отдыха · день '+(p.phase+1)+'/7':'⚡ Этап '+(Math.floor((p.activeDay||0)/7)+1)+' · '+cn+' главных'}
 function petSayPool(doneCore,cn,hr,svOn,svOk,out){
   var l=cn-doneCore,L=[],need=Math.max(0,dayTarget(today)-doneCore),cs=cleanStreak(),cb=cleanBest();
   if(isRestWeek(today))return ['Неделя отдыха. Задач нет — можно спокойно восстановиться.'];
@@ -706,8 +710,8 @@ $('sdone').onclick=function(){S.bonus=S.bonus||{};S.bonus['s'+Date.now()]=15;sav
 function sheet(){
   var c=ci(),g='',date=ad(S.start,sd),cur=S.days[date]||[],h='',OH=orderedHabitsAt(date),cn=coreIdsAt(date).length;
   for(var d=0;d<90;d++){var ds2=ad(S.start,d),f=fr(ds2),rd=isRestWeek(ds2)||isDayRest(ds2);g+='<button data-i="'+d+'" class="'+(rd?'r':f===1?'f':isDaySaved(ds2)?'s':f>0?'p':'')+(d===sd?' sel':'')+'"'+(d>c?' disabled':'')+'>'+(d+1)+'</button>'}
-  if(!cn)h='<div class="tip">🛌 Неделя отдыха — задач нет.</div>';
-  else OH.forEach(function(it,i){h+='<button data-id="'+it.id+'" class="'+(cur.includes(it.id)?'on':'')+'">'+(i<cn?'🔥 ':'')+it.t+'</button>'});
+  if(!cn&&isRestWeek(date))h='<div class="tip">🛌 Отдых: задачи необязательны. Можно отметить выполненное, если хочешь.</div>';
+  OH.forEach(function(it,i){h+='<button data-id="'+it.id+'" class="'+(cur.includes(it.id)?'on':'')+'">'+(i<cn?'🔥 ':'')+it.t+'</button>'});
   $('sg').innerHTML=g;$('sl').innerHTML=h;$('sdt').textContent='День '+(sd+1)+(sd===c?' · сегодня':'')+(isRestWeek(date)?' · отдых, без задач':' · ядро '+coreDoneCount(date)+'/'+cn);
 }
 $('days').onclick=function(){sd=ci();$('sheet').classList.add('on');sheet()};
@@ -1607,10 +1611,10 @@ function restoreMy8Days(){
 function habitTitle(id){for(var i=0;i<H.length;i++)if(H[i].id===id)return H[i].t;return id}
 function tierOpen(){$('tier').classList.add('on');$('tier').scrollTop=0;tierRender()}
 function tierRender(){
-  var p=cyclePhaseAt(today),rest=p>=14,left=rest?21-p:14-p;
-  var h='<div class="en" style="border:2px solid '+(rest?'#a78bfa88':'#25f4eeaa')+';background:#0d1420"><b style="font-size:18px;color:'+(rest?'#c4b5fd':'#25f4ee')+'">'+(rest?'🛌 Неделя отдыха · день '+(p-13)+' из 7':'⚡ Активный блок · день '+(p+1)+' из 14')+'</b><div style="font-size:14.5px;margin-top:7px;line-height:1.45">'+(rest?'Сейчас обязательны только два пункта чистоты: «Без порно» и «Без дрочки». Остальные задачи вернутся после недели отдыха.':'Сейчас доступны все привычки, кроме удалённых «Дел по плану». Через 14 активных дней начнётся неделя отдыха; затем цикл повторится.')+'</div><div style="height:12px;border-radius:99px;background:#ffffff18;overflow:hidden;margin:9px 0 7px"><div style="height:100%;width:'+Math.round((rest?(p-13)/7:(p+1)/14)*100)+'%;background:linear-gradient(90deg,#25f4ee,#58cc02);border-radius:99px"></div></div><div style="font-size:13.5px;opacity:.9">До переключения режима: '+left+' дн. Ритм повторяется: 14 дней активных задач → 7 дней отдыха. Шкала Вампира при этом не сбрасывается сама по себе.</div></div>';
-  h+='<div class="lb" style="max-width:none;margin-top:10px">'+(rest?'Остаются активными':'Задачи активного блока')+'</div>';
-  var ids=rest?['porn','fap']:ACTIVE_TASKS;ids.forEach(function(id){h+='<div class="rcard on"><b>✓ '+esc(habitTitle(id))+'</b></div>'});
+  var p=taskPhaseAt(today),rest=p.rest,ids=coreIdsAt(today),stage=Math.floor((p.activeDay||0)/7)+1;
+  var h='<div class="en" style="border:2px solid '+(rest?'#a78bfa88':'#25f4eeaa')+';background:#0d1420"><b style="font-size:18px;color:'+(rest?'#c4b5fd':'#25f4ee')+'">'+(rest?'🛌 Неделя отдыха · день '+(p.phase+1)+' из 7':'⚡ Этап '+stage+' · '+ids.length+' главных задач')+'</b><div style="font-size:14.5px;margin-top:7px;line-height:1.45">Все задачи остаются на экране. Каждые 7 продуктивных дней к главным добавляются ещё две. После первых 14 продуктивных дней приложение предложит продлить активный режим на неделю или выбрать отдых. Во время отдыха главных задач нет.</div></div>';
+  h+='<div class="lb" style="max-width:none;margin-top:10px">'+(rest?'Все задачи необязательны на отдыхе':'Главные выделены, остальные доступны без давления')+'</div>';
+  orderedHabitsAt(today).forEach(function(it){var main=ids.indexOf(it.id)>-1;h+='<div class="rcard '+(main?'on':'')+'"><b>'+(main?'🔥 ':'○ ')+esc(it.t)+'</b><small style="display:block;opacity:.75">'+(main?'Главная задача этапа':'Необязательная')+'</small></div>'});
   $('tierbody').innerHTML=h;
 }
 $('tierx').onclick=function(){$('tier').classList.remove('on')};
@@ -1699,7 +1703,7 @@ function startFreshCycle(){
   delete prev.cycleArchive;
   archives.push({at:today,state:prev});
   var keepSport=prev.sp||{b:{},d:{},v:2};
-  S={start:today,taskCycleStart:today,taskScheduleVersion:2,days:{},sp:keepSport,cycleArchive:archives,hideRestore8:1,signed:1};
+  S={start:today,taskCycleStart:today,taskScheduleVersion:3,days:{},sp:keepSport,cycleArchive:archives,hideRestore8:1,signed:1};
   save();sayOff=0;feedRender();$('cards').scrollTop=0;
   $('nofap').classList.remove('on');$('menu').classList.remove('on');
   burst(innerWidth/2,innerHeight/3,36,true,'Новый старт · спорт сохранён!');
