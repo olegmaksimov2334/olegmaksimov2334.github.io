@@ -269,6 +269,8 @@ function curTierKey(){return tierKeyAt(today)}
 var TIERS={active:{n:'Активные задачи',short:'Активный блок',core:ACTIVE_TASKS},rest:{n:'Неделя отдыха',short:'Неделя отдыха',core:[]}};
 var TASK_LADDER=['porn','fap','sport','cold','sugar','alc','scroll','music','silence','money','read','neck'];
 function coreIdsAt(d){
+  var base=S.taskCycleStart||S.start||today;
+  if(df(d,base)<0)return ACTIVE_TASKS.slice();
   var p=taskPhaseAt(d);if(p.rest)return [];
   var n=Math.min(TASK_LADDER.length,2+2*Math.floor(p.activeDay/7));
   return TASK_LADDER.slice(0,n);
