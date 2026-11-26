@@ -240,13 +240,14 @@ function ad(s,n){var d=pr(s);d.setDate(d.getDate()+n);return ds(d)}
 function df(a,b){return Math.round((pr(a)-pr(b))/864e5)}
 function save(){S._t=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}if(window.pushSoon)pushSoon()}
 var today=ds(new Date());
-if(S.taskScheduleVersion!==4){S.taskCycleStart=S.start||today;S.taskScheduleVersion=4;if(S.signed==null)S.signed=1;save()}
+if(S.taskScheduleVersion!==5){S.taskCycleStart=S.start||today;S.taskScheduleVersion=5;if(S.signed==null)S.signed=1;save()}
 if(!S.start){S.start=today;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function ci(){return Math.min(Math.max(df(today,S.start),0),89)}
 var ACTIVE_TASKS=H.map(function(x){return x.id});
 function taskPhaseAt(d){
   var base=S.taskCycleStart||S.start||today,target=Math.max(0,df(d,base));
-  var cursor=0,activeLen=14,activeBefore=0,choices=S.taskChoices||{};
+  if(target<7)return {rest:true,phase:target,activeDay:0};
+  var cursor=7,activeLen=14,activeBefore=0,choices=S.taskChoices||{};
   for(var guard=0;guard<1000;guard++){
     var boundary=cursor+activeLen;
     if(target<boundary)return {rest:false,phase:target-cursor,activeDay:activeBefore+target-cursor,activeStart:cursor,activeLen:activeLen,decision:boundary};
@@ -607,8 +608,8 @@ function feedRender(){
   else if(svOn)h+='<div class="chest" style="filter:grayscale(1) opacity(.65)">'+I.chest+'</div><h3>Спасение дня 🛡️</h3><div class="tip">Закрой ещё '+Math.max(1,dayTarget(today)-doneCore)+' из главных пунктов — серия сохранится и откроется сундук стойкости.</div>';
   else h+='<div class="chest" style="filter:grayscale(1) opacity(.65)">'+I.chest+'</div><h3>Сундук закрыт</h3><div class="tip">Закрой ещё '+left0+' из '+cn+' главных пунктов — получишь награду. Бонусные пункты не давят!</div>';
   h+='<div class="mini">';
-  for(var d=0;d<90;d++){var ds0=ad(S.start,d),f=fr(ds0),svD=isDaySaved(ds0),rd=isRestWeek(ds0)||isDayRest(ds0);h+='<i class="'+(rd?'r':f===1?'f':svD?'s':f>0?'p':'')+(d===c?' n':'')+(d>c?' u':'')+'">'+(d+1)+'</i>'}
-  h+='</div><div class="xp" style="max-width:330px;text-align:left">🟪 отдых · 🟦 все задачи отмечены · 🟨 день сохранён · полупрозрачный синий — часть задач</div>';
+  for(var d=0;d<90;d++){var ds0=ad(S.start,d),f=fr(ds0),rd=isRestWeek(ds0)||isDayRest(ds0);h+='<i class="'+(rd?'r':coreIdsAt(ds0).length&&f===1?'f':'')+(d===c?' n':'')+(d>c?' u':'')+'">'+(d+1)+'</i>'}
+  h+='</div><div class="xp" style="max-width:330px;text-align:left">🟪 отдых · 🟦 день челленджа закрыт полностью · серый — не закрыт или пропущен</div>';
   var decision=pendingTaskDecision(today);
   if(decision)h+='<div class="en" style="margin-top:12px;border:1px solid #ffd23f88"><b>Две недели продуктивности позади!</b><div class="tip">Продлить активный режим ещё на 7 дней или перейти к неделе отдыха?</div><button class="cta" data-choice="extend" data-key="'+decision+'">⚡ Продолжить ещё 7 дней</button><button class="cta alt" data-choice="rest" data-key="'+decision+'">🛌 Перейти к отдыху</button></div>';
   h+='<button class="cta alt" id="backfill" style="max-width:none">🗓️ Отметить забытый день</button><button class="cta alt" id="share">Поделиться результатом</button></section>';
@@ -711,7 +712,7 @@ $('sx').onclick=sosClose;
 $('sdone').onclick=function(){S.bonus=S.bonus||{};S.bonus['s'+Date.now()]=15;save();sosClose();burst(innerWidth/2,innerHeight/2,30,true,'+15 XP');feedRender()};
 function sheet(){
   var c=ci(),g='',date=ad(S.start,sd),cur=S.days[date]||[],h='',OH=orderedHabitsAt(date),cn=coreIdsAt(date).length;
-  for(var d=0;d<90;d++){var ds2=ad(S.start,d),f=fr(ds2),rd=isRestWeek(ds2)||isDayRest(ds2);g+='<button data-i="'+d+'" class="'+(rd?'r':f===1?'f':isDaySaved(ds2)?'s':f>0?'p':'')+(d===sd?' sel':'')+'"'+(d>c?' disabled':'')+'>'+(d+1)+'</button>'}
+  for(var d=0;d<90;d++){var ds2=ad(S.start,d),f=fr(ds2),rd=isRestWeek(ds2)||isDayRest(ds2);g+='<button data-i="'+d+'" class="'+(rd?'r':coreIdsAt(ds2).length&&f===1?'f':'')+(d===sd?' sel':'')+'"'+(d>c?' disabled':'')+'>'+(d+1)+'</button>'}
   if(!cn&&isRestWeek(date))h='<div class="tip">🛌 Отдых: задачи необязательны. Можно отметить выполненное, если хочешь.</div>';
   OH.forEach(function(it,i){h+='<button data-id="'+it.id+'" class="'+(cur.includes(it.id)?'on':'')+'">'+(i<cn?'🔥 ':'')+it.t+'</button>'});
   $('sg').innerHTML=g;$('sl').innerHTML=h;$('sdt').textContent='День '+(sd+1)+(sd===c?' · сегодня':'')+(isRestWeek(date)?' · отдых, без задач':' · ядро '+coreDoneCount(date)+'/'+cn);
@@ -1614,7 +1615,7 @@ function habitTitle(id){for(var i=0;i<H.length;i++)if(H[i].id===id)return H[i].t
 function tierOpen(){$('tier').classList.add('on');$('tier').scrollTop=0;tierRender()}
 function tierRender(){
   var p=taskPhaseAt(today),rest=p.rest,ids=coreIdsAt(today),stage=Math.floor((p.activeDay||0)/7)+1;
-  var h='<div class="en" style="border:2px solid '+(rest?'#a78bfa88':'#25f4eeaa')+';background:#0d1420"><b style="font-size:18px;color:'+(rest?'#c4b5fd':'#25f4ee')+'">'+(rest?'🛌 Неделя отдыха · день '+(p.phase+1)+' из 7':'⚡ Этап '+stage+' · '+ids.length+' главных задач')+'</b><div style="font-size:14.5px;margin-top:7px;line-height:1.45">Все задачи остаются на экране. Каждые 7 продуктивных дней к главным добавляются ещё две. После первых 14 продуктивных дней приложение предложит продлить активный режим на неделю или выбрать отдых. Во время отдыха главных задач нет.</div></div>';
+  var h='<div class="en" style="border:2px solid '+(rest?'#a78bfa88':'#25f4eeaa')+';background:#0d1420"><b style="font-size:18px;color:'+(rest?'#c4b5fd':'#25f4ee')+'">'+(rest?'🛌 Неделя отдыха · день '+(p.phase+1)+' из 7':'⚡ Этап '+stage+' · '+ids.length+' главных задач')+'</b><div style="font-size:14.5px;margin-top:7px;line-height:1.45">Первая неделя — отдых. Затем идут 14 дней челленджа: в первую неделю главные — «Без порно» и «Без дрочки», во вторую добавятся ещё две задачи. В конце двух недель приложение спросит: продлить челлендж ещё на 7 дней или взять неделю отдыха. Все задачи остаются на экране; во время отдыха они необязательны.</div></div>';
   h+='<div class="lb" style="max-width:none;margin-top:10px">'+(rest?'Все задачи необязательны на отдыхе':'Главные выделены, остальные доступны без давления')+'</div>';
   orderedHabitsAt(today).forEach(function(it){var main=ids.indexOf(it.id)>-1;h+='<div class="rcard '+(main?'on':'')+'"><b>'+(main?'🔥 ':'○ ')+esc(it.t)+'</b><small style="display:block;opacity:.75">'+(main?'Главная задача этапа':'Необязательная')+'</small></div>'});
   $('tierbody').innerHTML=h;
@@ -1705,7 +1706,7 @@ function startFreshCycle(){
   delete prev.cycleArchive;
   archives.push({at:today,state:prev});
   var keepSport=prev.sp||{b:{},d:{},v:2};
-  S={start:today,taskCycleStart:today,taskScheduleVersion:4,days:{},sp:keepSport,cycleArchive:archives,hideRestore8:1,signed:1};
+  S={start:today,taskCycleStart:today,taskScheduleVersion:5,days:{},sp:keepSport,cycleArchive:archives,hideRestore8:1,signed:1};
   save();sayOff=0;feedRender();$('cards').scrollTop=0;
   $('nofap').classList.remove('on');$('menu').classList.remove('on');
   burst(innerWidth/2,innerHeight/3,36,true,'Новый старт · спорт сохранён!');
